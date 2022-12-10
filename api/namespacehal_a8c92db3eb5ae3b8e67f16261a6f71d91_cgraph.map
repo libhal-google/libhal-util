@@ -1,0 +1,4 @@
+<map id="hal::create_timeout" name="hal::create_timeout">
+<area shape="rect" id="node1" title="Create a timeout object based on hal::steady_clock." alt="" coords="5,13,136,38"/>
+<area shape="rect" id="node2" href="$classhal_1_1steady__clock__timeout.html#a99c29478d0ba4dbe114bb644ae060398" title="Create a steady_clock_timeout." alt="" coords="184,5,355,45"/>
+</map>

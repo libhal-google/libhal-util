@@ -1,0 +1,4 @@
+<map id="hal::write_partial" name="hal::write_partial">
+<area shape="rect" id="node1" title="Write bytes to a serial port." alt="" coords="191,5,305,31"/>
+<area shape="rect" id="node2" href="$namespacehal.html#a2d9abf5cca98ceab03b2bcae88c8231a" title="Perform a write then read transaction over serial." alt="" coords="5,5,143,31"/>
+</map>

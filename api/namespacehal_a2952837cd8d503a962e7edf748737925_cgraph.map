@@ -1,0 +1,5 @@
+<map id="hal::write" name="hal::write">
+<area shape="rect" id="node1" title="Write std::span of const char to a serial port." alt="" coords="5,31,79,56"/>
+<area shape="rect" id="node2" href="$namespacehal.html#a7facad0d80497e875c8fcb9a764ae278" title=" " alt="" coords="127,5,224,31"/>
+<area shape="rect" id="node3" href="$group__i2c.html#ga602272331e4e2f84843e2fe34e83cca6" title="write data to a target device on the i2c bus" alt="" coords="139,55,212,80"/>
+</map>

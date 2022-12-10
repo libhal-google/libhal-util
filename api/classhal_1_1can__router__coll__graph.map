@@ -1,0 +1,4 @@
+<map id="hal::can_router" name="hal::can_router">
+<area shape="rect" id="node1" title="Route CAN messages received on the can bus to callbacks based on ID." alt="" coords="25,93,131,119"/>
+<area shape="rect" id="node2" href="$classhal_1_1move__interceptor.html" title=" " alt="" coords="5,5,151,45"/>
+</map>

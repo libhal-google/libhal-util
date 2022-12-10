@@ -1,0 +1,4 @@
+<map id="hal::absolute_value" name="hal::absolute_value">
+<area shape="rect" id="node1" title="Generic absolute value function that works for integer types." alt="" coords="199,5,331,31"/>
+<area shape="rect" id="node2" href="$namespacehal.html#a58a3550a3236310f20b92eacf593c2f0" title="Perform integer division and round the value up if the next decimal place is greater than or equal to..." alt="" coords="5,5,151,31"/>
+</map>

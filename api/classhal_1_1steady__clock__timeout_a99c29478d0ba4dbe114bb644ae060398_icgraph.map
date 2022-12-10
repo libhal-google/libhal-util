@@ -1,0 +1,6 @@
+<map id="hal::steady_clock_timeout::create" name="hal::steady_clock_timeout::create">
+<area shape="rect" id="node1" title="Create a steady_clock_timeout." alt="" coords="381,47,552,87"/>
+<area shape="rect" id="node2" href="$namespacehal.html#a8c92db3eb5ae3b8e67f16261a6f71d91" title="Create a timeout object based on hal::steady_clock." alt="" coords="203,55,333,80"/>
+<area shape="rect" id="node3" href="$namespacehal.html#a80cd2610c280e615d52e03d83dad28f6" title="Delay execution for a duration of time using a hardware steady_clock." alt="" coords="43,29,117,55"/>
+<area shape="rect" id="node4" href="$namespacehal.html#ad1a8c1d4bb482a3798af832c843e95c1" title="Generates a function that, when passed a duration, returns a timeout." alt="" coords="5,79,155,104"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="hal::wavelength" name="hal::wavelength">
+<area shape="rect" id="node1" title="Calculates and returns the wavelength in seconds as a float." alt="" coords="5,5,116,31"/>
+<area shape="rect" id="node2" href="$namespacehal.html#a0edbd3360d379f8c1864447f60a79271" title="Determines if two values are equal within a relative error." alt="" coords="164,5,247,31"/>
+</map>
