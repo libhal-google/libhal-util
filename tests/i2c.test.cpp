@@ -57,6 +57,20 @@ boost::ut::suite i2c_util_test = []() {
     std::span<hal::byte> m_in = std::span<hal::byte>{};
   };
 
+  "operator==(i2c::settings)"_test = []() {
+    i2c::settings a{};
+    i2c::settings b{};
+
+    expect(a == b);
+  };
+
+  "operator!=(i2c::settings)"_test = []() {
+    i2c::settings a{ .clock_rate = 100.0_kHz };
+    i2c::settings b{ .clock_rate = 1200.0_kHz };
+
+    expect(a != b);
+  };
+
   "[success] write"_test = []() {
     // Setup
     test_i2c i2c;

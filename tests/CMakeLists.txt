@@ -29,21 +29,25 @@ find_package(boost-leaf REQUIRED CONFIG)
 find_package(libhal REQUIRED CONFIG)
 
 add_executable(${PROJECT_NAME}
-  i2c.test.cpp
-  spi.test.cpp
-  serial.test.cpp
-  steady_clock.test.cpp
-
   as_bytes.test.cpp
   bit.test.cpp
-  timeout.test.cpp
-  static_list.test.cpp
-  static_callable.test.cpp
-  move_interceptor.test.cpp
-  overflow_counter.test.cpp
-  math.test.cpp
-  streams.test.cpp
+  can.test.cpp
+  i2c.test.cpp
+  input_pin.test.cpp
+  interrupt_pin.test.cpp
   map.test.cpp
+  math.test.cpp
+  move_interceptor.test.cpp
+  output_pin.test.cpp
+  overflow_counter.test.cpp
+  serial.test.cpp
+  spi.test.cpp
+  static_callable.test.cpp
+  static_list.test.cpp
+  steady_clock.test.cpp
+  streams.test.cpp
+  timeout.test.cpp
+  units.test.cpp
 
   main.test.cpp)
 

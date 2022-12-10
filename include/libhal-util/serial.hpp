@@ -10,8 +10,16 @@
 
 #include "as_bytes.hpp"
 #include "comparison.hpp"
+#include "math.hpp"
 
 namespace hal {
+
+[[nodiscard]] constexpr auto operator==(const serial::settings& p_lhs,
+                                        const serial::settings& p_rhs) noexcept
+{
+  return equals(p_lhs.baud_rate, p_rhs.baud_rate) &&
+         p_lhs.parity == p_rhs.parity && p_lhs.stop == p_rhs.stop;
+}
 /**
  * @brief Write bytes to a serial port
  *

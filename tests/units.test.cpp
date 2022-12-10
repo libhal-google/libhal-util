@@ -1,8 +1,20 @@
 #include <libhal-util/units.hpp>
 
+#include <ios>
+
+template<typename Rep, typename Period>
+std::ostream& operator<<(std::ostream& p_os,
+                         const std::chrono::duration<Rep, Period>& p_duration)
+{
+  return p_os << p_duration.count() << " * (" << Period::num << "/"
+              << Period::den << ")s";
+}
+
 #include <boost/ut.hpp>
+#include <chrono>
 
 namespace hal {
+
 boost::ut::suite units_test = []() {
   using namespace boost::ut;
   using namespace std::literals;
@@ -24,6 +36,7 @@ boost::ut::suite units_test = []() {
     expect(that % 0 == cycles_per(100.0_kHz, 1us));
     expect(that % 0 == cycles_per(100.0_Hz, 1ms));
   };
+
   "duration wavelength"_test = []() {
     expect(that % std::numeric_limits<hal::time_duration::rep>::max() ==
            wavelength<std::femto>(0.0_Hz).count());

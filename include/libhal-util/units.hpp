@@ -6,6 +6,7 @@
 #include <ios>
 
 #include <libhal/error.hpp>
+#include <libhal/timeout.hpp>
 #include <libhal/units.hpp>
 
 #include "math.hpp"
@@ -140,33 +141,6 @@ inline std::basic_ostream<CharT, Traits>& operator<<(
   const hal::byte& p_byte)
 {
   return p_ostream << std::hex << "0x" << unsigned(p_byte);
-}
-
-constexpr std::string_view to_string(work_state p_state)
-{
-  switch (p_state) {
-    case work_state::in_progress:
-      return "in progress";
-    case work_state::failed:
-      return "failed";
-    case work_state::finished:
-      return "finished";
-    default:
-      return "unknown work state";
-  }
-}
-
-constexpr bool terminated(work_state p_state)
-{
-  return p_state == work_state::finished || p_state == work_state::failed;
-}
-
-template<class CharT, class Traits>
-inline std::basic_ostream<CharT, Traits>& operator<<(
-  std::basic_ostream<CharT, Traits>& p_ostream,
-  const work_state& p_state)
-{
-  return p_ostream << to_string(p_state);
 }
 
 /**
