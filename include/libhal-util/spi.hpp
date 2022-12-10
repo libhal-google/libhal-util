@@ -7,6 +7,14 @@
 #include <libhal/units.hpp>
 
 namespace hal {
+[[nodiscard]] constexpr auto operator==(const spi::settings& p_lhs,
+                                        const spi::settings& p_rhs) noexcept
+{
+  return p_lhs.clock_idles_high == p_rhs.clock_idles_high &&
+         p_lhs.clock_rate == p_rhs.clock_rate &&
+         p_lhs.data_valid_on_trailing_edge == p_rhs.data_valid_on_trailing_edge;
+}
+
 /**
  * @brief Write data to the SPI bus and ignore data sent from peripherals on the
  * bus.

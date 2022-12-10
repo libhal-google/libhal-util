@@ -5,8 +5,8 @@
 #include <span>
 
 template<typename T, size_t size>
-inline bool operator==(const std::array<T, size>& p_array,
-                       const std::span<T>& p_span) noexcept
+constexpr bool operator==(const std::array<T, size>& p_array,
+                          const std::span<T>& p_span) noexcept
 {
   if (p_span.size() != size) {
     return false;
@@ -16,8 +16,22 @@ inline bool operator==(const std::array<T, size>& p_array,
 }
 
 template<typename T, size_t size>
-inline bool operator!=(const std::array<T, size>& p_array,
-                       const std::span<T>& p_span) noexcept
+constexpr bool operator==(const std::span<T>& p_span,
+                          const std::array<T, size>& p_array) noexcept
+{
+  return p_array == p_span;
+}
+
+template<typename T, size_t size>
+constexpr bool operator!=(const std::array<T, size>& p_array,
+                          const std::span<T>& p_span) noexcept
+{
+  return !(p_array == p_span);
+}
+
+template<typename T, size_t size>
+constexpr bool operator!=(const std::span<T>& p_span,
+                          const std::array<T, size>& p_array) noexcept
 {
   return !(p_array == p_span);
 }

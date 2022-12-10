@@ -6,11 +6,15 @@
 #include <libhal/i2c.hpp>
 #include <libhal/units.hpp>
 
+#include "math.hpp"
+
 namespace hal {
-/**
- * @addtogroup i2c
- * @{
- */
+[[nodiscard]] constexpr auto operator==(const i2c::settings& p_lhs,
+                                        const i2c::settings& p_rhs) noexcept
+{
+  return equals(p_lhs.clock_rate, p_rhs.clock_rate);
+}
+
 /**
  * @brief write data to a target device on the i2c bus
  *
@@ -138,5 +142,4 @@ template<size_t BytesToRead>
 
   return p_i2c.transaction(p_address, std::span<hal::byte>{}, data_in, timeout);
 }
-/// @}
 }  // namespace hal
