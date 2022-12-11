@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['terminated_0',['terminated',['../namespacehal.html#a7c394730b2a8d131a48e6f033e26293c',1,'hal::terminated(work_state p_state)'],['../namespacehal.html#a5ea8e36f9e6dbfd8e2f999c7ae052143',1,'hal::terminated(byte_stream auto p_byte_stream_object)']]],
+  ['terminated_0',['terminated',['../namespacehal.html#a5ea8e36f9e6dbfd8e2f999c7ae052143',1,'hal::terminated(byte_stream auto p_byte_stream_object)'],['../namespacehal.html#a7c394730b2a8d131a48e6f033e26293c',1,'hal::terminated(work_state p_state)']]],
   ['timeout_5fgenerator_1',['timeout_generator',['../namespacehal.html#ad1a8c1d4bb482a3798af832c843e95c1',1,'hal']]],
   ['to_2',['to',['../classhal_1_1bit_1_1value.html#a5a197f52820ff35dd39970aba0b580aa',1,'hal::bit::value']]],
   ['to_5farray_3',['to_array',['../namespacehal.html#a9e8c4111664297ec9a8af392a3ee03a4',1,'hal']]],

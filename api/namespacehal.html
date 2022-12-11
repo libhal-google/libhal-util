@@ -190,16 +190,6 @@ Functions</h2></td></tr>
 <tr class="separator:a1ef3d8d0cbc4b1284e4203f9cdf52e78"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa0eba956ee13962b21698a6f68c65a74"><td class="memItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehal.html#aa0eba956ee13962b21698a6f68c65a74">operator==</a> (const can::message_t &amp;p_lhs, const can::message_t &amp;p_rhs) noexcept</td></tr>
 <tr class="separator:aa0eba956ee13962b21698a6f68c65a74"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a829d948a20f6466095edce347d7feb3b"><td class="memItemLeft" align="right" valign="top">constexpr std::string_view&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehal.html#a829d948a20f6466095edce347d7feb3b">to_string</a> (work_state p_state)</td></tr>
-<tr class="memdesc:a829d948a20f6466095edce347d7feb3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get string representation of the work state.  <a href="namespacehal.html#a829d948a20f6466095edce347d7feb3b">More...</a><br /></td></tr>
-<tr class="separator:a829d948a20f6466095edce347d7feb3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7c394730b2a8d131a48e6f033e26293c"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehal.html#a7c394730b2a8d131a48e6f033e26293c">terminated</a> (work_state p_state)</td></tr>
-<tr class="memdesc:a7c394730b2a8d131a48e6f033e26293c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicate if a work_state is terminal, meaning the worker has finished its job.  <a href="namespacehal.html#a7c394730b2a8d131a48e6f033e26293c">More...</a><br /></td></tr>
-<tr class="separator:a7c394730b2a8d131a48e6f033e26293c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a72fd20564d6169140e6ac2523fb98f5f"><td class="memTemplParams" colspan="2">template&lt;class CharT , class Traits &gt; </td></tr>
-<tr class="memitem:a72fd20564d6169140e6ac2523fb98f5f"><td class="memTemplItemLeft" align="right" valign="top">std::basic_ostream&lt; CharT, Traits &gt; &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacehal.html#a72fd20564d6169140e6ac2523fb98f5f">operator&lt;&lt;</a> (std::basic_ostream&lt; CharT, Traits &gt; &amp;p_ostream, const work_state &amp;p_state)</td></tr>
-<tr class="memdesc:a72fd20564d6169140e6ac2523fb98f5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">print work_state type using ostreams  <a href="namespacehal.html#a72fd20564d6169140e6ac2523fb98f5f">More...</a><br /></td></tr>
-<tr class="separator:a72fd20564d6169140e6ac2523fb98f5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa88cd03f91cf5b2ae267c13d6c86af18"><td class="memItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehal.html#aa88cd03f91cf5b2ae267c13d6c86af18">value</a> (enumeration auto p_enum_value) noexcept</td></tr>
 <tr class="memdesc:aa88cd03f91cf5b2ae267c13d6c86af18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper function to convert an enum to its integral value.  <a href="namespacehal.html#aa88cd03f91cf5b2ae267c13d6c86af18">More...</a><br /></td></tr>
 <tr class="separator:aa88cd03f91cf5b2ae267c13d6c86af18"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -313,6 +303,13 @@ Functions</h2></td></tr>
 <tr class="memitem:a5ea8e36f9e6dbfd8e2f999c7ae052143"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehal.html#a5ea8e36f9e6dbfd8e2f999c7ae052143">terminated</a> (byte_stream auto p_byte_stream_object)</td></tr>
 <tr class="memdesc:a5ea8e36f9e6dbfd8e2f999c7ae052143"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicate if a byte stream object has finished its work.  <a href="namespacehal.html#a5ea8e36f9e6dbfd8e2f999c7ae052143">More...</a><br /></td></tr>
 <tr class="separator:a5ea8e36f9e6dbfd8e2f999c7ae052143"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a829d948a20f6466095edce347d7feb3b"><td class="memItemLeft" align="right" valign="top">constexpr std::string_view&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehal.html#a829d948a20f6466095edce347d7feb3b">to_string</a> (work_state p_state)</td></tr>
+<tr class="separator:a829d948a20f6466095edce347d7feb3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c394730b2a8d131a48e6f033e26293c"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehal.html#a7c394730b2a8d131a48e6f033e26293c">terminated</a> (work_state p_state)</td></tr>
+<tr class="separator:a7c394730b2a8d131a48e6f033e26293c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72fd20564d6169140e6ac2523fb98f5f"><td class="memTemplParams" colspan="2">template&lt;class CharT , class Traits &gt; </td></tr>
+<tr class="memitem:a72fd20564d6169140e6ac2523fb98f5f"><td class="memTemplItemLeft" align="right" valign="top">std::basic_ostream&lt; CharT, Traits &gt; &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacehal.html#a72fd20564d6169140e6ac2523fb98f5f">operator&lt;&lt;</a> (std::basic_ostream&lt; CharT, Traits &gt; &amp;p_ostream, const work_state &amp;p_state)</td></tr>
+<tr class="separator:a72fd20564d6169140e6ac2523fb98f5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abd5c3782a92312131a5a7824ee6d1801"><td class="memItemLeft" align="right" valign="top">result&lt; work_state &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehal.html#abd5c3782a92312131a5a7824ee6d1801">try_until</a> (worker auto &amp;p_worker, timeout auto p_timeout) noexcept</td></tr>
 <tr class="memdesc:abd5c3782a92312131a5a7824ee6d1801"><td class="mdescLeft">&#160;</td><td class="mdescRight">Repeatedly call a worker function until it has reached a terminal state or a timeout has been reached.  <a href="namespacehal.html#abd5c3782a92312131a5a7824ee6d1801">More...</a><br /></td></tr>
 <tr class="separator:abd5c3782a92312131a5a7824ee6d1801"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1222,24 +1219,6 @@ template&lt;class CharT , class Traits &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>print work_state type using ostreams </p>
-<p >Meant for unit testing, testing and simulation purposes C++ streams, in general, should not be used for any embedded project that will ever have to be used on an MCU due to its memory cost.</p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">CharT</td><td>- character type </td></tr>
-    <tr><td class="paramname">Traits</td><td>- ostream traits type </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">p_ostream</td><td>- the ostream </td></tr>
-    <tr><td class="paramname">p_state</td><td>- object to convert to a string </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>std::basic_ostream&lt;CharT, Traits&gt;&amp; - reference to the ostream </dd></dl>
-
 </div>
 </div>
 <a id="aa0eba956ee13962b21698a6f68c65a74" name="aa0eba956ee13962b21698a6f68c65a74"></a>
@@ -2049,7 +2028,13 @@ false - work state is still in progress </dd></dl>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="namespacehal_a5ea8e36f9e6dbfd8e2f999c7ae052143_cgraph.svg" width="272" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="namespacehal_a5ea8e36f9e6dbfd8e2f999c7ae052143_cgraph.svg" width="118" height="60"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="namespacehal_a5ea8e36f9e6dbfd8e2f999c7ae052143_icgraph.svg" width="395" height="60"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
@@ -2078,23 +2063,6 @@ Here is the call graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Indicate if a work_state is terminal, meaning the worker has finished its job. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">p_state</td><td>- the work state to check </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>true - work state is either finished or failed </dd>
-<dd>
-false - work state is still in progress </dd></dl>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="namespacehal_a7c394730b2a8d131a48e6f033e26293c_icgraph.svg" width="411" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
 
 </div>
 </div>
@@ -2207,15 +2175,6 @@ template&lt;size_t N&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Get string representation of the work state. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">p_state</td><td>- work state </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>std::string_view - string representation </dd></dl>
-
 </div>
 </div>
 <a id="a6fb2bc5d9203d47298c18293666a718b" name="a6fb2bc5d9203d47298c18293666a718b"></a>
@@ -2264,7 +2223,7 @@ template&lt;size_t N&gt; </div>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="namespacehal_a6fb2bc5d9203d47298c18293666a718b_cgraph.svg" width="395" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="namespacehal_a6fb2bc5d9203d47298c18293666a718b_cgraph.svg" width="395" height="60"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
@@ -2316,7 +2275,7 @@ Here is the call graph for this function:</div>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="namespacehal_abd5c3782a92312131a5a7824ee6d1801_cgraph.svg" width="256" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="namespacehal_abd5c3782a92312131a5a7824ee6d1801_cgraph.svg" width="256" height="60"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 <div class="dynheader">

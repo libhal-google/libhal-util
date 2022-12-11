@@ -1,4 +1,3 @@
 <map id="hal::terminated" name="hal::terminated">
-<area shape="rect" id="node1" title="Indicate if a byte stream object has finished its work." alt="" coords="5,5,112,31"/>
-<area shape="rect" id="node2" href="$namespacehal.html#a7c394730b2a8d131a48e6f033e26293c" title="Indicate if a work_state is terminal, meaning the worker has finished its job." alt="" coords="160,5,267,31"/>
+<area shape="rect" id="node1" title="Indicate if a byte stream object has finished its work." alt="" coords="5,29,112,55"/>
 </map>

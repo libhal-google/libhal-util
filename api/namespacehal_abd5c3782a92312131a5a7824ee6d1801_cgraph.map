@@ -1,4 +1,4 @@
 <map id="hal::try_until" name="hal::try_until">
-<area shape="rect" id="node1" title="Repeatedly call a worker function until it has reached a terminal state or a timeout has been reached..." alt="" coords="5,5,96,31"/>
-<area shape="rect" id="node2" href="$namespacehal.html#a7c394730b2a8d131a48e6f033e26293c" title="Indicate if a work_state is terminal, meaning the worker has finished its job." alt="" coords="144,5,251,31"/>
+<area shape="rect" id="node1" title="Repeatedly call a worker function until it has reached a terminal state or a timeout has been reached..." alt="" coords="5,29,96,55"/>
+<area shape="rect" id="node2" href="$namespacehal.html#a5ea8e36f9e6dbfd8e2f999c7ae052143" title="Indicate if a byte stream object has finished its work." alt="" coords="144,29,251,55"/>
 </map>

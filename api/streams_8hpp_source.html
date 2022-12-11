@@ -127,9 +127,9 @@ $(document).ready(function(){initNavTree('streams_8hpp_source.html',''); initRes
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>                          } -&gt; std::same_as&lt;std::span&lt;const hal::byte&gt;&gt;;</div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>                      };</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="namespacehal.html#a5ea8e36f9e6dbfd8e2f999c7ae052143">   38</a></span><span class="keyword">constexpr</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="namespacehal.html#a7c394730b2a8d131a48e6f033e26293c">terminated</a>(<a class="code hl_concept" href="concepthal_1_1byte__stream.html">byte_stream</a> <span class="keyword">auto</span> p_byte_stream_object)</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="namespacehal.html#a5ea8e36f9e6dbfd8e2f999c7ae052143">   38</a></span><span class="keyword">constexpr</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="namespacehal.html#a5ea8e36f9e6dbfd8e2f999c7ae052143">terminated</a>(<a class="code hl_concept" href="concepthal_1_1byte__stream.html">byte_stream</a> <span class="keyword">auto</span> p_byte_stream_object)</div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>{</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>  <span class="keywordflow">return</span> <a class="code hl_function" href="namespacehal.html#a7c394730b2a8d131a48e6f033e26293c">terminated</a>(p_byte_stream_object.state());</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>  <span class="keywordflow">return</span> <a class="code hl_function" href="namespacehal.html#a5ea8e36f9e6dbfd8e2f999c7ae052143">terminated</a>(p_byte_stream_object.state());</div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>}</div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="namespacehal_1_1stream.html">   43</a></span><span class="keyword">namespace </span>stream {</div>
@@ -413,7 +413,7 @@ $(document).ready(function(){initNavTree('streams_8hpp_source.html',''); initRes
 <div class="ttc" id="acomparison_8hpp_html"><div class="ttname"><a href="comparison_8hpp.html">comparison.hpp</a></div></div>
 <div class="ttc" id="aconcepthal_1_1byte__stream_html"><div class="ttname"><a href="concepthal_1_1byte__stream.html">hal::byte_stream</a></div><div class="ttdoc">Concept for a byte stream callable object.</div><div class="ttdef"><b>Definition:</b> streams.hpp:24</div></div>
 <div class="ttc" id="anamespacehal_html"><div class="ttname"><a href="namespacehal.html">hal</a></div><div class="ttdef"><b>Definition:</b> as_bytes.hpp:7</div></div>
-<div class="ttc" id="anamespacehal_html_a7c394730b2a8d131a48e6f033e26293c"><div class="ttname"><a href="namespacehal.html#a7c394730b2a8d131a48e6f033e26293c">hal::terminated</a></div><div class="ttdeci">constexpr bool terminated(work_state p_state)</div><div class="ttdoc">Indicate if a work_state is terminal, meaning the worker has finished its job.</div><div class="ttdef"><b>Definition:</b> enum.hpp:39</div></div>
+<div class="ttc" id="anamespacehal_html_a5ea8e36f9e6dbfd8e2f999c7ae052143"><div class="ttname"><a href="namespacehal.html#a5ea8e36f9e6dbfd8e2f999c7ae052143">hal::terminated</a></div><div class="ttdeci">constexpr bool terminated(byte_stream auto p_byte_stream_object)</div><div class="ttdoc">Indicate if a byte stream object has finished its work.</div><div class="ttdef"><b>Definition:</b> streams.hpp:38</div></div>
 <div class="ttc" id="atimeout_8hpp_html"><div class="ttname"><a href="timeout_8hpp.html">timeout.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

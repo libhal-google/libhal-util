@@ -1,6 +1,0 @@
-<map id="hal::terminated" name="hal::terminated">
-<area shape="rect" id="node1" title="Indicate if a work_state is terminal, meaning the worker has finished its job." alt="" coords="299,31,405,56"/>
-<area shape="rect" id="node2" href="$namespacehal.html#a5ea8e36f9e6dbfd8e2f999c7ae052143" title="Indicate if a byte stream object has finished its work." alt="" coords="144,5,251,31"/>
-<area shape="rect" id="node3" href="$namespacehal.html#abd5c3782a92312131a5a7824ee6d1801" title="Repeatedly call a worker function until it has reached a terminal state or a timeout has been reached..." alt="" coords="152,55,243,80"/>
-<area shape="rect" id="node4" href="$namespacehal.html#a6fb2bc5d9203d47298c18293666a718b" title="Repeatedly call a worker function until it has reached a terminal state or a timeout has been reached..." alt="" coords="5,55,96,80"/>
-</map>
