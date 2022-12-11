@@ -33,6 +33,7 @@ add_executable(${PROJECT_NAME}
   bit.test.cpp
   can.test.cpp
   i2c.test.cpp
+  enum.test.cpp
   input_pin.test.cpp
   interrupt_pin.test.cpp
   map.test.cpp
