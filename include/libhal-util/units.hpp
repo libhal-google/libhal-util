@@ -142,18 +142,4 @@ inline std::basic_ostream<CharT, Traits>& operator<<(
 {
   return p_ostream << std::hex << "0x" << unsigned(p_byte);
 }
-
-/**
- * @brief concept for enumeration types
- *
- * @tparam T - enum type
- */
-template<typename T>
-concept enumeration = std::is_enum_v<T>;
-
-[[nodiscard]] constexpr auto value(enumeration auto p_enum_value) noexcept
-{
-  return static_cast<std::underlying_type_t<decltype(p_enum_value)>>(
-    p_enum_value);
-}
 }  // namespace hal
