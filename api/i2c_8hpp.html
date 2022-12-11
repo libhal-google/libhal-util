@@ -109,6 +109,7 @@ $(document).ready(function(){initNavTree('i2c_8hpp.html',''); initResizable(); }
 <code>#include &lt;libhal/error.hpp&gt;</code><br />
 <code>#include &lt;libhal/i2c.hpp&gt;</code><br />
 <code>#include &lt;libhal/units.hpp&gt;</code><br />
+<code>#include &quot;<a class="el" href="math_8hpp_source.html">math.hpp</a>&quot;</code><br />
 </div>
 <p><a href="i2c_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -119,26 +120,28 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga602272331e4e2f84843e2fe34e83cca6"><td class="memItemLeft" align="right" valign="top">status&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__i2c.html#ga602272331e4e2f84843e2fe34e83cca6">hal::write</a> (i2c &amp;p_i2c, hal::byte p_address, std::span&lt; const hal::byte &gt; p_data_out, timeout auto p_timeout=hal::never_timeout()) noexcept</td></tr>
-<tr class="memdesc:ga602272331e4e2f84843e2fe34e83cca6"><td class="mdescLeft">&#160;</td><td class="mdescRight">write data to a target device on the i2c bus  <a href="group__i2c.html#ga602272331e4e2f84843e2fe34e83cca6">More...</a><br /></td></tr>
-<tr class="separator:ga602272331e4e2f84843e2fe34e83cca6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga00694e558039dbf0a2e4f2a438754e10"><td class="memItemLeft" align="right" valign="top">status&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__i2c.html#ga00694e558039dbf0a2e4f2a438754e10">hal::read</a> (i2c &amp;p_i2c, hal::byte p_address, std::span&lt; hal::byte &gt; p_data_in, timeout auto p_timeout=hal::never_timeout()) noexcept</td></tr>
-<tr class="memdesc:ga00694e558039dbf0a2e4f2a438754e10"><td class="mdescLeft">&#160;</td><td class="mdescRight">read bytes from target device on i2c bus  <a href="group__i2c.html#ga00694e558039dbf0a2e4f2a438754e10">More...</a><br /></td></tr>
-<tr class="separator:ga00694e558039dbf0a2e4f2a438754e10"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gafaee8290b9ba7d512d6f8a724e99d06c"><td class="memTemplParams" colspan="2">template&lt;size_t BytesToRead&gt; </td></tr>
-<tr class="memitem:gafaee8290b9ba7d512d6f8a724e99d06c"><td class="memTemplItemLeft" align="right" valign="top">result&lt; std::array&lt; hal::byte, BytesToRead &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__i2c.html#gafaee8290b9ba7d512d6f8a724e99d06c">hal::read</a> (i2c &amp;p_i2c, hal::byte p_address, timeout auto p_timeout=hal::never_timeout()) noexcept</td></tr>
-<tr class="memdesc:gafaee8290b9ba7d512d6f8a724e99d06c"><td class="mdescLeft">&#160;</td><td class="mdescRight">return array of read bytes from target device on i2c bus  <a href="group__i2c.html#gafaee8290b9ba7d512d6f8a724e99d06c">More...</a><br /></td></tr>
-<tr class="separator:gafaee8290b9ba7d512d6f8a724e99d06c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gadccf0a18afda016d4d6a05165bc0b0ab"><td class="memItemLeft" align="right" valign="top">status&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__i2c.html#gadccf0a18afda016d4d6a05165bc0b0ab">hal::write_then_read</a> (i2c &amp;p_i2c, hal::byte p_address, std::span&lt; const hal::byte &gt; p_data_out, std::span&lt; hal::byte &gt; p_data_in, timeout auto p_timeout=hal::never_timeout()) noexcept</td></tr>
-<tr class="memdesc:gadccf0a18afda016d4d6a05165bc0b0ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">write and then read bytes from target device on i2c bus  <a href="group__i2c.html#gadccf0a18afda016d4d6a05165bc0b0ab">More...</a><br /></td></tr>
-<tr class="separator:gadccf0a18afda016d4d6a05165bc0b0ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga3dd61760afda4a75284d67f433a2fa50"><td class="memTemplParams" colspan="2">template&lt;size_t BytesToRead&gt; </td></tr>
-<tr class="memitem:ga3dd61760afda4a75284d67f433a2fa50"><td class="memTemplItemLeft" align="right" valign="top">result&lt; std::array&lt; hal::byte, BytesToRead &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__i2c.html#ga3dd61760afda4a75284d67f433a2fa50">hal::write_then_read</a> (i2c &amp;p_i2c, hal::byte p_address, std::span&lt; const hal::byte &gt; p_data_out, timeout auto p_timeout=hal::never_timeout()) noexcept</td></tr>
-<tr class="memdesc:ga3dd61760afda4a75284d67f433a2fa50"><td class="mdescLeft">&#160;</td><td class="mdescRight">write and then return an array of read bytes from target device on i2c bus  <a href="group__i2c.html#ga3dd61760afda4a75284d67f433a2fa50">More...</a><br /></td></tr>
-<tr class="separator:ga3dd61760afda4a75284d67f433a2fa50"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gad1ce95a0f68875e29428e13cc53c3387"><td class="memItemLeft" align="right" valign="top">status&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__i2c.html#gad1ce95a0f68875e29428e13cc53c3387">hal::probe</a> (i2c &amp;p_i2c, hal::byte p_address) noexcept</td></tr>
-<tr class="memdesc:gad1ce95a0f68875e29428e13cc53c3387"><td class="mdescLeft">&#160;</td><td class="mdescRight">probe the i2c bus to see if a device exists  <a href="group__i2c.html#gad1ce95a0f68875e29428e13cc53c3387">More...</a><br /></td></tr>
-<tr class="separator:gad1ce95a0f68875e29428e13cc53c3387"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af7701083fe3fdb39b9a187ca9993e9b6"><td class="memItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehal.html#af7701083fe3fdb39b9a187ca9993e9b6">hal::operator==</a> (const i2c::settings &amp;p_lhs, const i2c::settings &amp;p_rhs) noexcept</td></tr>
+<tr class="separator:af7701083fe3fdb39b9a187ca9993e9b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a602272331e4e2f84843e2fe34e83cca6"><td class="memItemLeft" align="right" valign="top">status&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehal.html#a602272331e4e2f84843e2fe34e83cca6">hal::write</a> (i2c &amp;p_i2c, hal::byte p_address, std::span&lt; const hal::byte &gt; p_data_out, timeout auto p_timeout=hal::never_timeout()) noexcept</td></tr>
+<tr class="memdesc:a602272331e4e2f84843e2fe34e83cca6"><td class="mdescLeft">&#160;</td><td class="mdescRight">write data to a target device on the i2c bus  <a href="namespacehal.html#a602272331e4e2f84843e2fe34e83cca6">More...</a><br /></td></tr>
+<tr class="separator:a602272331e4e2f84843e2fe34e83cca6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00694e558039dbf0a2e4f2a438754e10"><td class="memItemLeft" align="right" valign="top">status&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehal.html#a00694e558039dbf0a2e4f2a438754e10">hal::read</a> (i2c &amp;p_i2c, hal::byte p_address, std::span&lt; hal::byte &gt; p_data_in, timeout auto p_timeout=hal::never_timeout()) noexcept</td></tr>
+<tr class="memdesc:a00694e558039dbf0a2e4f2a438754e10"><td class="mdescLeft">&#160;</td><td class="mdescRight">read bytes from target device on i2c bus  <a href="namespacehal.html#a00694e558039dbf0a2e4f2a438754e10">More...</a><br /></td></tr>
+<tr class="separator:a00694e558039dbf0a2e4f2a438754e10"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afaee8290b9ba7d512d6f8a724e99d06c"><td class="memTemplParams" colspan="2">template&lt;size_t BytesToRead&gt; </td></tr>
+<tr class="memitem:afaee8290b9ba7d512d6f8a724e99d06c"><td class="memTemplItemLeft" align="right" valign="top">result&lt; std::array&lt; hal::byte, BytesToRead &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacehal.html#afaee8290b9ba7d512d6f8a724e99d06c">hal::read</a> (i2c &amp;p_i2c, hal::byte p_address, timeout auto p_timeout=hal::never_timeout()) noexcept</td></tr>
+<tr class="memdesc:afaee8290b9ba7d512d6f8a724e99d06c"><td class="mdescLeft">&#160;</td><td class="mdescRight">return array of read bytes from target device on i2c bus  <a href="namespacehal.html#afaee8290b9ba7d512d6f8a724e99d06c">More...</a><br /></td></tr>
+<tr class="separator:afaee8290b9ba7d512d6f8a724e99d06c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adccf0a18afda016d4d6a05165bc0b0ab"><td class="memItemLeft" align="right" valign="top">status&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehal.html#adccf0a18afda016d4d6a05165bc0b0ab">hal::write_then_read</a> (i2c &amp;p_i2c, hal::byte p_address, std::span&lt; const hal::byte &gt; p_data_out, std::span&lt; hal::byte &gt; p_data_in, timeout auto p_timeout=hal::never_timeout()) noexcept</td></tr>
+<tr class="memdesc:adccf0a18afda016d4d6a05165bc0b0ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">write and then read bytes from target device on i2c bus  <a href="namespacehal.html#adccf0a18afda016d4d6a05165bc0b0ab">More...</a><br /></td></tr>
+<tr class="separator:adccf0a18afda016d4d6a05165bc0b0ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3dd61760afda4a75284d67f433a2fa50"><td class="memTemplParams" colspan="2">template&lt;size_t BytesToRead&gt; </td></tr>
+<tr class="memitem:a3dd61760afda4a75284d67f433a2fa50"><td class="memTemplItemLeft" align="right" valign="top">result&lt; std::array&lt; hal::byte, BytesToRead &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacehal.html#a3dd61760afda4a75284d67f433a2fa50">hal::write_then_read</a> (i2c &amp;p_i2c, hal::byte p_address, std::span&lt; const hal::byte &gt; p_data_out, timeout auto p_timeout=hal::never_timeout()) noexcept</td></tr>
+<tr class="memdesc:a3dd61760afda4a75284d67f433a2fa50"><td class="mdescLeft">&#160;</td><td class="mdescRight">write and then return an array of read bytes from target device on i2c bus  <a href="namespacehal.html#a3dd61760afda4a75284d67f433a2fa50">More...</a><br /></td></tr>
+<tr class="separator:a3dd61760afda4a75284d67f433a2fa50"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad1ce95a0f68875e29428e13cc53c3387"><td class="memItemLeft" align="right" valign="top">status&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehal.html#ad1ce95a0f68875e29428e13cc53c3387">hal::probe</a> (i2c &amp;p_i2c, hal::byte p_address) noexcept</td></tr>
+<tr class="memdesc:ad1ce95a0f68875e29428e13cc53c3387"><td class="mdescLeft">&#160;</td><td class="mdescRight">probe the i2c bus to see if a device exists  <a href="namespacehal.html#ad1ce95a0f68875e29428e13cc53c3387">More...</a><br /></td></tr>
+<tr class="separator:ad1ce95a0f68875e29428e13cc53c3387"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

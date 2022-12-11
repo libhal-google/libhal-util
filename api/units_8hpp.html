@@ -111,6 +111,7 @@ $(document).ready(function(){initNavTree('units_8hpp.html',''); initResizable();
 <code>#include &lt;cstdint&gt;</code><br />
 <code>#include &lt;ios&gt;</code><br />
 <code>#include &lt;libhal/error.hpp&gt;</code><br />
+<code>#include &lt;libhal/timeout.hpp&gt;</code><br />
 <code>#include &lt;libhal/units.hpp&gt;</code><br />
 <code>#include &quot;<a class="el" href="math_8hpp_source.html">math.hpp</a>&quot;</code><br />
 </div>
@@ -146,16 +147,6 @@ Functions</h2></td></tr>
 <tr class="memitem:aa8aaf22d9bdddd575788368f47a33889"><td class="memTemplItemLeft" align="right" valign="top">std::basic_ostream&lt; CharT, Traits &gt; &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacehal.html#aa8aaf22d9bdddd575788368f47a33889">hal::operator&lt;&lt;</a> (std::basic_ostream&lt; CharT, Traits &gt; &amp;p_ostream, const hal::byte &amp;p_byte)</td></tr>
 <tr class="memdesc:aa8aaf22d9bdddd575788368f47a33889"><td class="mdescLeft">&#160;</td><td class="mdescRight">print byte type using ostreams  <a href="namespacehal.html#aa8aaf22d9bdddd575788368f47a33889">More...</a><br /></td></tr>
 <tr class="separator:aa8aaf22d9bdddd575788368f47a33889"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a829d948a20f6466095edce347d7feb3b"><td class="memItemLeft" align="right" valign="top">constexpr std::string_view&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehal.html#a829d948a20f6466095edce347d7feb3b">hal::to_string</a> (work_state p_state)</td></tr>
-<tr class="memdesc:a829d948a20f6466095edce347d7feb3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get string representation of the work state.  <a href="namespacehal.html#a829d948a20f6466095edce347d7feb3b">More...</a><br /></td></tr>
-<tr class="separator:a829d948a20f6466095edce347d7feb3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7c394730b2a8d131a48e6f033e26293c"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehal.html#a7c394730b2a8d131a48e6f033e26293c">hal::terminated</a> (work_state p_state)</td></tr>
-<tr class="memdesc:a7c394730b2a8d131a48e6f033e26293c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicate if a work_state is terminal, meaning the worker has finished its job.  <a href="namespacehal.html#a7c394730b2a8d131a48e6f033e26293c">More...</a><br /></td></tr>
-<tr class="separator:a7c394730b2a8d131a48e6f033e26293c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a72fd20564d6169140e6ac2523fb98f5f"><td class="memTemplParams" colspan="2">template&lt;class CharT , class Traits &gt; </td></tr>
-<tr class="memitem:a72fd20564d6169140e6ac2523fb98f5f"><td class="memTemplItemLeft" align="right" valign="top">std::basic_ostream&lt; CharT, Traits &gt; &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacehal.html#a72fd20564d6169140e6ac2523fb98f5f">hal::operator&lt;&lt;</a> (std::basic_ostream&lt; CharT, Traits &gt; &amp;p_ostream, const work_state &amp;p_state)</td></tr>
-<tr class="memdesc:a72fd20564d6169140e6ac2523fb98f5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">print work_state type using ostreams  <a href="namespacehal.html#a72fd20564d6169140e6ac2523fb98f5f">More...</a><br /></td></tr>
-<tr class="separator:a72fd20564d6169140e6ac2523fb98f5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa88cd03f91cf5b2ae267c13d6c86af18"><td class="memItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehal.html#aa88cd03f91cf5b2ae267c13d6c86af18">hal::value</a> (enumeration auto p_enum_value) noexcept</td></tr>
 <tr class="memdesc:aa88cd03f91cf5b2ae267c13d6c86af18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper function to convert an enum to its integral value.  <a href="namespacehal.html#aa88cd03f91cf5b2ae267c13d6c86af18">More...</a><br /></td></tr>
 <tr class="separator:aa88cd03f91cf5b2ae267c13d6c86af18"><td class="memSeparator" colspan="2">&#160;</td></tr>

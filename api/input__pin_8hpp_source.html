@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=11" />
   <meta name="generator" content="Doxygen 1.9.5" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>libhal-util: /github/workspace/include/libhal-util/can_router.hpp File Reference</title>
+  <title>libhal-util: /github/workspace/include/libhal-util/input_pin.hpp Source File</title>
   <link href="tabs.css" rel="stylesheet" type="text/css" />
   <script type="text/javascript" src="jquery.js"></script>
   <script type="text/javascript" src="dynsections.js"></script>
@@ -73,7 +73,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('can__router_8hpp.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('input__pin_8hpp_source.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -99,38 +99,29 @@ $(document).ready(function(){initNavTree('can__router_8hpp.html',''); initResiza
 </div>
 
 <div class="header">
-  <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a>  </div>
-  <div class="headertitle"><div class="title">can_router.hpp File Reference</div></div>
+  <div class="headertitle"><div class="title">input_pin.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;libhal/can.hpp&gt;</code><br />
-<code>#include &quot;<a class="el" href="move__interceptor_8hpp_source.html">move_interceptor.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="static__callable_8hpp_source.html">static_callable.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="static__list_8hpp_source.html">static_list.hpp</a>&quot;</code><br />
-</div>
-<p><a href="can__router_8hpp_source.html">Go to the source code of this file.</a></p>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhal_1_1can__router.html">hal::can_router</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Route CAN messages received on the can bus to callbacks based on ID.  <a href="classhal_1_1can__router.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhal_1_1can__router_1_1route.html">hal::can_router::route</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
-Namespaces</h2></td></tr>
-<tr class="memitem:namespacehal"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehal.html">hal</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-</div><!-- contents -->
+<a href="input__pin_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;libhal/input_pin.hpp&gt;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacehal.html">hal</a> {</div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno"><a class="line" href="namespacehal.html#a61345e935d9024b56cf226c3dbddc6ec">    6</a></span>[[nodiscard]] <span class="keyword">constexpr</span> <span class="keyword">auto</span> <a class="code hl_function" href="namespacehal.html#a9c94d8f98d4151cf8bf474d7926bb8b9">operator==</a>(</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>  <span class="keyword">const</span> input_pin::settings&amp; p_lhs,</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>  <span class="keyword">const</span> input_pin::settings&amp; p_rhs) <span class="keyword">noexcept</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>  <span class="keywordflow">return</span> p_lhs.resistor == p_rhs.resistor;</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>}</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>}  <span class="comment">// namespace hal</span></div>
+<div class="ttc" id="anamespacehal_html"><div class="ttname"><a href="namespacehal.html">hal</a></div><div class="ttdef"><b>Definition:</b> as_bytes.hpp:7</div></div>
+<div class="ttc" id="anamespacehal_html_a9c94d8f98d4151cf8bf474d7926bb8b9"><div class="ttname"><a href="namespacehal.html#a9c94d8f98d4151cf8bf474d7926bb8b9">hal::operator==</a></div><div class="ttdeci">constexpr auto operator==(const can::settings &amp;p_lhs, const can::settings &amp;p_rhs) noexcept</div><div class="ttdef"><b>Definition:</b> can.hpp:16</div></div>
+</div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_9b1ee2a02507a1a2bbe5befe9ef33a62.html">libhal-util</a></li><li class="navelem"><a class="el" href="can__router_8hpp.html">can_router.hpp</a></li>
+    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_9b1ee2a02507a1a2bbe5befe9ef33a62.html">libhal-util</a></li><li class="navelem"><a class="el" href="input__pin_8hpp.html">input_pin.hpp</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.5 </li>
   </ul>
 </div>

@@ -1,5 +1,6 @@
 var serial_8hpp =
 [
+    [ "operator==", "serial_8hpp.html#a2b05743dd9eeecc7fab83b6f472c9397", null ],
     [ "read", "serial_8hpp.html#a58f116057547375e7bcdc6f29ef3786c", null ],
     [ "read", "serial_8hpp.html#a1a286f05a92dbc946d4e0a79db6683da", null ],
     [ "write", "serial_8hpp.html#a9686cb634f86ed068a43ea5bb5224073", null ],

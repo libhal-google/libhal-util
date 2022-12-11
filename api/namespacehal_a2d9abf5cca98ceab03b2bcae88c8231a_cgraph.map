@@ -1,5 +1,5 @@
 <map id="hal::write_then_read" name="hal::write_then_read">
 <area shape="rect" id="node1" title="Perform a write then read transaction over serial." alt="" coords="5,31,143,56"/>
-<area shape="rect" id="node2" href="$group__i2c.html#ga00694e558039dbf0a2e4f2a438754e10" title="read bytes from target device on i2c bus" alt="" coords="213,5,283,31"/>
+<area shape="rect" id="node2" href="$namespacehal.html#a00694e558039dbf0a2e4f2a438754e10" title="read bytes from target device on i2c bus" alt="" coords="213,5,283,31"/>
 <area shape="rect" id="node3" href="$namespacehal.html#a9fcfdc8a8fa26b039d5a8a6f9b6b6962" title="Write bytes to a serial port." alt="" coords="191,55,305,80"/>
 </map>

@@ -20,7 +20,7 @@
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="group__i2c.html#ga602272331e4e2f84843e2fe34e83cca6" target="_top" xlink:title="write data to a target device on the i2c bus">
+<g id="a_node2"><a xlink:href="namespacehal.html#a602272331e4e2f84843e2fe34e83cca6" target="_top" xlink:title="write data to a target device on the i2c bus">
 <polygon fill="white" stroke="#666666" points="194,-19 139,-19 139,0 194,0 194,-19"/>
 <text text-anchor="middle" x="166.5" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">hal::write</text>
 </a>

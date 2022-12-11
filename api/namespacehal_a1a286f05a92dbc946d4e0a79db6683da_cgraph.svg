@@ -20,7 +20,7 @@
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="group__i2c.html#ga00694e558039dbf0a2e4f2a438754e10" target="_top" xlink:title="read bytes from target device on i2c bus">
+<g id="a_node2"><a xlink:href="namespacehal.html#a00694e558039dbf0a2e4f2a438754e10" target="_top" xlink:title="read bytes from target device on i2c bus">
 <polygon fill="white" stroke="#666666" points="142,-19 89,-19 89,0 142,0 142,-19"/>
 <text text-anchor="middle" x="115.5" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">hal::read</text>
 </a>
