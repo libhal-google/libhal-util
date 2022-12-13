@@ -3,13 +3,14 @@
 #include <boost/ut.hpp>
 
 namespace hal {
-boost::ut::suite timeout_test = []() {
+void timeout_test()
+{
   using namespace boost::ut;
   "hal::try_until(callback, timeout)"_test = []() {
     // Setup
     constexpr int timeout_call_limit = 10;
     int counts = 0;
-    auto timeout_function = [&counts]() mutable -> status {
+    auto timeout_callback = [&counts]() mutable -> status {
       counts++;
       if (counts >= timeout_call_limit) {
         return hal::new_error(std::errc::timed_out);
@@ -24,7 +25,7 @@ boost::ut::suite timeout_test = []() {
     };
 
     // Exercise
-    auto result = hal::try_until(callback, timeout_function).value();
+    auto result = hal::try_until(callback, timeout_callback).value();
 
     // Verify
     expect(that % work_state::finished == result);
@@ -35,7 +36,7 @@ boost::ut::suite timeout_test = []() {
     // Setup
     constexpr int timeout_call_limit = 10;
     int counts = 0;
-    auto timeout_function = [&counts]() mutable -> status {
+    auto timeout_callback = [&counts]() mutable -> status {
       counts++;
       if (counts >= timeout_call_limit) {
         return hal::new_error(std::errc::timed_out);
@@ -50,7 +51,7 @@ boost::ut::suite timeout_test = []() {
     };
 
     // Exercise
-    auto result = hal::try_until(callback, timeout_function);
+    auto result = hal::try_until(callback, timeout_callback);
 
     // Verify
     expect(!bool{ result });
@@ -80,7 +81,7 @@ boost::ut::suite timeout_test = []() {
     // Setup
     constexpr int timeout_call_limit = 10;
     int counts = 0;
-    auto timeout_function = [&counts]() mutable -> status {
+    auto timeout_callback = [&counts]() mutable -> status {
       counts++;
       if (counts >= timeout_call_limit) {
         return hal::new_error(std::errc::timed_out);
@@ -103,9 +104,9 @@ boost::ut::suite timeout_test = []() {
 
     // Exercise
     auto result = hal::attempt(
-      [&callback, &timeout_function]() -> status {
+      [&callback, &timeout_callback]() -> status {
         while (true) {
-          HAL_CHECK(hal::try_until(callback, timeout_function));
+          HAL_CHECK(hal::try_until(callback, timeout_callback));
         }
         // Unreachable!
         return {};

@@ -189,12 +189,12 @@ public:
     // AND value with mask to remove any bits beyond the specified width.
     // Shift masked value into bit position and OR with target value.
     const auto shifted_field = value_to_insert << field.position;
-    const auto value = shifted_field & field.mask_value<T>();
+    const auto new_value = shifted_field & field.mask_value<T>();
 
     // Clear width's number of bits in the target value at the bit position
     // specified.
     m_value = m_value & ~field.mask_value<T>();
-    m_value = m_value | static_cast<T>(value);
+    m_value = m_value | static_cast<T>(new_value);
 
     return *this;
   }
@@ -204,12 +204,12 @@ public:
     // AND value with mask to remove any bits beyond the specified width.
     // Shift masked value into bit position and OR with target value.
     auto shifted_field = static_cast<T>(p_value) << p_field.position;
-    auto value = shifted_field & p_field.mask_value<T>();
+    auto new_value = shifted_field & p_field.mask_value<T>();
 
     // Clear width's number of bits in the target value at the bit position
     // specified.
     m_value = m_value & ~p_field.mask_value<T>();
-    m_value = m_value | static_cast<T>(value);
+    m_value = m_value | static_cast<T>(new_value);
 
     return *this;
   }

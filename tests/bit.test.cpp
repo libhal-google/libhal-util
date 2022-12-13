@@ -3,7 +3,8 @@
 #include <boost/ut.hpp>
 
 namespace hal {
-boost::ut::suite bit_test = []() {
+void bit_test()
+{
   using namespace boost::ut;
 
   "hal::bit<template> standard usage"_test = []() {
@@ -58,4 +59,4 @@ boost::ut::suite bit_test = []() {
     expect(that % 0 == probed_inline);
   };
 };
-}
+}  // namespace hal

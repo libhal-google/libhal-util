@@ -2,7 +2,7 @@
 
 #include <boost/ut.hpp>
 
-namespace hal::stream {
+namespace hal {
 namespace {
 
 struct example_stream
@@ -12,26 +12,27 @@ struct example_stream
     return m_state;
   }
 
-  friend std::span<const hal::byte> operator|(
-    const std::span<const hal::byte>& p_input_data,
-    [[maybe_unused]] example_stream& p_self)
-  {
-    return p_input_data;
-  }
-
   work_state m_state;
 };
+
+std::span<const hal::byte> operator|(
+  const std::span<const hal::byte>& p_input_data,
+  [[maybe_unused]] example_stream& p_self)
+{
+  return p_input_data;
+}
 }  // namespace
 
-boost::ut::suite stream_terminated_test = []() {
+void stream_terminated_test()
+{
   using namespace boost::ut;
   using namespace std::literals;
 
-  static_assert(byte_stream<example_stream>);
-  static_assert(byte_stream<parse<size_t>>);
-  static_assert(byte_stream<find>);
-  static_assert(byte_stream<fill_upto>);
-  static_assert(byte_stream<skip>);
+  static_assert(hal::byte_stream<example_stream>);
+  static_assert(hal::byte_stream<hal::stream::parse<size_t>>);
+  static_assert(hal::byte_stream<hal::stream::find>);
+  static_assert(hal::byte_stream<hal::stream::fill_upto>);
+  static_assert(hal::byte_stream<hal::stream::skip>);
 
   "hal::terminate(byte_stream) -> true with finished state"_test = []() {
     // Setup
@@ -39,7 +40,7 @@ boost::ut::suite stream_terminated_test = []() {
     stream.m_state = work_state::finished;
 
     // Exercise
-    bool result = terminated(stream);
+    bool result = hal::terminated(stream);
 
     // Verify
     expect(result) << "Should return true as the work_state is 'finished'!";
@@ -51,7 +52,7 @@ boost::ut::suite stream_terminated_test = []() {
     stream.m_state = work_state::failed;
 
     // Exercise
-    bool result = terminated(stream);
+    bool result = hal::terminated(stream);
 
     // Verify
     expect(result) << "Should return true as the work_state is 'failed'!";
@@ -63,7 +64,7 @@ boost::ut::suite stream_terminated_test = []() {
     stream.m_state = work_state::in_progress;
 
     // Exercise
-    bool result = terminated(stream);
+    bool result = hal::terminated(stream);
 
     // Verify
     expect(!result)
@@ -76,7 +77,8 @@ boost::ut::suite stream_terminated_test = []() {
 //                              |  parse<T> Stream  |
 //
 // =============================================================================
-boost::ut::suite parse_stream_test = []() {
+void parse_stream_test()
+{
   using namespace boost::ut;
   using namespace std::literals;
 
@@ -84,7 +86,7 @@ boost::ut::suite parse_stream_test = []() {
     // Setup
     std::string_view digits_in_between = "abcd1234x---";
     auto digits_span = hal::as_bytes(digits_in_between);
-    parse<std::uint32_t> parse_int;
+    hal::stream::parse<std::uint32_t> parse_int;
 
     // Exercise
     auto remaining = digits_span | parse_int;
@@ -101,7 +103,7 @@ boost::ut::suite parse_stream_test = []() {
     // Setup
     std::string_view digits_in_between = "abcd12356789101234x---";
     auto digits_span = hal::as_bytes(digits_in_between);
-    parse<std::uint64_t> parse_int;
+    hal::stream::parse<std::uint64_t> parse_int;
 
     // Exercise
     auto remaining = digits_span | parse_int;
@@ -116,7 +118,7 @@ boost::ut::suite parse_stream_test = []() {
 
   "[parse<std::uint32_t>] empty span"_test = []() {
     // Setup
-    parse<std::uint32_t> parse_int;
+    hal::stream::parse<std::uint32_t> parse_int;
 
     // Exercise
     auto remaining = std::span<const hal::byte>() | parse_int;
@@ -131,7 +133,7 @@ boost::ut::suite parse_stream_test = []() {
     // Setup
     std::string_view digits_in_between = "abcd?efghx-[--]/";
     auto digits_span = hal::as_bytes(digits_in_between);
-    parse<std::uint32_t> parse_int;
+    hal::stream::parse<std::uint32_t> parse_int;
 
     // Exercise
     auto remaining = digits_span | parse_int;
@@ -148,7 +150,7 @@ boost::ut::suite parse_stream_test = []() {
     auto span0 = hal::as_bytes(halves[0]);
     auto span1 = hal::as_bytes(halves[1]);
 
-    parse<std::uint32_t> parse_int;
+    hal::stream::parse<std::uint32_t> parse_int;
 
     auto remaining0 = span0 | parse_int;
     auto remaining1 = span1 | parse_int;
@@ -170,7 +172,7 @@ boost::ut::suite parse_stream_test = []() {
     auto span1 = hal::as_bytes(halves[1]);
     auto span2 = hal::as_bytes(halves[2]);
 
-    parse<std::uint32_t> parse_int;
+    hal::stream::parse<std::uint32_t> parse_int;
 
     auto remaining0 = span0 | parse_int;
     auto remaining1 = span1 | parse_int;
@@ -195,7 +197,7 @@ boost::ut::suite parse_stream_test = []() {
     auto span1 = hal::as_bytes(halves[1]);
     auto span2 = hal::as_bytes(halves[2]);
 
-    parse<std::uint32_t> parse_int;
+    hal::stream::parse<std::uint32_t> parse_int;
 
     auto remaining0 = span0 | parse_int;
     auto remaining1 = span1 | parse_int;
@@ -218,9 +220,9 @@ boost::ut::suite parse_stream_test = []() {
     std::string_view three_numbers = "a123b456c789d";
     auto span = hal::as_bytes(three_numbers);
 
-    parse<std::uint32_t> parse_int0;
-    parse<std::uint32_t> parse_int1;
-    parse<std::uint32_t> parse_int2;
+    hal::stream::parse<std::uint32_t> parse_int0;
+    hal::stream::parse<std::uint32_t> parse_int1;
+    hal::stream::parse<std::uint32_t> parse_int2;
 
     // Exercise
     auto remaining = span | parse_int0 | parse_int1 | parse_int2;
@@ -242,7 +244,8 @@ boost::ut::suite parse_stream_test = []() {
 //                               |  Find Stream  |
 //
 // =============================================================================
-boost::ut::suite find_stream_test = []() {
+void find_stream_test()
+{
   // Setup
   using namespace boost::ut;
   using namespace std::literals;
@@ -251,7 +254,7 @@ boost::ut::suite find_stream_test = []() {
     // Setup
     std::string_view str = "Content-Length: 1023\r\n";
     auto span = hal::as_bytes(str);
-    find finder(hal::as_bytes(": "sv));
+    hal::stream::find finder(hal::as_bytes(": "sv));
 
     // Exercise
     auto remaining = span | finder;
@@ -263,7 +266,7 @@ boost::ut::suite find_stream_test = []() {
 
   "[find] empty span"_test = []() {
     // Setup
-    find finder(hal::as_bytes(": "sv));
+    hal::stream::find finder(hal::as_bytes(": "sv));
 
     // Exercise
     auto remaining = std::span<hal::byte>() | finder;
@@ -278,7 +281,7 @@ boost::ut::suite find_stream_test = []() {
     std::string_view digits_in_between = "abcd??efghx-[--]/";
     auto digits_span = hal::as_bytes(digits_in_between);
 
-    find finder(hal::as_bytes("????"sv));
+    hal::stream::find finder(hal::as_bytes("????"sv));
 
     // Exercise
     auto remaining = digits_span | finder;
@@ -293,7 +296,7 @@ boost::ut::suite find_stream_test = []() {
     auto span0 = hal::as_bytes(halves[0]);
     auto span1 = hal::as_bytes(halves[1]);
 
-    find finder(hal::as_bytes("1298"sv));
+    hal::stream::find finder(hal::as_bytes("1298"sv));
 
     auto remaining0 = span0 | finder;
     auto remaining1 = span1 | finder;
@@ -313,7 +316,7 @@ boost::ut::suite find_stream_test = []() {
     auto span1 = hal::as_bytes(halves[1]);
     auto span2 = hal::as_bytes(halves[2]);
 
-    find finder(hal::as_bytes("345"sv));
+    hal::stream::find finder(hal::as_bytes("345"sv));
 
     auto remaining0 = span0 | finder;
     auto remaining1 = span1 | finder;
@@ -334,9 +337,9 @@ boost::ut::suite find_stream_test = []() {
     std::string_view three_numbers = "----a---b---c";
     auto span = hal::as_bytes(three_numbers);
 
-    find finder0(hal::as_bytes("a"sv));
-    find finder1(hal::as_bytes("b"sv));
-    find finder2(hal::as_bytes("c"sv));
+    hal::stream::find finder0(hal::as_bytes("a"sv));
+    hal::stream::find finder1(hal::as_bytes("b"sv));
+    hal::stream::find finder2(hal::as_bytes("c"sv));
 
     // Exercise
     auto remaining = span | finder0 | finder1 | finder2;
@@ -352,7 +355,8 @@ boost::ut::suite find_stream_test = []() {
 //                             |  fill_upto Stream  |
 //
 // =============================================================================
-boost::ut::suite fill_upto_stream_test = []() {
+void fill_upto_stream_test()
+{
   // Setup
   using namespace boost::ut;
   using namespace std::literals;
@@ -367,7 +371,7 @@ boost::ut::suite fill_upto_stream_test = []() {
     std::array<hal::byte, 128> buffer;
     auto target_string = "#_$"sv;
     auto target = hal::as_bytes(target_string);
-    fill_upto filler(target, buffer);
+    hal::stream::fill_upto filler(target, buffer);
 
     // Exercise
     auto remaining = span | filler;
@@ -400,7 +404,7 @@ boost::ut::suite fill_upto_stream_test = []() {
     std::array span{ hal::as_bytes(str[0]), hal::as_bytes(str[1]) };
 
     std::array<hal::byte, 128> buffer;
-    fill_upto filler(hal::as_bytes("#_$"sv), buffer);
+    hal::stream::fill_upto filler(hal::as_bytes("#_$"sv), buffer);
 
     // Exercise
     auto remaining0 = span[0] | filler;
@@ -424,7 +428,8 @@ boost::ut::suite fill_upto_stream_test = []() {
 //                               |  Multi Stream Test  |
 //
 // =============================================================================
-boost::ut::suite multi_stream_test = []() {
+void multi_stream_test()
+{
   using namespace boost::ut;
   using namespace std::literals;
 
@@ -450,18 +455,19 @@ boost::ut::suite multi_stream_test = []() {
     std::array<hal::byte, 1024> response_buffer;
     response_buffer.fill('.');
 
-    find find_content_length(hal::as_bytes("Content-Length: "sv));
-    parse<std::uint32_t> parse_body_length;
-    fill_upto find_end_of_header(hal::as_bytes("\r\n\r\n"sv), response_buffer);
+    hal::stream::find find_content_length(hal::as_bytes("Content-Length: "sv));
+    hal::stream::parse<std::uint32_t> parse_body_length;
+    hal::stream::fill_upto find_end_of_header(hal::as_bytes("\r\n\r\n"sv),
+                                              response_buffer);
 
     [[maybe_unused]] auto start_of_body =
       input_data | find_content_length | parse_body_length;
 
     [[maybe_unused]] auto remaining = input_data | find_end_of_header;
 
-    if (terminated(find_end_of_header.state())) {
-      fill fill_buffer(find_end_of_header.unfilled(),
-                       parse_body_length.value());
+    if (hal::terminated(find_end_of_header.state())) {
+      hal::stream::fill fill_buffer(find_end_of_header.unfilled(),
+                                    parse_body_length.value());
       remaining = remaining | fill_buffer;
     }
 
@@ -479,4 +485,4 @@ boost::ut::suite multi_stream_test = []() {
     */
   };
 };
-}  // namespace hal::stream
+}  // namespace hal

@@ -5,7 +5,8 @@
 // #include <libhal/testing.hpp>
 
 namespace hal {
-boost::ut::suite steady_clock_utility_test = []() {
+void steady_clock_utility_test()
+{
   using namespace boost::ut;
 
   // Make the frequency equal to inverse of the time duration period, giving you

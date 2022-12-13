@@ -120,11 +120,11 @@ private:
  * @param p_duration - amount of time until timeout
  * @return result<hal::steady_clock_timeout> - timeout object
  */
-inline result<hal::steady_clock_timeout> create_timeout(
+inline result<steady_clock_timeout> create_timeout(
   hal::steady_clock& p_steady_clock,
   hal::time_duration p_duration)
 {
-  return hal::steady_clock_timeout::create(p_steady_clock, p_duration);
+  return steady_clock_timeout::create(p_steady_clock, p_duration);
 }
 
 /**
@@ -143,7 +143,7 @@ inline result<hal::steady_clock_timeout> create_timeout(
                                   hal::time_duration p_duration) noexcept
 {
   auto timeout_object = HAL_CHECK(create_timeout(p_steady_clock, p_duration));
-  return delay(timeout_object);
+  return hal::delay(timeout_object);
 }
 
 /**

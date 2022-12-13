@@ -59,7 +59,7 @@ class LibHALConan(ConanFile):
         basic_layout(self)
 
     def requirements(self):
-        self.requires("libhal/0.2.0@")
+        self.requires("libhal/0.2.2@")
 
     def package(self):
         copy(self, "LICENSE", dst=os.path.join(

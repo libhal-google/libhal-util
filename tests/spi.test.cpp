@@ -3,7 +3,8 @@
 #include <boost/ut.hpp>
 
 namespace hal {
-boost::ut::suite spi_util_test = []() {
+void spi_util_test()
+{
   using namespace boost::ut;
 
   static constexpr hal::byte success_filler{ 0xF5 };

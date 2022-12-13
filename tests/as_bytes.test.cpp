@@ -6,7 +6,8 @@
 #include <vector>
 
 namespace hal {
-boost::ut::suite as_bytes_test = []() {
+void as_bytes_test()
+{
   using namespace boost::ut;
 
   "hal::as_bytes()"_test = []() {
@@ -118,4 +119,4 @@ boost::ut::suite as_bytes_test = []() {
     };
   };
 };
-}
+}  // namespace hal

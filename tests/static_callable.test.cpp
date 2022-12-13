@@ -3,7 +3,8 @@
 #include <boost/ut.hpp>
 
 namespace hal {
-boost::ut::suite static_callable_test = []() {
+void static_callable_test()
+{
   using namespace boost::ut;
 
   // Setup
@@ -48,4 +49,4 @@ boost::ut::suite static_callable_test = []() {
     expect(that % false == captured_bool);
   };
 };
-}
+}  // namespace hal

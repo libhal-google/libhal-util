@@ -66,7 +66,7 @@ namespace hal {
 [[nodiscard]] inline status write(serial& p_serial,
                                   std::string_view p_data_out) noexcept
 {
-  return write(p_serial, hal::as_bytes(p_data_out));
+  return write(p_serial, as_bytes(p_data_out));
 }
 
 /**

@@ -3,7 +3,8 @@
 #include <boost/ut.hpp>
 
 namespace hal {
-boost::ut::suite move_interceptor_test = []() {
+void move_interceptor_test()
+{
   using namespace boost::ut;
 
   "move_interceptor<mock>::intercept"_test = []() {
