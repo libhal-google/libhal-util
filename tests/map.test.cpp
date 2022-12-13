@@ -6,7 +6,8 @@
 #include <libhal-util/math.hpp>
 
 namespace hal {
-boost::ut::suite map_test = []() {
+void map_test()
+{
   using namespace boost::ut;
 
   "hal::map<std::floating_point>()"_test = []() {
@@ -54,4 +55,4 @@ boost::ut::suite map_test = []() {
     };
   };
 };
-}
+}  // namespace hal

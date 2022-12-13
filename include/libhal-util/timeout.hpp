@@ -1,6 +1,7 @@
 #pragma once
 
 #include <functional>
+#include <ios>
 #include <system_error>
 
 #include <libhal/error.hpp>

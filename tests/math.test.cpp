@@ -3,7 +3,8 @@
 #include <boost/ut.hpp>
 
 namespace hal {
-boost::ut::suite math_test = []() {
+void math_test()
+{
   using namespace boost::ut;
 
   "hal::multiply()"_test = []() {
@@ -75,4 +76,4 @@ boost::ut::suite math_test = []() {
     };
   };
 };
-}
+}  // namespace hal

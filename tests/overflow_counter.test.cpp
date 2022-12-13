@@ -3,7 +3,8 @@
 #include <boost/ut.hpp>
 
 namespace hal {
-boost::ut::suite overflow_counter_test = []() {
+void overflow_counter_test()
+{
   using namespace boost::ut;
 
   "overflow_counter::update() increment by 1"_test = []() {

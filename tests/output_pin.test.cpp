@@ -3,7 +3,8 @@
 #include <boost/ut.hpp>
 
 namespace hal {
-boost::ut::suite output_pin_util_test = []() {
+void output_pin_util_test()
+{
   using namespace boost::ut;
   "operator==(output_pin::settings)"_test = []() {
     output_pin::settings a{};

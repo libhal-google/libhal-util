@@ -9,7 +9,8 @@
 #include <libhal-util/comparison.hpp>
 
 namespace hal {
-boost::ut::suite serial_util_test = []() {
+void serial_util_test()
+{
   using namespace boost::ut;
 
   static constexpr hal::byte write_failure_byte{ 'C' };

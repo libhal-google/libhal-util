@@ -44,7 +44,8 @@ private:
 };
 }  // namespace
 
-boost::ut::suite can_router_test = []() {
+void can_router_test()
+{
   using namespace boost::ut;
 
   "operator==(can::settings)"_test = []() {
@@ -95,10 +96,10 @@ boost::ut::suite can_router_test = []() {
     auto router = can_router::create(mock).value();
 
     // Exercise
-    auto status = router.bus().send(expected);
+    auto result = router.bus().send(expected);
 
     // Verify
-    expect(bool{ status });
+    expect(bool{ result });
     expect(expected == mock.m_message);
   };
 
@@ -114,10 +115,10 @@ boost::ut::suite can_router_test = []() {
     mock.m_return_error_status = true;
 
     // Exercise
-    auto status = router.bus().send(expected);
+    auto result = router.bus().send(expected);
 
     // Verify
-    expect(!bool{ status });
+    expect(!bool{ result });
     expect(expected == mock.m_message);
   };
 

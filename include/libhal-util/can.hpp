@@ -128,7 +128,7 @@ public:
     message_handler handler = noop;
   };
 
-  using route_item = hal::static_list<route>::item;
+  using route_item = static_list<route>::item;
 
   static result<can_router> create(hal::can& p_can)
   {
@@ -244,7 +244,7 @@ private:
   {
   }
 
-  hal::static_list<route> m_handlers;
+  static_list<route> m_handlers;
   hal::can* m_can;
 };
 }  // namespace hal
