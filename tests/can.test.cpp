@@ -1,8 +1,8 @@
 #include <libhal-util/can.hpp>
 
-#include <boost/ut.hpp>
-
 #include <algorithm>
+
+#include <boost/ut.hpp>
 
 namespace hal {
 namespace {

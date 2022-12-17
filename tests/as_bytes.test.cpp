@@ -1,9 +1,9 @@
 #include <libhal-util/as_bytes.hpp>
 
-#include <boost/ut.hpp>
-
 #include <span>
 #include <vector>
+
+#include <boost/ut.hpp>
 
 namespace hal {
 void as_bytes_test()
