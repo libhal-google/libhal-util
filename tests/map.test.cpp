@@ -2,8 +2,9 @@
 
 #include <limits>
 
-#include <boost/ut.hpp>
 #include <libhal-util/math.hpp>
+
+#include <boost/ut.hpp>
 
 namespace hal {
 void map_test()

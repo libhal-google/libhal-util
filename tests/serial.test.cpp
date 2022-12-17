@@ -1,12 +1,12 @@
 #include <libhal-util/serial.hpp>
 
-#include <boost/ut.hpp>
-
 #include <algorithm>
 #include <array>
 #include <span>
 
 #include <libhal-util/comparison.hpp>
+
+#include <boost/ut.hpp>
 
 namespace hal {
 void serial_util_test()

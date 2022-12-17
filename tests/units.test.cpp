@@ -2,6 +2,7 @@
 
 #include <ios>
 
+// must be above <boost/ut.hpp> to print chrono duration objects
 template<typename Rep, typename Period>
 std::ostream& operator<<(std::ostream& p_os,
                          const std::chrono::duration<Rep, Period>& p_duration)
@@ -11,7 +12,6 @@ std::ostream& operator<<(std::ostream& p_os,
 }
 
 #include <boost/ut.hpp>
-#include <chrono>
 
 namespace hal {
 
