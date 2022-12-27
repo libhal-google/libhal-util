@@ -6,12 +6,6 @@
 #include <limits>
 
 namespace hal::bit {
-
-/**
- * @addtogroup utility
- * Available utilities for libhal
- * @{
- */
 struct mask
 {
   std::uint32_t position;
@@ -247,5 +241,4 @@ public:
 private:
   volatile T* m_pointer;
 };
-/** @} */
 }  // namespace hal::bit
