@@ -14,7 +14,7 @@
 
 namespace hal {
 [[nodiscard]] constexpr auto operator==(const can::settings& p_lhs,
-                                        const can::settings& p_rhs) noexcept
+                                        const can::settings& p_rhs)
 {
   return equals(p_lhs.baud_rate, p_rhs.baud_rate) &&
          p_lhs.propagation_delay == p_rhs.propagation_delay &&
@@ -23,8 +23,7 @@ namespace hal {
          p_lhs.synchronization_jump_width == p_rhs.synchronization_jump_width;
 }
 
-[[nodiscard]] constexpr std::uint16_t bit_width(
-  const can::settings& p_settings) noexcept
+[[nodiscard]] constexpr std::uint16_t bit_width(const can::settings& p_settings)
 {
   // The sum of 4x 8-bit numbers can never exceed uint16_t and thus this
   // operation is always safe.
@@ -56,7 +55,7 @@ namespace hal {
  */
 [[nodiscard]] constexpr std::optional<std::uint32_t> is_valid(
   const can::settings& p_settings,
-  hertz p_operating_frequency) noexcept
+  hertz p_operating_frequency)
 {
   // 1. propagation_delay, phase_segment1, phase_segment2 and
   //    synchronization_jump_width must be nonzero.
@@ -100,7 +99,7 @@ namespace hal {
 }
 
 [[nodiscard]] constexpr auto operator==(const can::message_t& p_lhs,
-                                        const can::message_t& p_rhs) noexcept
+                                        const can::message_t& p_rhs)
 {
   bool payload_equal = p_lhs.payload == p_rhs.payload;
   return payload_equal && p_lhs.id == p_rhs.id &&
@@ -151,7 +150,7 @@ public:
    *
    * @return can& reference to the can peripheral driver
    */
-  [[nodiscard]] hal::can& bus() noexcept
+  [[nodiscard]] hal::can& bus()
   {
     return *m_can;
   }
@@ -165,7 +164,7 @@ public:
    * @return auto - route item from the linked list that must be stored stored
    * in a variable
    */
-  [[nodiscard]] auto add_message_callback(hal::can::id_t p_id) noexcept
+  [[nodiscard]] auto add_message_callback(hal::can::id_t p_id)
   {
     return m_handlers.push_back(route{
       .id = p_id,
@@ -181,7 +180,7 @@ public:
    * in a variable
    */
   [[nodiscard]] auto add_message_callback(hal::can::id_t p_id,
-                                          message_handler p_handler) noexcept
+                                          message_handler p_handler)
   {
     return m_handlers.push_back(route{
       .id = p_id,
@@ -197,7 +196,7 @@ public:
    *
    * @return const auto& map of all of the can message handlers.
    */
-  [[nodiscard]] const auto& handlers() noexcept
+  [[nodiscard]] const auto& handlers()
   {
     return m_handlers;
   }
@@ -239,7 +238,7 @@ private:
    * @param p_can - can peripheral to route messages for
    * @param p_memory_resource - memory resource used for storing callbacks
    */
-  explicit can_router(hal::can& p_can) noexcept
+  explicit can_router(hal::can& p_can)
     : m_can(&p_can)
   {
   }

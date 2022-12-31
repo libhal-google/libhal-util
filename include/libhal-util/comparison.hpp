@@ -6,7 +6,7 @@
 
 template<typename T, size_t size>
 constexpr bool operator==(const std::array<T, size>& p_array,
-                          const std::span<T>& p_span) noexcept
+                          const std::span<T>& p_span)
 {
   if (p_span.size() != size) {
     return false;
@@ -17,21 +17,21 @@ constexpr bool operator==(const std::array<T, size>& p_array,
 
 template<typename T, size_t size>
 constexpr bool operator==(const std::span<T>& p_span,
-                          const std::array<T, size>& p_array) noexcept
+                          const std::array<T, size>& p_array)
 {
   return p_array == p_span;
 }
 
 template<typename T, size_t size>
 constexpr bool operator!=(const std::array<T, size>& p_array,
-                          const std::span<T>& p_span) noexcept
+                          const std::span<T>& p_span)
 {
   return !(p_array == p_span);
 }
 
 template<typename T, size_t size>
 constexpr bool operator!=(const std::span<T>& p_span,
-                          const std::array<T, size>& p_array) noexcept
+                          const std::array<T, size>& p_array)
 {
   return !(p_array == p_span);
 }

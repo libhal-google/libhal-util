@@ -31,10 +31,9 @@ namespace hal {
  * @return constexpr float - value mapped from input range to the output
  * range. The output is clamped to the output range.
  */
-[[nodiscard]] constexpr float map(
-  float p_target,
-  std::pair<float, float> p_input_range,
-  std::pair<float, float> p_output_range) noexcept
+[[nodiscard]] constexpr float map(float p_target,
+                                  std::pair<float, float> p_input_range,
+                                  std::pair<float, float> p_output_range)
 {
   /**
    *                / d - c \

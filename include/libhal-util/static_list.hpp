@@ -47,14 +47,14 @@ public:
     friend class item_iterator;
     friend class static_list;
 
-    constexpr item(static_list* p_list, const Object& p_object) noexcept
+    constexpr item(static_list* p_list, const Object& p_object)
       : m_list(p_list)
       , m_object(p_object)
     {
       setup_self();
     }
 
-    constexpr item(static_list* p_list, Object&& p_object) noexcept
+    constexpr item(static_list* p_list, Object&& p_object)
       : m_list(p_list)
       , m_object(std::move(p_object))
     {
@@ -299,7 +299,7 @@ public:
    */
   [[nodiscard("List item must be saved, otherwise, the value will be discarded "
               "from the list")]] constexpr item
-  push_back() noexcept
+  push_back()
   {
     return item(this, Object{});
   }
@@ -312,7 +312,7 @@ public:
    */
   [[nodiscard("List item must be saved, otherwise, the value will be discarded "
               "from the list")]] constexpr item
-  push_back(const Object& p_value) noexcept
+  push_back(const Object& p_value)
   {
     return item(this, p_value);
   }
@@ -325,52 +325,52 @@ public:
    */
   [[nodiscard("List item must be saved, otherwise, the value will be discarded "
               "from the list")]] constexpr item
-  push_back(Object&& p_value) noexcept
+  push_back(Object&& p_value)
   {
     return item(this, p_value);
   }
 
-  constexpr bool empty() noexcept
+  constexpr bool empty()
   {
     return m_size == 0;
   }
 
-  constexpr auto begin() noexcept
+  constexpr auto begin()
   {
     return item_iterator(m_head);
   }
 
-  constexpr auto begin() const noexcept
+  constexpr auto begin() const
   {
     return item_iterator(m_head);
   }
 
-  constexpr auto cbegin() const noexcept
+  constexpr auto cbegin() const
   {
     return item_iterator(m_head);
   }
 
-  constexpr auto end() noexcept
+  constexpr auto end()
   {
     return item_iterator(nullptr, this);
   }
 
-  constexpr auto end() const noexcept
+  constexpr auto end() const
   {
     return item_iterator(nullptr, this);
   }
 
-  constexpr auto cend() const noexcept
+  constexpr auto cend() const
   {
     return item_iterator(nullptr, this);
   }
 
-  constexpr std::size_t size() const noexcept
+  constexpr std::size_t size() const
   {
     return m_size;
   }
 
-  ~static_list() noexcept
+  ~static_list()
   {
     if (!m_head || !m_tail) {
       return;

@@ -21,7 +21,7 @@ concept enumeration = std::is_enum_v<T>;
  * @return constexpr auto - return the integral value of the enum with the same
  * type as the enumeration.
  */
-[[nodiscard]] constexpr auto value(enumeration auto p_enum_value) noexcept
+[[nodiscard]] constexpr auto value(enumeration auto p_enum_value)
 {
   return static_cast<std::underlying_type_t<decltype(p_enum_value)>>(
     p_enum_value);

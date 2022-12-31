@@ -40,8 +40,7 @@ public:
    * @param p_callback - when the static callback function is called, it will
    * call this callback
    */
-  explicit static_callable(
-    std::function<return_t(args_t... p_args)> p_callback) noexcept
+  explicit static_callable(std::function<return_t(args_t... p_args)> p_callback)
   {
     callback = p_callback;
   }
@@ -51,7 +50,7 @@ public:
    *
    * @return auto* - static function's address
    */
-  [[nodiscard]] auto* get_handler() noexcept
+  [[nodiscard]] auto* get_handler()
   {
     return &handler;
   }
@@ -65,7 +64,7 @@ private:
    * @param p_args - list of arguments
    * @return return_t - the return type of the callback
    */
-  static return_t handler(args_t... p_args) noexcept
+  static return_t handler(args_t... p_args)
   {
     return callback(p_args...);
   }

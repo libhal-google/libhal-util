@@ -1,6 +1,6 @@
 [requires]
 boost-ext-ut/1.1.9
-libhal/0.2.2
+libhal/0.3.0
 
 [generators]
 CMakeToolchain

@@ -46,7 +46,7 @@ inline std::basic_ostream<CharT, Traits>& operator<<(
  * @return result<work_state> - state of the worker function
  */
 inline result<work_state> try_until(worker auto& p_worker,
-                                    timeout auto p_timeout) noexcept
+                                    timeout auto p_timeout)
 {
   while (true) {
     auto state = HAL_CHECK(p_worker());
@@ -67,7 +67,7 @@ inline result<work_state> try_until(worker auto& p_worker,
  * @return result<work_state> - state of the worker function
  */
 inline result<work_state> try_until(worker auto&& p_worker,
-                                    timeout auto p_timeout) noexcept
+                                    timeout auto p_timeout)
 {
   worker auto& worker = p_worker;
   return try_until(worker, p_timeout);

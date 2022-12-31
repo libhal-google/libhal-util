@@ -50,30 +50,28 @@ public:
    *
    * @param p_timeout - other steady_clock_timeout
    */
-  steady_clock_timeout(const steady_clock_timeout& p_timeout) noexcept =
-    default;
+  steady_clock_timeout(const steady_clock_timeout& p_timeout) = default;
   /**
    * @brief Assign construct a new counter timeout object
    *
    * @param p_timeout - other steady_clock_timeout
    * @return steady_clock_timeout&
    */
-  steady_clock_timeout& operator=(
-    const steady_clock_timeout& p_timeout) noexcept = default;
+  steady_clock_timeout& operator=(const steady_clock_timeout& p_timeout) =
+    default;
   /**
    * @brief Construct a new counter timeout object
    *
    * @param p_timeout - other steady_clock_timeout
    */
-  steady_clock_timeout(steady_clock_timeout&& p_timeout) noexcept = default;
+  steady_clock_timeout(steady_clock_timeout&& p_timeout) = default;
   /**
    * @brief Move assign construct a new counter timeout object
    *
    * @param p_timeout - other steady_clock_timeout
    * @return steady_clock_timeout&
    */
-  steady_clock_timeout& operator=(steady_clock_timeout&& p_timeout) noexcept =
-    default;
+  steady_clock_timeout& operator=(steady_clock_timeout&& p_timeout) = default;
 
   /**
    * @brief Call this object to check if it has timed out.
@@ -81,7 +79,7 @@ public:
    * @return status - success or failure
    * @throws std::errc::timed_out - if the timeout time has been exceeded.
    */
-  status operator()() noexcept
+  status operator()()
   {
     auto current_count = HAL_CHECK(m_counter->uptime());
 
@@ -100,7 +98,7 @@ private:
    * @param p_cycles_until_timeout - number of cycles until timeout
    */
   steady_clock_timeout(hal::steady_clock& p_steady_clock,
-                       std::uint64_t p_cycles_until_timeout) noexcept
+                       std::uint64_t p_cycles_until_timeout)
     : m_counter(&p_steady_clock)
     , m_cycles_until_timeout(p_cycles_until_timeout)
   {
@@ -140,7 +138,7 @@ inline result<steady_clock_timeout> create_timeout(
  * halted for.
  */
 [[nodiscard]] inline status delay(hal::steady_clock& p_steady_clock,
-                                  hal::time_duration p_duration) noexcept
+                                  hal::time_duration p_duration)
 {
   auto timeout_object = HAL_CHECK(create_timeout(p_steady_clock, p_duration));
   return hal::delay(timeout_object);

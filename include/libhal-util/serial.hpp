@@ -15,7 +15,7 @@
 namespace hal {
 
 [[nodiscard]] constexpr auto operator==(const serial::settings& p_lhs,
-                                        const serial::settings& p_rhs) noexcept
+                                        const serial::settings& p_rhs)
 {
   return equals(p_lhs.baud_rate, p_rhs.baud_rate) &&
          p_lhs.parity == p_rhs.parity && p_lhs.stop == p_rhs.stop;
@@ -30,7 +30,7 @@ namespace hal {
  */
 [[nodiscard]] inline result<serial::write_t> write_partial(
   serial& p_serial,
-  std::span<const hal::byte> p_data_out) noexcept
+  std::span<const hal::byte> p_data_out)
 {
   return p_serial.write(p_data_out);
 }
@@ -42,9 +42,8 @@ namespace hal {
  * @param p_data_out - the data to be written out the port
  * @return status - success or failure
  */
-[[nodiscard]] inline status write(
-  serial& p_serial,
-  std::span<const hal::byte> p_data_out) noexcept
+[[nodiscard]] inline status write(serial& p_serial,
+                                  std::span<const hal::byte> p_data_out)
 {
   auto remaining = p_data_out;
 
@@ -63,8 +62,7 @@ namespace hal {
  * @param p_data_out - chars to be written out the port
  * @return status - success or failure
  */
-[[nodiscard]] inline status write(serial& p_serial,
-                                  std::string_view p_data_out) noexcept
+[[nodiscard]] inline status write(serial& p_serial, std::string_view p_data_out)
 {
   return write(p_serial, as_bytes(p_data_out));
 }
@@ -81,10 +79,8 @@ namespace hal {
  * a span with the number of bytes read and a pointer to where the read bytes
  * are.
  */
-[[nodiscard]] inline result<std::span<hal::byte>> read(
-  serial& p_serial,
-  std::span<hal::byte> p_data_in,
-  timeout auto p_timeout) noexcept
+[[nodiscard]] inline result<std::span<hal::byte>>
+read(serial& p_serial, std::span<hal::byte> p_data_in, timeout auto p_timeout)
 {
   auto remaining = p_data_in;
 
@@ -115,7 +111,7 @@ namespace hal {
 template<size_t BytesToRead>
 [[nodiscard]] result<std::array<hal::byte, BytesToRead>> read(
   serial& p_serial,
-  timeout auto p_timeout) noexcept
+  timeout auto p_timeout)
 {
   std::array<hal::byte, BytesToRead> buffer;
   HAL_CHECK(read(p_serial, buffer, p_timeout));
@@ -140,7 +136,7 @@ template<size_t BytesToRead>
   serial& p_serial,
   std::span<const hal::byte> p_data_out,
   std::span<hal::byte> p_data_in,
-  timeout auto p_timeout) noexcept
+  timeout auto p_timeout)
 {
   HAL_CHECK(write_partial(p_serial, p_data_out));
   return read(p_serial, p_data_in, p_timeout);
@@ -165,7 +161,7 @@ template<size_t BytesToRead>
 [[nodiscard]] result<std::array<hal::byte, BytesToRead>> write_then_read(
   serial& p_serial,
   std::span<const hal::byte> p_data_out,
-  timeout auto p_timeout) noexcept
+  timeout auto p_timeout)
 {
   std::array<hal::byte, BytesToRead> buffer;
   HAL_CHECK(write_then_read(p_serial, p_data_out, buffer, p_timeout));

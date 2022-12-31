@@ -17,7 +17,7 @@ namespace hal {
  */
 template<size_t N>
 [[nodiscard]] constexpr std::array<char, N + 1> to_array(
-  std::string_view p_view) noexcept
+  std::string_view p_view)
 {
   const size_t min = std::min(N, p_view.size());
   std::array<char, N + 1> result;

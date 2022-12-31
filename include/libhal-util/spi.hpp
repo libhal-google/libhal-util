@@ -8,7 +8,7 @@
 
 namespace hal {
 [[nodiscard]] constexpr auto operator==(const spi::settings& p_lhs,
-                                        const spi::settings& p_rhs) noexcept
+                                        const spi::settings& p_rhs)
 {
   return p_lhs.clock_idles_high == p_rhs.clock_idles_high &&
          p_lhs.clock_rate == p_rhs.clock_rate &&
@@ -23,9 +23,8 @@ namespace hal {
  * @param p_data_out - data to be written to the SPI bus
  * @return status - success or failure
  */
-[[nodiscard]] inline status write(
-  spi& p_spi,
-  std::span<const hal::byte> p_data_out) noexcept
+[[nodiscard]] inline status write(spi& p_spi,
+                                  std::span<const hal::byte> p_data_out)
 {
   return p_spi.transfer(
     p_data_out, std::span<hal::byte>{}, spi::default_filler);
@@ -42,10 +41,9 @@ namespace hal {
  * data.
  * @return status - success or failure
  */
-[[nodiscard]] inline status read(
-  spi& p_spi,
-  std::span<hal::byte> p_data_in,
-  hal::byte p_filler = spi::default_filler) noexcept
+[[nodiscard]] inline status read(spi& p_spi,
+                                 std::span<hal::byte> p_data_in,
+                                 hal::byte p_filler = spi::default_filler)
 {
   return p_spi.transfer(std::span<hal::byte>{}, p_data_in, p_filler);
 }
@@ -64,7 +62,7 @@ namespace hal {
 template<size_t BytesToRead>
 [[nodiscard]] result<std::array<hal::byte, BytesToRead>> read(
   spi& p_spi,
-  hal::byte p_filler = spi::default_filler) noexcept
+  hal::byte p_filler = spi::default_filler)
 {
   std::array<hal::byte, BytesToRead> buffer;
   HAL_CHECK(p_spi.transfer(std::span<hal::byte>{}, buffer, p_filler));
@@ -94,7 +92,7 @@ template<size_t BytesToRead>
   spi& p_spi,
   std::span<const hal::byte> p_data_out,
   std::span<hal::byte> p_data_in,
-  hal::byte p_filler = spi::default_filler) noexcept
+  hal::byte p_filler = spi::default_filler)
 {
   HAL_CHECK(write(p_spi, p_data_out));
   HAL_CHECK(read(p_spi, p_data_in, p_filler));
@@ -117,7 +115,7 @@ template<size_t BytesToRead>
 [[nodiscard]] result<std::array<hal::byte, BytesToRead>> write_then_read(
   spi& p_spi,
   std::span<const hal::byte> p_data_out,
-  hal::byte p_filler = spi::default_filler) noexcept
+  hal::byte p_filler = spi::default_filler)
 {
   HAL_CHECK(write(p_spi, p_data_out));
   return read<BytesToRead>(p_spi, p_filler);

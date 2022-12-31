@@ -21,9 +21,8 @@ namespace hal {
  * @param p_duration - the amount of time to convert to cycles
  * @return std::int64_t - number of cycles
  */
-[[nodiscard]] constexpr std::int64_t cycles_per(
-  hertz p_source,
-  hal::time_duration p_duration) noexcept
+[[nodiscard]] constexpr std::int64_t cycles_per(hertz p_source,
+                                                hal::time_duration p_duration)
 {
   // Full Equation:
   //                              / ratio_num \_
@@ -96,7 +95,7 @@ constexpr float wavelength(hertz p_source)
  */
 [[nodiscard]] inline result<std::chrono::nanoseconds> duration_from_cycles(
   hertz p_source,
-  uint32_t p_cycles) noexcept
+  uint32_t p_cycles)
 {
   // Full Equation (based on the equation in cycles_per()):
   //

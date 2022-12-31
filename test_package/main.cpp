@@ -6,8 +6,7 @@
 class test_i2c : public hal::i2c
 {
 private:
-  hal::status driver_configure(
-    [[maybe_unused]] const settings& p_settings) noexcept
+  hal::status driver_configure([[maybe_unused]] const settings& p_settings)
   {
     return hal::success();
   }
@@ -15,7 +14,7 @@ private:
     [[maybe_unused]] hal::byte p_address,
     [[maybe_unused]] std::span<const hal::byte> p_data_out,
     std::span<hal::byte> p_data_in,
-    [[maybe_unused]] std::function<hal::timeout_function> p_timeout) noexcept
+    [[maybe_unused]] std::function<hal::timeout_function> p_timeout)
   {
     std::iota(p_data_in.begin(), p_data_in.end(), 5);
     return hal::success();
