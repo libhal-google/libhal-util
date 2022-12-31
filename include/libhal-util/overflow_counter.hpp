@@ -29,7 +29,7 @@ public:
    * @return constexpr uint64_t - 64-bit count combining the new count value and
    * the overflow count value.
    */
-  constexpr uint64_t update(uint32_t p_new_count) noexcept
+  constexpr uint64_t update(uint32_t p_new_count)
   {
     // Sanitize the new count value to make sure it does not exceed the
     // designated bit width. Without this check when the count is combined with
@@ -63,7 +63,7 @@ public:
    * @brief Reset the overflow count back to zero.
    *
    */
-  constexpr void reset() noexcept
+  constexpr void reset()
   {
     m_previous_count = 0;
     m_overflow_count = 0;

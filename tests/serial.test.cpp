@@ -19,13 +19,12 @@ void serial_util_test()
   class fake_serial : public hal::serial
   {
   public:
-    status driver_configure(const settings&) noexcept override
+    status driver_configure(const settings&) override
     {
       return {};
     }
 
-    result<write_t> driver_write(
-      std::span<const hal::byte> p_data) noexcept override
+    result<write_t> driver_write(std::span<const hal::byte> p_data) override
     {
       write_call_count++;
       if (p_data[0] == write_failure_byte) {
@@ -39,7 +38,7 @@ void serial_util_test()
       return write_t{ p_data };
     }
 
-    result<read_t> driver_read(std::span<hal::byte> p_data) noexcept override
+    result<read_t> driver_read(std::span<hal::byte> p_data) override
     {
       if (p_data.size() == 0) {
         return read_t{
@@ -65,7 +64,7 @@ void serial_util_test()
       };
     }
 
-    status driver_flush() noexcept override
+    status driver_flush() override
     {
       flush_called = true;
       return {};

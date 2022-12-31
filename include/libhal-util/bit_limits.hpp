@@ -13,7 +13,7 @@ namespace hal {
  * @return consteval uint32_t - mask with 1s at the LSB
  */
 template<size_t BitWidth, std::integral T>
-[[nodiscard]] consteval T generate_field_of_ones() noexcept
+[[nodiscard]] consteval T generate_field_of_ones()
 {
   T result = 0;
   for (size_t i = 0; i < BitWidth; i++) {
@@ -48,7 +48,7 @@ struct bit_limits
    *
    * @return constexpr int_t maximum value
    */
-  [[nodiscard]] static constexpr int_t max() noexcept
+  [[nodiscard]] static constexpr int_t max()
   {
     if constexpr (std::is_signed_v<int_t>) {
       int_t max = generate_field_of_ones<BitWidth, int_t>();
@@ -69,7 +69,7 @@ struct bit_limits
    *
    * @return constexpr int_t minimum value
    */
-  [[nodiscard]] static constexpr int_t min() noexcept
+  [[nodiscard]] static constexpr int_t min()
   {
     if constexpr (BitWidth == 64) {
       return std::numeric_limits<int_t>::min();

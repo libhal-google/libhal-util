@@ -21,12 +21,12 @@ void steady_clock_utility_test()
     bool will_fail = false;
 
   private:
-    hertz driver_frequency() noexcept override
+    hertz driver_frequency() override
     {
       return expected_frequency;
     }
 
-    result<std::uint64_t> driver_uptime() noexcept override
+    result<std::uint64_t> driver_uptime() override
     {
       if (will_fail) {
         return new_error();

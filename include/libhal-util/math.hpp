@@ -23,7 +23,7 @@ namespace hal {
  * `std::errc::result_out_of_range`
  */
 template<typename T>
-[[nodiscard]] result<T> multiply(T p_lhs, T p_rhs) noexcept
+[[nodiscard]] result<T> multiply(T p_lhs, T p_rhs)
 {
   if (p_lhs == 0 || p_rhs == 0) {
     return T{ 0 };
@@ -56,7 +56,7 @@ template<typename T>
  * @return constexpr auto - positive representation of the integer
  */
 template<typename T>
-[[nodiscard]] constexpr T absolute_value(T p_value) noexcept
+[[nodiscard]] constexpr T absolute_value(T p_value)
 {
   if constexpr (std::is_unsigned_v<T>) {
     return p_value;
@@ -82,8 +82,7 @@ template<typename T>
  * Returns 0 if the denominator is greater than the numerator.
  */
 template<typename T>
-[[nodiscard]] constexpr T rounding_division(T p_numerator,
-                                            T p_denominator) noexcept
+[[nodiscard]] constexpr T rounding_division(T p_numerator, T p_denominator)
 {
   bool num_sign = p_numerator >= 0;
   bool den_sign = p_denominator >= 0;
@@ -121,7 +120,7 @@ template<typename T>
  * points.
  */
 template<typename T>
-[[nodiscard]] constexpr T distance(T p_left, T p_right) noexcept
+[[nodiscard]] constexpr T distance(T p_left, T p_right)
 {
   if (p_right > p_left) {
     return p_right - p_left;
@@ -143,8 +142,7 @@ template<typename T>
  * points.
  */
 template<std::integral T>
-[[nodiscard]] constexpr std::make_unsigned_t<T> distance(T p_left,
-                                                         T p_right) noexcept
+[[nodiscard]] constexpr std::make_unsigned_t<T> distance(T p_left, T p_right)
 {
   static_assert(sizeof(T) <= sizeof(int32_t));
 

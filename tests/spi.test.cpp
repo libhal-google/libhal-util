@@ -14,13 +14,13 @@ void spi_util_test()
   class dummy : public hal::spi
   {
   public:
-    [[nodiscard]] status driver_configure(const settings&) noexcept override
+    [[nodiscard]] status driver_configure(const settings&) override
     {
       return {};
     }
     [[nodiscard]] status driver_transfer(std::span<const hal::byte> p_out,
                                          std::span<hal::byte> p_in,
-                                         hal::byte p_filler) noexcept override
+                                         hal::byte p_filler) override
     {
       if (!p_out.empty()) {
         m_out = p_out;
