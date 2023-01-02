@@ -1,9 +1,9 @@
 #pragma once
 
 #include <cmath>
-#include <functional>
 #include <optional>
 
+#include <libhal/alias.hpp>
 #include <libhal/can.hpp>
 
 #include "comparison.hpp"
@@ -119,7 +119,7 @@ public:
   static constexpr auto noop =
     []([[maybe_unused]] const can::message_t& p_message) {};
 
-  using message_handler = std::function<hal::can::handler>;
+  using message_handler = hal::function_ref<hal::can::handler>;
 
   struct route
   {
@@ -182,10 +182,10 @@ public:
   [[nodiscard]] auto add_message_callback(hal::can::id_t p_id,
                                           message_handler p_handler)
   {
-    return m_handlers.push_back(route{
-      .id = p_id,
-      .handler = p_handler,
-    });
+    route new_route;
+    new_route.id = p_id;
+    new_route.handler.swap(p_handler);
+    return m_handlers.push_back(new_route);
   }
 
   /**

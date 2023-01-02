@@ -32,7 +32,7 @@ void i2c_util_test()
       hal::byte p_address,
       std::span<const hal::byte> p_out,
       std::span<hal::byte> p_in,
-      std::function<hal::timeout_function> p_timeout) override
+      hal::function_ref<hal::timeout_function> p_timeout) override
     {
       m_address = p_address;
       m_out = p_out;

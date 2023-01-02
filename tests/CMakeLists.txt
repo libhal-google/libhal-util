@@ -63,13 +63,15 @@ target_compile_options(${PROJECT_NAME} PRIVATE
   -Wnon-virtual-dtor
   -Wno-gnu-statement-expression
   -pedantic
-  -Wno-unneeded-internal-declaration)
+  -Wno-unneeded-internal-declaration
+  -fsanitize=address)
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_20)
 set_target_properties(${PROJECT_NAME} PROPERTIES CXX_EXTENSIONS OFF)
 target_link_options(${PROJECT_NAME} PRIVATE
   --coverage
   -fprofile-arcs
-  -ftest-coverage)
+  -ftest-coverage
+  -fsanitize=address)
 target_link_libraries(${PROJECT_NAME} PRIVATE
   Boost::ut
   libhal::libhal)
