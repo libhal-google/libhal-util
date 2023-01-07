@@ -1,6 +1,6 @@
 #pragma once
 
-#include <functional>
+#include <libhal/functional.hpp>
 
 namespace hal {
 /**
@@ -40,7 +40,7 @@ public:
    * @param p_callback - when the static callback function is called, it will
    * call this callback
    */
-  explicit static_callable(std::function<return_t(args_t... p_args)> p_callback)
+  explicit static_callable(hal::callback<return_t(args_t... p_args)> p_callback)
   {
     callback = p_callback;
   }
@@ -73,6 +73,6 @@ private:
    * @brief the polymorphic callback to be
    *
    */
-  inline static std::function<return_t(args_t... p_args)> callback;
+  inline static hal::callback<return_t(args_t... p_args)> callback;
 };
 }  // namespace hal

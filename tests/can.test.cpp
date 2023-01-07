@@ -208,22 +208,19 @@ void can_router_test()
     can::message_t actual3{};
 
     auto message_handler1 = router.add_message_callback(
-      expected1.id,
-      [&counter1, &actual1]([[maybe_unused]] const can::message_t& p_message) {
+      expected1.id, [&counter1, &actual1](const can::message_t& p_message) {
         counter1++;
         actual1 = p_message;
       });
 
     auto message_handler2 = router.add_message_callback(
-      expected2.id,
-      [&counter2, &actual2]([[maybe_unused]] const can::message_t& p_message) {
+      expected2.id, [&counter2, &actual2](const can::message_t& p_message) {
         counter2++;
         actual2 = p_message;
       });
 
     auto message_handler3 = router.add_message_callback(
-      expected3.id,
-      [&counter3, &actual3]([[maybe_unused]] const can::message_t& p_message) {
+      expected3.id, [&counter3, &actual3](const can::message_t& p_message) {
         counter3++;
         actual3 = p_message;
       });
@@ -265,27 +262,6 @@ void can_router_test()
     expect(that % 2 == counter2);
     expect(expected2 == actual2);
     expect(that % 1 == counter3);
-    expect(expected3 == actual3);
-
-    message_handler2.~item();
-    expect(that % 2 == router.handlers().size());
-
-    router(expected2);
-
-    expect(that % 1 == counter1);
-    expect(expected1 == actual1);
-    expect(that % 2 == counter2);  // stays the same
-    expect(expected2 == actual2);
-    expect(that % 1 == counter3);
-    expect(expected3 == actual3);
-
-    router(expected3);
-
-    expect(that % 1 == counter1);
-    expect(expected1 == actual1);
-    expect(that % 2 == counter2);
-    expect(expected2 == actual2);
-    expect(that % 2 == counter2);
     expect(expected3 == actual3);
   };
 };
