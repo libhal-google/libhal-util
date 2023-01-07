@@ -465,13 +465,13 @@ void multi_stream_test()
 
     [[maybe_unused]] auto remaining = input_data | find_end_of_header;
 
+    /*
     if (hal::terminated(find_end_of_header.state())) {
       hal::stream::fill fill_buffer(find_end_of_header.unfilled(),
                                     parse_body_length.value());
       remaining = remaining | fill_buffer;
     }
 
-    /*
     printf("[Content-Length]: %u, %d\n",
            static_cast<int>(parse_body_length.value()),
            static_cast<int>(response_buffer.size() - remaining.size()));

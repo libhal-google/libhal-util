@@ -119,7 +119,7 @@ public:
   static constexpr auto noop =
     []([[maybe_unused]] const can::message_t& p_message) {};
 
-  using message_handler = std::function<hal::can::handler>;
+  using message_handler = hal::callback<hal::can::handler>;
 
   struct route
   {
