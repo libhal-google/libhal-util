@@ -141,6 +141,13 @@ public:
   can_router& operator=(can_router& p_other_self) = delete;
   can_router(can_router&& p_other_self) = default;
   can_router& operator=(can_router&& p_other_self) = default;
+  ~can_router()
+  {
+    // Assume that if this succeeded in the create factory function, that it
+    // will work this time
+    (void)m_can->on_receive(
+      []([[maybe_unused]] const can::message_t& p_message) {});
+  }
 
   /**
    * @brief Get a reference to the can peripheral driver

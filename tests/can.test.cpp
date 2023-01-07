@@ -2,6 +2,8 @@
 
 #include <algorithm>
 
+#include <libhal/functional.hpp>
+
 #include <boost/ut.hpp>
 
 namespace hal {
@@ -33,7 +35,7 @@ private:
     return success();
   };
 
-  status driver_on_receive(std::function<handler> p_handler) override
+  status driver_on_receive(hal::callback<handler> p_handler) override
   {
     m_handler = p_handler;
     if (m_return_error_status) {
