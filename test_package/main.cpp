@@ -10,6 +10,7 @@ private:
   {
     return hal::success();
   }
+
   hal::status driver_transaction(
     [[maybe_unused]] hal::byte p_address,
     [[maybe_unused]] std::span<const hal::byte> p_data_out,
