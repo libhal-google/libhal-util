@@ -16,15 +16,14 @@ embedded resources.
 
 <div align="center">
 
-[![docs](https://github.com/libhal/libhal-util/actions/workflows/docs.yml/badge.svg?branch=main)](https://github.com/libhal/libhal-util/actions/workflows/docs.yml)
-[![lint](https://github.com/libhal/libhal-util/actions/workflows/lint.yml/badge.svg?branch=main)](https://github.com/libhal/libhal-util/actions/workflows/lint.yml)
-[![tests](https://github.com/libhal/libhal-util/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/libhal/libhal-util/actions/workflows/tests.yml)
-[![GitHub stars](https://img.shields.io/github/stars/libhal/libhal.svg)](https://github.com/libhal/libhal/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/libhal/libhal.svg)](https://github.com/libhal/libhal/network)
-[![GitHub issues](https://img.shields.io/github/issues/libhal/libhal.svg)](https://github.com/libhal/libhal/issues)
-[![codecov](https://codecov.io/gh/libhal/libhal/branch/master/graph/badge.svg?token=E7aAr2o1CT)](https://codecov.io/gh/libhal/libhal)
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/b084e6d5962d49a9afcb275d62cd6586)](https://www.codacy.com/gh/libhal/libhal/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=libhal/libhal&amp;utm_campaign=Badge_Grade)
-[![Discord](https://img.shields.io/discord/800515757871726622?color=7389D8&logo=discord&logoColor=ffffff&labelColor=6A7EC2)](https://discord.gg/p5A6vzv8tm)
+[![✅CI](https://github.com/libhal/libhal-util/actions/workflows/ci.yml/badge.svg)](https://github.com/libhal/libhal-util/actions/workflows/ci.yml)
+[![coverage](https://libhal.github.io/libhal-util/coverage/coverage.svg)](https://libhal.github.io/libhal-util/coverage/)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/b084e6d5962d49a9afcb275d62cd6586)](https://www.codacy.com/gh/libhal/libhal-util/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=libhal/libhal-util&amp;utm_campaign=Badge_Grade)
+[![GitHub stars](https://img.shields.io/github/stars/libhal/libhal-util.svg)](https://github.com/libhal/libhal-util/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/libhal/libhal-util.svg)](https://github.com/libhal/libhal-util/network)
+[![GitHub issues](https://img.shields.io/github/issues/libhal/libhal-util.svg)](https://github.com/libhal/libhal-util/issues)
+[![Latest Version](https://libhal.github.io/libhal-util/latest_version.svg)](https://github.com/libhal/libhal-util/blob/main/conanfile.py)
+[![ConanCenter Version](https://repology.org/badge/version-for-repo/conancenter/libhal-util.svg)](https://conan.io/center/libhal-util)
 
 [Install](#-install)
 | [Overview](#ℹ%EF%B8%8F-overview)
