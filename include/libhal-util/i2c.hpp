@@ -6,6 +6,7 @@
 #include <libhal/i2c.hpp>
 #include <libhal/units.hpp>
 
+#include "enum.hpp"
 #include "math.hpp"
 
 namespace hal {
@@ -140,4 +141,27 @@ template<size_t BytesToRead>
 
   return p_i2c.transaction(p_address, std::span<hal::byte>{}, data_in, timeout);
 }
+
+enum class i2c_operation
+{
+  write = 0,
+  read = 1,
+};
+
+/**
+ * @brief Convert 7-bit i2c address to an 8-bit address
+ *
+ * @param p_address 7-bit i2c address
+ * @param p_operation write or read operation
+ * @return hal::byte - 8-bit i2c address
+ */
+[[nodiscard]] inline hal::byte to_8_bit_address(
+  hal::byte p_address,
+  i2c_operation p_operation) noexcept
+{
+  hal::byte v8bit_address = static_cast<hal::byte>(p_address << 1);
+  v8bit_address |= hal::value(p_operation);
+  return v8bit_address;
+}
+
 }  // namespace hal
