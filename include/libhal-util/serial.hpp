@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cstdio>
 #include <span>
 #include <string_view>
 
@@ -166,5 +167,57 @@ template<size_t BytesToRead>
   std::array<hal::byte, BytesToRead> buffer;
   HAL_CHECK(write_then_read(p_serial, p_data_out, buffer, p_timeout));
   return buffer;
+}
+
+/**
+ * @brief Write data to serial buffer and drop return value
+ *
+ * Only use this with serial ports with infallible write operations, meaning
+ * they will never return an error result.
+ *
+ * @tparam DataArray - data array type
+ * @param p_serial - serial port to write data to
+ * @param p_data - data to be sent over the serial port
+ */
+template<typename DataArray>
+void print(serial& p_serial, DataArray&& p_data)
+{
+  (void)hal::write(p_serial, p_data);
+}
+
+/**
+ * @brief Write formatted string data to serial buffer and drop return value
+ *
+ * Uses snprintf internally and writes to a local statically allocated an array.
+ * This function will never dynamically allocate like how standard std::printf
+ * does.
+ *
+ * This function does NOT include the NULL character when transmitting the data
+ * over the serial port.
+ *
+ * @tparam BufferSize - Size of the buffer to allocate on the stack to store the
+ * formatted message.
+ * @tparam Parameters - printf arguments
+ * @param p_serial - serial port to write data to
+ * @param p_format - printf style null terminated format string
+ * @param p_parameters - printf arguments
+ */
+template<size_t BufferSize, typename... Parameters>
+void print(serial& p_serial, const char* p_format, Parameters... p_parameters)
+{
+  static_assert(BufferSize > 2);
+
+  std::array<char, BufferSize> buffer{};
+  constexpr int unterminated_max_string_size = static_cast<int>(BufferSize) - 1;
+
+  int length =
+    std::snprintf(buffer.data(), buffer.size(), p_format, p_parameters...);
+
+  if (length > unterminated_max_string_size) {
+    // Print out what was able to be written to the buffer
+    length = unterminated_max_string_size;
+  }
+
+  (void)hal::write(p_serial, std::string_view(buffer.data(), length));
 }
 }  // namespace hal

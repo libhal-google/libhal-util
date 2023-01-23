@@ -351,23 +351,97 @@ void serial_util_test()
       expect(that % nullptr == serial.m_out.data());
       expect(that % 0 == serial.m_out.size());
     };
+  };
 
-    "[failure read] write_then_read<Length>"_test = []() {
+  struct save_serial_write : public hal::serial
+  {
+    status driver_configure(const settings&) override
+    {
+      return {};
+    }
+
+    result<write_t> driver_write(std::span<const hal::byte> p_data) override
+    {
+      m_out.assign(p_data.begin(), p_data.end());
+      return write_t{ p_data };
+    }
+
+    result<read_t> driver_read(std::span<hal::byte>) override
+    {
+      return hal::new_error();
+    }
+
+    status driver_flush() override
+    {
+      return hal::success();
+    }
+
+    virtual ~save_serial_write()
+    {
+    }
+
+    std::vector<hal::byte> m_out{};
+  };
+
+  "print()"_test = []() {
+    "print()"_test = []() {
       // Setup
-      fake_serial serial;
-      const std::array<hal::byte, 4> expected_payload{};
-      serial.read_fails = true;
+      save_serial_write serial;
+      const std::string_view expected_payload = "hello, world!";
 
       // Exercise
-      auto result =
-        write_then_read<5>(serial, expected_payload, never_timeout());
+      print(serial, expected_payload);
 
       // Verify
-      expect(!result.has_value());
-      expect(!serial.flush_called);
-      expect(that % serial.read_was_called);
-      expect(that % expected_payload.data() == serial.m_out.data());
-      expect(that % expected_payload.size() == serial.m_out.size());
+      expect(
+        that % expected_payload ==
+        std::string_view(reinterpret_cast<const char*>(serial.m_out.data()),
+                         serial.m_out.size()));
+    };
+
+    "[printf style 1] print()"_test = []() {
+      // Setup
+      save_serial_write serial;
+      const std::string_view expected_payload = "hello 5";
+
+      // Exercise
+      print<128>(serial, "hello %d", 5);
+
+      // Verify
+      expect(
+        that % expected_payload ==
+        std::string_view(reinterpret_cast<const char*>(serial.m_out.data()),
+                         serial.m_out.size()));
+    };
+
+    "[printf style 2] print()"_test = []() {
+      // Setup
+      save_serial_write serial;
+      const std::string_view expected_payload = "hello 5 0xABCDEF";
+
+      // Exercise
+      print<128>(serial, "hello %d 0x%06X", 5, 0xABCDEF);
+
+      // Verify
+      expect(
+        that % expected_payload ==
+        std::string_view(reinterpret_cast<const char*>(serial.m_out.data()),
+                         serial.m_out.size()));
+    };
+
+    "[printf style 3 trimmed] print()"_test = []() {
+      // Setup
+      save_serial_write serial;
+      const std::string_view expected_payload = "hello 5\0";
+
+      // Exercise
+      print<8>(serial, "hello %d 0x%06X", 5, 0xABCDEF);
+
+      // Verify
+      expect(
+        that % expected_payload ==
+        std::string_view(reinterpret_cast<const char*>(serial.m_out.data()),
+                         serial.m_out.size()));
     };
   };
 };
