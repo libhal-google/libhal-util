@@ -1,14 +1,3 @@
-<div align="center">
-<img height="250" src="logo.png">
-<br />
-<br />
-
-```
-🚚 portable 🦾 flexible 📦 accessible 🍰 easy to use
-```
-<br />
-</div>
-
 # libhal-util
 
 libhal utility functions, interface wrappers, and types to help manage usage of
@@ -25,16 +14,6 @@ embedded resources.
 [![Latest Version](https://libhal.github.io/libhal-util/latest_version.svg)](https://github.com/libhal/libhal-util/blob/main/conanfile.py)
 [![ConanCenter Version](https://repology.org/badge/version-for-repo/conancenter/libhal-util.svg)](https://conan.io/center/libhal-util)
 
-[Install](#-install)
-| [Overview](#ℹ%EF%B8%8F-overview)
-| [Glossary](#-glossary)
-| [Usage](#%EF%B8%8F-usage)
-| [Badges](#-library-badges)
-| [Standards](#-library-standards)
-| [Libraries](#-libraries)
-| [Motivation](#-motivation)
-| [Contributing](#-contributing)
-
 </div>
 
-# [📚 Software APIs](https://libhal.github.io/libhal/api)
+# [📚 Software APIs](https://libhal.github.io/libhal-util/api)
