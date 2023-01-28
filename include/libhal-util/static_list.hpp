@@ -287,8 +287,29 @@ public:
 
   constexpr static_list& operator=(static_list& p_other) = delete;
   constexpr static_list(static_list& p_other) = delete;
-  constexpr static_list& operator=(static_list&& p_other) = default;
-  constexpr static_list(static_list&& p_other) = default;
+  constexpr static_list& operator=(static_list&& p_other)
+  {
+    m_head = p_other.m_head;
+    m_tail = p_other.m_tail;
+    m_size = p_other.m_size;
+
+    // Set all fields to NULL to indicate to the destructor that this list
+    // should not go through the destructor sequence.
+    p_other.m_head = nullptr;
+    p_other.m_tail = nullptr;
+    p_other.m_size = 0;
+
+    for (auto element = begin(); element != end(); element++) {
+      element.m_self->m_list = this;
+    }
+
+    return *this;
+  }
+
+  constexpr static_list(static_list&& p_other)
+  {
+    *this = std::move(p_other);
+  }
 
   /**
    * @brief Add default constructed item to the end of the list
@@ -376,8 +397,8 @@ public:
       return;
     }
 
-    for (auto start = begin(); start != end(); start++) {
-      start.m_self->m_list = nullptr;
+    for (auto element = begin(); element != end(); element++) {
+      element.m_self->m_list = nullptr;
     }
   }
 

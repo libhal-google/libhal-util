@@ -349,5 +349,33 @@ void static_list_test()
     expect(that % nullptr == array_of_items[3].list());
     expect(that % nullptr == array_of_items[4].list());
   };
+
+  "static_list::static_list(&&) moved object doesn't destruct"_test = []() {
+    // Setup
+    static_list<int> new_list;
+    static_list<int> original_list;
+
+    auto array_of_items_0 = original_list.push_back();
+    auto array_of_items_1 = original_list.push_back();
+    auto array_of_items_2 = original_list.push_back();
+    auto array_of_items_3 = original_list.push_back();
+    auto array_of_items_4 = original_list.push_back();
+
+    expect(that % &original_list == array_of_items_0.list());
+    expect(that % &original_list == array_of_items_1.list());
+    expect(that % &original_list == array_of_items_2.list());
+    expect(that % &original_list == array_of_items_3.list());
+    expect(that % &original_list == array_of_items_4.list());
+
+    // Exercise
+    new_list = std::move(original_list);
+
+    // Verify
+    expect(that % &new_list == array_of_items_0.list());
+    expect(that % &new_list == array_of_items_1.list());
+    expect(that % &new_list == array_of_items_2.list());
+    expect(that % &new_list == array_of_items_3.list());
+    expect(that % &new_list == array_of_items_4.list());
+  };
 };
 }  // namespace hal

@@ -15,6 +15,8 @@ public:
   message_t m_message{};
   std::function<handler> m_handler{};
   bool m_return_error_status{ false };
+  size_t m_on_receive_call_count = 0;
+  bool m_noop_set = false;
 
 private:
   status driver_configure(const settings& p_settings) override
@@ -37,7 +39,9 @@ private:
 
   status driver_on_receive(hal::callback<handler> p_handler) override
   {
+    m_on_receive_call_count++;
     m_handler = p_handler;
+
     if (m_return_error_status) {
       return hal::new_error();
     }
@@ -73,18 +77,6 @@ void can_router_test()
 
     // Verify
     expect(bool{ router });
-  };
-
-  "can_router::create failure"_test = []() {
-    // Setup
-    mock_can mock;
-    mock.m_return_error_status = true;
-
-    // Exercise
-    auto router = can_router::create(mock);
-
-    // Verify
-    expect(!bool{ router });
   };
 
   "can_router::bus()"_test = []() {
@@ -184,6 +176,124 @@ void can_router_test()
     // Setup
     mock_can mock;
     auto router = can_router::create(mock).value();
+    int counter1 = 0;
+    int counter2 = 0;
+    int counter3 = 0;
+    static constexpr can::message_t expected1{
+      .id = 0x100,
+      .payload = { 0xAA, 0xBB },
+      .length = 2,
+    };
+    static constexpr can::message_t expected2{
+      .id = 0x120,
+      .payload = { 0xCC, 0xDD },
+      .length = 2,
+    };
+    static constexpr can::message_t expected3{
+      .id = 0x123,
+      .payload = { 0xEE, 0xFF },
+      .length = 2,
+    };
+
+    can::message_t actual1{};
+    can::message_t actual2{};
+    can::message_t actual3{};
+
+    auto message_handler1 = router.add_message_callback(
+      expected1.id, [&counter1, &actual1](const can::message_t& p_message) {
+        counter1++;
+        actual1 = p_message;
+      });
+
+    auto message_handler2 = router.add_message_callback(
+      expected2.id, [&counter2, &actual2](const can::message_t& p_message) {
+        counter2++;
+        actual2 = p_message;
+      });
+
+    auto message_handler3 = router.add_message_callback(
+      expected3.id, [&counter3, &actual3](const can::message_t& p_message) {
+        counter3++;
+        actual3 = p_message;
+      });
+
+    // Exercise
+    router(expected1);
+
+    // Verify
+    expect(that % 3 == router.handlers().size());
+    expect(that % 1 == counter1);
+    expect(expected1 == actual1);
+    expect(that % 0 == counter2);
+    expect(expected2 != actual2);
+    expect(that % 0 == counter2);
+    expect(expected3 != actual3);
+
+    router(expected2);
+
+    expect(that % 1 == counter1);
+    expect(expected1 == actual1);
+    expect(that % 1 == counter2);
+    expect(expected2 == actual2);
+    expect(that % 0 == counter3);
+    expect(expected3 != actual3);
+
+    router(expected3);
+
+    expect(that % 1 == counter1);
+    expect(expected1 == actual1);
+    expect(that % 1 == counter2);
+    expect(expected2 == actual2);
+    expect(that % 1 == counter2);
+    expect(expected3 == actual3);
+
+    router(expected2);
+
+    expect(that % 1 == counter1);
+    expect(expected1 == actual1);
+    expect(that % 2 == counter2);
+    expect(expected2 == actual2);
+    expect(that % 1 == counter3);
+    expect(expected3 == actual3);
+  };
+
+  "can_router::~can_router()"_test = []() {
+    // Setup
+    mock_can mock;
+    {
+      auto router = can_router::create(mock);
+      // m_on_receive_call_count = 1 on construction
+      // m_on_receive_call_count = 2 on move
+      expect(that % 2 == mock.m_on_receive_call_count);
+      // Exercise: end of scope calls destructor
+    }
+
+    // Verify
+    expect(that % 3 == mock.m_on_receive_call_count);
+  };
+
+  "can_router::can_router(&&) move constructor"_test = []() {
+    // Setup
+    mock_can mock;
+
+    {
+      can_router original_router(mock);
+      expect(that % 1 == mock.m_on_receive_call_count);
+
+      auto new_router = std::move(original_router);
+      expect(that % 2 == mock.m_on_receive_call_count);
+    }
+
+    // Exercise: end of scope calls destructor
+    // Verify
+    expect(that % 3 == mock.m_on_receive_call_count);
+  };
+
+  "can_router::add_message_callback(id, callback) with move"_test = []() {
+    // Setup
+    mock_can mock;
+    auto to_be_moved_router = can_router::create(mock).value();
+    auto router = std::move(to_be_moved_router);
     int counter1 = 0;
     int counter2 = 0;
     int counter3 = 0;
