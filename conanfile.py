@@ -9,9 +9,9 @@ import os
 required_conan_version = ">=1.50.0"
 
 
-class LibHALConan(ConanFile):
+class LibhalUtilConan(ConanFile):
     name = "libhal-util"
-    version = "0.3.7"
+    version = "0.3.8"
     license = "Apache-2.0"
     url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://libhal.github.io/libhal"

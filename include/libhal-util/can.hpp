@@ -8,7 +8,6 @@
 
 #include "comparison.hpp"
 #include "math.hpp"
-#include "move_interceptor.hpp"
 #include "static_callable.hpp"
 #include "static_list.hpp"
 
@@ -111,11 +110,9 @@ namespace hal {
  * @brief Route CAN messages received on the can bus to callbacks based on ID.
  *
  */
-class can_router : public move_interceptor<can_router>
+class can_router
 {
 public:
-  friend class move_interceptor<can_router>;
-
   static constexpr auto noop =
     []([[maybe_unused]] const can::message_t& p_message) {};
 
@@ -132,21 +129,45 @@ public:
   static result<can_router> create(hal::can& p_can)
   {
     can_router new_can_router(p_can);
-    HAL_CHECK(p_can.on_receive(std::ref(new_can_router)));
     return new_can_router;
   }
 
+  /**
+   * @brief Construct a new can message router
+   *
+   * @param p_can - can peripheral to route messages for
+   */
+  explicit can_router(hal::can& p_can)
+    : m_can(&p_can)
+  {
+    (void)m_can->on_receive(std::ref((*this)));
+  }
+
   can_router() = delete;
-  can_router(can_router& p_other_self) = delete;
-  can_router& operator=(can_router& p_other_self) = delete;
-  can_router(can_router&& p_other_self) = default;
-  can_router& operator=(can_router&& p_other_self) = default;
+  can_router(can_router& p_other) = delete;
+  can_router& operator=(can_router& p_other) = delete;
+  can_router& operator=(can_router&& p_other)
+  {
+    m_handlers = std::move(p_other.m_handlers);
+    m_can = std::move(p_other.m_can);
+    (void)m_can->on_receive(std::ref(*this));
+
+    p_other.m_can = nullptr;
+    return *this;
+  }
+
+  can_router(can_router&& p_other)
+  {
+    *this = std::move(p_other);
+  }
+
   ~can_router()
   {
-    // Assume that if this succeeded in the create factory function, that it
-    // will work this time
-    (void)m_can->on_receive(
-      []([[maybe_unused]] const can::message_t& p_message) {});
+    if (m_can) {
+      // Assume that if this succeeded in the create factory function, that it
+      // will work this time
+      (void)m_can->on_receive(noop);
+    }
   }
 
   /**
@@ -227,30 +248,7 @@ public:
   }
 
 private:
-  /**
-   * @brief Update the callback location if this object is moved
-   *
-   * @param p_old_self - the old version of the can_router
-   */
-  void intercept(can_router* p_old_self)
-  {
-    // Assume that if this succeeded in the create factory function, that it
-    // will work this time
-    (void)p_old_self->m_can->on_receive(std::ref(*this));
-  }
-
-  /**
-   * @brief Construct a new can message router
-   *
-   * @param p_can - can peripheral to route messages for
-   * @param p_memory_resource - memory resource used for storing callbacks
-   */
-  explicit can_router(hal::can& p_can)
-    : m_can(&p_can)
-  {
-  }
-
-  static_list<route> m_handlers;
-  hal::can* m_can;
+  static_list<route> m_handlers{};
+  hal::can* m_can = nullptr;
 };
 }  // namespace hal

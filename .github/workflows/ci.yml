@@ -10,7 +10,7 @@ on:
     - cron: '0 12 * * 0'
 
 jobs:
-  lint:
+  ci:
     uses: libhal/libhal/.github/workflows/checks.yml@main
     with:
       library: libhal-util
