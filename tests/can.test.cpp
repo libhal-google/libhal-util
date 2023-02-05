@@ -37,15 +37,10 @@ private:
     return success();
   };
 
-  status driver_on_receive(hal::callback<handler> p_handler) override
+  void driver_on_receive(hal::callback<handler> p_handler) override
   {
     m_on_receive_call_count++;
     m_handler = p_handler;
-
-    if (m_return_error_status) {
-      return hal::new_error();
-    }
-    return success();
   };
 };
 }  // namespace

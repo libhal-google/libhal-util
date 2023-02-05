@@ -15,7 +15,7 @@ mkdir -p build
 cd build
 
 # Install conan packages (Boost.UT)
-conan install .. -s build_type=Debug -r=libhal-trunk --update
+conan install .. -s build_type=Debug
 # Generate build files
 cmake ..
 # Build program

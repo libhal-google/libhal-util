@@ -11,7 +11,7 @@ required_conan_version = ">=1.50.0"
 
 class LibhalUtilConan(ConanFile):
     name = "libhal-util"
-    version = "0.3.8"
+    version = "0.3.9"
     license = "Apache-2.0"
     url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://libhal.github.io/libhal"
@@ -59,7 +59,7 @@ class LibhalUtilConan(ConanFile):
         basic_layout(self)
 
     def requirements(self):
-        self.requires("libhal/0.3.3@")
+        self.requires("libhal/0.3.5")
 
     def package(self):
         copy(self, "LICENSE", dst=os.path.join(
