@@ -324,5 +324,29 @@ void i2c_util_test()
     expect(that % 0 == i2c.m_out.size());
     expect(that % nullptr == i2c.m_out.data());
   };
+
+  "Use all APIs without timeout parameter"_test = []() {
+    // Setup
+    test_i2c i2c;
+
+    const std::array<hal::byte, 4> write_data{};
+    std::array<hal::byte, 4> read_data{};
+
+    // Exercise
+    auto result_write = write(i2c, successful_address, write_data);
+    auto result_read = read(i2c, successful_address, read_data);
+    auto result_wr =
+      write_then_read(i2c, successful_address, write_data, read_data);
+    auto result_read_buffer = read<2>(i2c, successful_address);
+    auto result_wr_buffer =
+      write_then_read<2>(i2c, successful_address, write_data);
+
+    // Verify
+    expect(bool{ result_read });
+    expect(bool{ result_write });
+    expect(bool{ result_wr });
+    expect(bool{ result_read_buffer });
+    expect(bool{ result_wr_buffer });
+  };
 };
 }  // namespace hal

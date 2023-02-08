@@ -30,11 +30,30 @@ namespace hal {
 [[nodiscard]] inline status write(i2c& p_i2c,
                                   hal::byte p_address,
                                   std::span<const hal::byte> p_data_out,
-                                  timeout auto p_timeout = hal::never_timeout())
+                                  timeout auto p_timeout)
 {
   return p_i2c.transaction(
     p_address, p_data_out, std::span<hal::byte>{}, p_timeout);
 }
+
+/**
+ * @brief write data to a target device on the i2c bus
+ *
+ * Shorthand for writing i2c.transfer(...) for write only operations, but never
+ * times out. Can be used for devices that never perform clock stretching.
+ *
+ * @param p_i2c - i2c driver
+ * @param p_address - target address
+ * @param p_data_out - buffer of bytes to write to the target device
+ * @return status - success or failure
+ */
+[[nodiscard]] inline status write(i2c& p_i2c,
+                                  hal::byte p_address,
+                                  std::span<const hal::byte> p_data_out)
+{
+  return write(p_i2c, p_address, p_data_out, hal::never_timeout());
+}
+
 /**
  * @brief read bytes from target device on i2c bus
  *
@@ -49,11 +68,30 @@ namespace hal {
 [[nodiscard]] inline status read(i2c& p_i2c,
                                  hal::byte p_address,
                                  std::span<hal::byte> p_data_in,
-                                 timeout auto p_timeout = hal::never_timeout())
+                                 timeout auto p_timeout)
 {
   return p_i2c.transaction(
     p_address, std::span<hal::byte>{}, p_data_in, p_timeout);
 }
+
+/**
+ * @brief read bytes from target device on i2c bus
+ *
+ * Shorthand for writing i2c.transfer(...) for read only operations, but never
+ * times out. Can be used for devices that never perform clock stretching.
+ *
+ * @param p_i2c - i2c driver
+ * @param p_address - target address
+ * @param p_data_in - buffer to read bytes into from target device
+ * @return status - success or failure
+ */
+[[nodiscard]] inline status read(i2c& p_i2c,
+                                 hal::byte p_address,
+                                 std::span<hal::byte> p_data_in)
+{
+  return read(p_i2c, p_address, p_data_in, hal::never_timeout());
+}
+
 /**
  * @brief return array of read bytes from target device on i2c bus
  *
@@ -67,15 +105,35 @@ namespace hal {
  * bytes from target device or an error.
  */
 template<size_t BytesToRead>
-[[nodiscard]] result<std::array<hal::byte, BytesToRead>> read(
-  i2c& p_i2c,
-  hal::byte p_address,
-  timeout auto p_timeout = hal::never_timeout())
+[[nodiscard]] result<std::array<hal::byte, BytesToRead>>
+read(i2c& p_i2c, hal::byte p_address, timeout auto p_timeout)
 {
   std::array<hal::byte, BytesToRead> buffer;
   HAL_CHECK(read(p_i2c, p_address, buffer, p_timeout));
   return buffer;
 }
+
+/**
+ * @brief return array of read bytes from target device on i2c bus
+ *
+ * Eliminates the need to create a buffer and pass it into the read function.
+ * This operation will never time out and should only be used with devices that
+ * never perform clock stretching.
+ *
+ * @tparam BytesToRead - number of bytes to read
+ * @param p_i2c - i2c driver
+ * @param p_address - target address
+ * @return result<std::array<hal::byte, BytesToRead>> - array of
+ * bytes from target device or an error.
+ */
+template<size_t BytesToRead>
+[[nodiscard]] result<std::array<hal::byte, BytesToRead>> read(
+  i2c& p_i2c,
+  hal::byte p_address)
+{
+  return read<BytesToRead>(p_i2c, p_address, hal::never_timeout());
+}
+
 /**
  * @brief write and then read bytes from target device on i2c bus
  *
@@ -99,6 +157,33 @@ template<size_t BytesToRead>
 {
   return p_i2c.transaction(p_address, p_data_out, p_data_in, p_timeout);
 }
+
+/**
+ * @brief write and then read bytes from target device on i2c bus
+ *
+ * This API simply calls transaction. This API is here for consistency across
+ * the other other communication protocols such as SPI and serial.
+ *
+ * This operation will never time out and should only be used with devices that
+ * never perform clock stretching.
+ *
+ * @param p_i2c - i2c driver
+ * @param p_address - target address
+ * @param p_data_out - buffer of bytes to write to the target device
+ * @param p_data_in - buffer to read bytes into from target device
+ *
+ * @return status - success or failure
+ */
+[[nodiscard]] inline status write_then_read(
+  i2c& p_i2c,
+  hal::byte p_address,
+  std::span<const hal::byte> p_data_out,
+  std::span<hal::byte> p_data_in)
+{
+  return write_then_read(
+    p_i2c, p_address, p_data_out, p_data_in, hal::never_timeout());
+}
+
 /**
  * @brief write and then return an array of read bytes from target device on i2c
  * bus
@@ -117,11 +202,33 @@ template<size_t BytesToRead>
   i2c& p_i2c,
   hal::byte p_address,
   std::span<const hal::byte> p_data_out,
-  timeout auto p_timeout = hal::never_timeout())
+  timeout auto p_timeout)
 {
   std::array<hal::byte, BytesToRead> buffer;
   HAL_CHECK(write_then_read(p_i2c, p_address, p_data_out, buffer, p_timeout));
   return buffer;
+}
+
+/**
+ * @brief write and then return an array of read bytes from target device on i2c
+ * bus
+ *
+ * Eliminates the need to create a buffer and pass it into the read function.
+ *
+ * @tparam BytesToRead - number of bytes to read after write
+ * @param p_i2c - i2c driver
+ * @param p_address - target address
+ * @param p_data_out - buffer of bytes to write to the target device
+ * @return result<std::array<hal::byte, BytesToRead>>
+ */
+template<size_t BytesToRead>
+[[nodiscard]] result<std::array<hal::byte, BytesToRead>> write_then_read(
+  i2c& p_i2c,
+  hal::byte p_address,
+  std::span<const hal::byte> p_data_out)
+{
+  return write_then_read<BytesToRead>(
+    p_i2c, p_address, p_data_out, hal::never_timeout());
 }
 
 /**
@@ -142,9 +249,15 @@ template<size_t BytesToRead>
   return p_i2c.transaction(p_address, std::span<hal::byte>{}, data_in, timeout);
 }
 
+/**
+ * @brief Set of I2C transaction operations
+ *
+ */
 enum class i2c_operation
 {
+  /// Denotes an i2c write operation
   write = 0,
+  /// Denotes an i2c read operation
   read = 1,
 };
 
