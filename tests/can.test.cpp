@@ -28,13 +28,18 @@ private:
     return success();
   };
 
-  status driver_send(const message_t& p_message) override
+  status driver_bus_on() override
+  {
+    return success();
+  }
+
+  result<send_t> driver_send(const message_t& p_message) override
   {
     m_message = p_message;
     if (m_return_error_status) {
       return hal::new_error();
     }
-    return success();
+    return send_t{};
   };
 
   void driver_on_receive(hal::callback<handler> p_handler) override

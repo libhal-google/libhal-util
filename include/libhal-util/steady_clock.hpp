@@ -30,7 +30,8 @@ public:
                                              hal::time_duration p_duration)
   {
     using period = decltype(p_duration)::period;
-    const auto frequency = p_steady_clock.frequency();
+    const auto frequency =
+      HAL_CHECK(p_steady_clock.frequency()).operating_frequency;
     const auto tick_period = wavelength<period>(frequency);
     auto ticks_required = p_duration / tick_period;
     using unsigned_ticks = std::make_unsigned_t<decltype(ticks_required)>;
@@ -40,7 +41,8 @@ public:
     }
 
     const auto ticks = static_cast<unsigned_ticks>(ticks_required);
-    const auto future_timestamp = ticks + HAL_CHECK(p_steady_clock.uptime());
+    const auto future_timestamp =
+      ticks + HAL_CHECK(p_steady_clock.uptime()).ticks;
 
     return steady_clock_timeout(p_steady_clock, future_timestamp);
   }
@@ -81,7 +83,7 @@ public:
    */
   status operator()()
   {
-    auto current_count = HAL_CHECK(m_counter->uptime());
+    auto current_count = HAL_CHECK(m_counter->uptime()).ticks;
 
     if (current_count >= m_cycles_until_timeout) {
       return hal::new_error(std::errc::timed_out);

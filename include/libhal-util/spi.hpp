@@ -21,10 +21,11 @@ namespace hal {
  *
  * @param p_spi - spi driver
  * @param p_data_out - data to be written to the SPI bus
- * @return status - success or failure
+ * @return result<hal::spi::transfer_t> - success or failure
  */
-[[nodiscard]] inline status write(spi& p_spi,
-                                  std::span<const hal::byte> p_data_out)
+[[nodiscard]] inline result<hal::spi::transfer_t> write(
+  spi& p_spi,
+  std::span<const hal::byte> p_data_out)
 {
   return p_spi.transfer(
     p_data_out, std::span<hal::byte>{}, spi::default_filler);
@@ -39,11 +40,12 @@ namespace hal {
  * @param p_data_in - buffer to receive bytes back from the SPI bus
  * @param p_filler - filler data placed on the bus in place of actual write
  * data.
- * @return status - success or failure
+ * @return result<hal::spi::transfer_t> - success or failure
  */
-[[nodiscard]] inline status read(spi& p_spi,
-                                 std::span<hal::byte> p_data_in,
-                                 hal::byte p_filler = spi::default_filler)
+[[nodiscard]] inline result<hal::spi::transfer_t> read(
+  spi& p_spi,
+  std::span<hal::byte> p_data_in,
+  hal::byte p_filler = spi::default_filler)
 {
   return p_spi.transfer(std::span<hal::byte>{}, p_data_in, p_filler);
 }
@@ -86,9 +88,9 @@ template<size_t BytesToRead>
  * @param p_data_in - buffer to receive bytes back from the SPI bus
  * @param p_filler - filler data placed on the bus when the read operation
  * begins.
- * @return status - success or failure
+ * @return result<hal::spi::transfer_t> - success or failure
  */
-[[nodiscard]] inline status write_then_read(
+[[nodiscard]] inline result<hal::spi::transfer_t> write_then_read(
   spi& p_spi,
   std::span<const hal::byte> p_data_out,
   std::span<hal::byte> p_data_in,

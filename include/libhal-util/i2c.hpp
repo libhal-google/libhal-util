@@ -25,12 +25,13 @@ namespace hal {
  * @param p_address - target address
  * @param p_data_out - buffer of bytes to write to the target device
  * @param p_timeout - amount of time to execute the transaction
- * @return status - success or failure
+ * @return hal::result<hal::i2c::transaction_t> - success or failure
  */
-[[nodiscard]] inline status write(i2c& p_i2c,
-                                  hal::byte p_address,
-                                  std::span<const hal::byte> p_data_out,
-                                  timeout auto p_timeout)
+[[nodiscard]] inline hal::result<hal::i2c::transaction_t> write(
+  i2c& p_i2c,
+  hal::byte p_address,
+  std::span<const hal::byte> p_data_out,
+  timeout auto p_timeout)
 {
   return p_i2c.transaction(
     p_address, p_data_out, std::span<hal::byte>{}, p_timeout);
@@ -45,11 +46,10 @@ namespace hal {
  * @param p_i2c - i2c driver
  * @param p_address - target address
  * @param p_data_out - buffer of bytes to write to the target device
- * @return status - success or failure
+ * @return hal::result<hal::i2c::transaction_t> - success or failure
  */
-[[nodiscard]] inline status write(i2c& p_i2c,
-                                  hal::byte p_address,
-                                  std::span<const hal::byte> p_data_out)
+[[nodiscard]] inline hal::result<hal::i2c::transaction_t>
+write(i2c& p_i2c, hal::byte p_address, std::span<const hal::byte> p_data_out)
 {
   return write(p_i2c, p_address, p_data_out, hal::never_timeout());
 }
@@ -63,12 +63,13 @@ namespace hal {
  * @param p_address - target address
  * @param p_data_in - buffer to read bytes into from target device
  * @param p_timeout - amount of time to execute the transaction
- * @return status - success or failure
+ * @return hal::result<hal::i2c::transaction_t> - success or failure
  */
-[[nodiscard]] inline status read(i2c& p_i2c,
-                                 hal::byte p_address,
-                                 std::span<hal::byte> p_data_in,
-                                 timeout auto p_timeout)
+[[nodiscard]] inline hal::result<hal::i2c::transaction_t> read(
+  i2c& p_i2c,
+  hal::byte p_address,
+  std::span<hal::byte> p_data_in,
+  timeout auto p_timeout)
 {
   return p_i2c.transaction(
     p_address, std::span<hal::byte>{}, p_data_in, p_timeout);
@@ -83,11 +84,10 @@ namespace hal {
  * @param p_i2c - i2c driver
  * @param p_address - target address
  * @param p_data_in - buffer to read bytes into from target device
- * @return status - success or failure
+ * @return hal::result<hal::i2c::transaction_t> - success or failure
  */
-[[nodiscard]] inline status read(i2c& p_i2c,
-                                 hal::byte p_address,
-                                 std::span<hal::byte> p_data_in)
+[[nodiscard]] inline hal::result<hal::i2c::transaction_t>
+read(i2c& p_i2c, hal::byte p_address, std::span<hal::byte> p_data_in)
 {
   return read(p_i2c, p_address, p_data_in, hal::never_timeout());
 }
@@ -146,9 +146,9 @@ template<size_t BytesToRead>
  * @param p_data_in - buffer to read bytes into from target device
  * @param p_timeout - amount of time to execute the transaction
  *
- * @return status - success or failure
+ * @return hal::result<hal::i2c::transaction_t> - success or failure
  */
-[[nodiscard]] inline status write_then_read(
+[[nodiscard]] inline hal::result<hal::i2c::transaction_t> write_then_read(
   i2c& p_i2c,
   hal::byte p_address,
   std::span<const hal::byte> p_data_out,
@@ -172,9 +172,9 @@ template<size_t BytesToRead>
  * @param p_data_out - buffer of bytes to write to the target device
  * @param p_data_in - buffer to read bytes into from target device
  *
- * @return status - success or failure
+ * @return hal::result<hal::i2c::transaction_t> - success or failure
  */
-[[nodiscard]] inline status write_then_read(
+[[nodiscard]] inline hal::result<hal::i2c::transaction_t> write_then_read(
   i2c& p_i2c,
   hal::byte p_address,
   std::span<const hal::byte> p_data_out,
@@ -236,9 +236,11 @@ template<size_t BytesToRead>
  *
  * @param p_i2c - i2c driver
  * @param p_address - target address to probe for
- * @return status - success or failure
+ * @return hal::result<hal::i2c::transaction_t> - success or failure
  */
-[[nodiscard]] inline status probe(i2c& p_i2c, hal::byte p_address)
+[[nodiscard]] inline hal::result<hal::i2c::transaction_t> probe(
+  i2c& p_i2c,
+  hal::byte p_address)
 {
   // p_data_in: empty placeholder for transcation's data_in
   std::array<hal::byte, 1> data_in;
