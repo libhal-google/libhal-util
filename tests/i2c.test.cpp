@@ -30,7 +30,7 @@ void i2c_util_test()
     {
       return {};
     }
-    [[nodiscard]] status driver_transaction(
+    [[nodiscard]] result<transaction_t> driver_transaction(
       hal::byte p_address,
       std::span<const hal::byte> p_out,
       std::span<hal::byte> p_in,
@@ -48,7 +48,7 @@ void i2c_util_test()
 
       (void)p_timeout();
 
-      return {};
+      return transaction_t{};
     }
 
     virtual ~test_i2c()

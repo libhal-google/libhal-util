@@ -64,10 +64,10 @@ void serial_util_test()
       };
     }
 
-    status driver_flush() override
+    result<flush_t> driver_flush() override
     {
       flush_called = true;
-      return {};
+      return flush_t{};
     }
 
     virtual ~fake_serial()
@@ -371,9 +371,9 @@ void serial_util_test()
       return hal::new_error();
     }
 
-    status driver_flush() override
+    result<flush_t> driver_flush() override
     {
-      return hal::success();
+      return flush_t{};
     }
 
     virtual ~save_serial_write()

@@ -18,9 +18,10 @@ void spi_util_test()
     {
       return {};
     }
-    [[nodiscard]] status driver_transfer(std::span<const hal::byte> p_out,
-                                         std::span<hal::byte> p_in,
-                                         hal::byte p_filler) override
+    [[nodiscard]] result<transfer_t> driver_transfer(
+      std::span<const hal::byte> p_out,
+      std::span<hal::byte> p_in,
+      hal::byte p_filler) override
     {
       if (!p_out.empty()) {
         m_out = p_out;
