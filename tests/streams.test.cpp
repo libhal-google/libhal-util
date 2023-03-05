@@ -4,7 +4,6 @@
 
 namespace hal {
 namespace {
-
 struct example_stream
 {
   work_state state()
@@ -27,6 +26,16 @@ void stream_terminated_test()
 {
   using namespace boost::ut;
   using namespace std::literals;
+
+  // NOTE: this is here to bypass the following error in CLANG.
+  //       see https://bugs.llvm.org/show_bug.cgi?id=33068
+  //       without this, you will get the following error:
+  //
+  //          function 'operator|' is not needed and will not be emitted
+  //          [-Werror,-Wunneeded-internal-declaration]
+  //
+  example_stream compiler_error_bypass_error;
+  std::span<const hal::byte>() | compiler_error_bypass_error;
 
   static_assert(hal::byte_stream<example_stream>);
   static_assert(hal::byte_stream<hal::stream::parse<size_t>>);
