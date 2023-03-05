@@ -189,6 +189,7 @@ void serial_util_test()
       std::array<hal::byte, 4> expected_buffer;
       expected_buffer.fill(filler_byte);
       std::array<hal::byte, 4> actual_buffer;
+      actual_buffer.fill(0);
 
       // Exercise
       auto result = read(serial, actual_buffer, never_timeout());
@@ -260,6 +261,7 @@ void serial_util_test()
       std::array<hal::byte, 4> expected_buffer;
       expected_buffer.fill(filler_byte);
       std::array<hal::byte, 4> actual_buffer;
+      actual_buffer.fill(0);
 
       // Exercise
       auto result = write_then_read(
@@ -280,6 +282,7 @@ void serial_util_test()
       std::array<hal::byte, 4> expected_buffer;
       expected_buffer.fill(filler_byte);
       std::array<hal::byte, 4> actual_buffer;
+      actual_buffer.fill(0);
       serial.read_fails = true;
 
       // Exercise

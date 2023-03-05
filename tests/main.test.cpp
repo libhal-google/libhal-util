@@ -18,13 +18,14 @@ extern void spi_util_test();
 extern void static_callable_test();
 extern void static_list_test();
 extern void steady_clock_utility_test();
+extern void timeout_test();
+extern void units_test();
+
 extern void stream_terminated_test();
 extern void parse_stream_test();
 extern void find_stream_test();
 extern void fill_upto_stream_test();
 extern void multi_stream_test();
-extern void timeout_test();
-extern void units_test();
 }  // namespace hal
 
 int main()
@@ -52,11 +53,12 @@ int main()
   hal::static_callable_test();
   hal::static_list_test();
   hal::steady_clock_utility_test();
+  hal::timeout_test();
+  hal::units_test();
+
   hal::stream_terminated_test();
   hal::parse_stream_test();
   hal::find_stream_test();
   hal::fill_upto_stream_test();
   hal::multi_stream_test();
-  hal::timeout_test();
-  hal::units_test();
 }
