@@ -26,13 +26,13 @@ void serial_util_test()
 
     result<write_t> driver_write(std::span<const hal::byte> p_data) override
     {
-      write_call_count++;
+      m_write_call_count++;
       if (p_data[0] == write_failure_byte) {
         return hal::new_error();
       }
       m_out = p_data;
 
-      if (single_byte_out) {
+      if (m_single_byte_out) {
         return write_t{ p_data.subspan(0, 1) };
       }
       return write_t{ p_data };
@@ -48,9 +48,9 @@ void serial_util_test()
         };
       }
 
-      read_was_called = true;
+      m_read_was_called = true;
 
-      if (read_fails) {
+      if (m_read_fails) {
         return hal::new_error();
       }
 
@@ -66,7 +66,7 @@ void serial_util_test()
 
     result<flush_t> driver_flush() override
     {
-      flush_called = true;
+      m_flush_called = true;
       return flush_t{};
     }
 
@@ -75,11 +75,11 @@ void serial_util_test()
     }
 
     std::span<const hal::byte> m_out{};
-    int write_call_count = 0;
-    bool read_was_called = false;
-    bool flush_called = false;
-    bool read_fails = false;
-    bool single_byte_out = false;
+    int m_write_call_count = 0;
+    bool m_read_was_called = false;
+    bool m_flush_called = false;
+    bool m_read_fails = false;
+    bool m_single_byte_out = false;
   };
 
   "operator==(serial::settings)"_test = []() {
@@ -108,17 +108,17 @@ void serial_util_test()
       // Verify
       expect(bool{ result });
       expect(result.value().data.size() == expected_payload.size());
-      expect(!serial.flush_called);
+      expect(!serial.m_flush_called);
       expect(that % expected_payload.data() == serial.m_out.data());
       expect(that % expected_payload.size() == serial.m_out.size());
-      expect(that % !serial.read_was_called);
+      expect(that % !serial.m_read_was_called);
     };
 
     "[success] write_partial single byte at a time"_test = []() {
       // Setup
       fake_serial serial;
       const std::array<hal::byte, 4> expected_payload{};
-      serial.single_byte_out = true;
+      serial.m_single_byte_out = true;
 
       // Exercise
       auto result = write_partial(serial, expected_payload);
@@ -126,10 +126,10 @@ void serial_util_test()
       // Verify
       expect(bool{ result });
       expect(1 == result.value().data.size());
-      expect(!serial.flush_called);
+      expect(!serial.m_flush_called);
       expect(that % &expected_payload[0] == serial.m_out.data());
       expect(that % 4 == serial.m_out.size());
-      expect(that % !serial.read_was_called);
+      expect(that % !serial.m_read_was_called);
     };
 
     "[failure] write_partial"_test = []() {
@@ -142,45 +142,45 @@ void serial_util_test()
 
       // Verify
       expect(!bool{ result });
-      expect(!serial.flush_called);
+      expect(!serial.m_flush_called);
       expect(that % nullptr == serial.m_out.data());
       expect(that % 0 == serial.m_out.size());
-      expect(that % !serial.read_was_called);
+      expect(that % !serial.m_read_was_called);
     };
 
     "[success] write"_test = []() {
       // Setup
       fake_serial serial;
       const std::array<hal::byte, 4> expected_payload{};
-      serial.single_byte_out = true;
+      serial.m_single_byte_out = true;
 
       // Exercise
       auto result = write(serial, expected_payload);
 
       // Verify
       expect(bool{ result });
-      expect(!serial.flush_called);
+      expect(!serial.m_flush_called);
       expect(that % 1 == serial.m_out.size());
-      expect(that % expected_payload.size() == serial.write_call_count);
-      expect(that % !serial.read_was_called);
+      expect(that % expected_payload.size() == serial.m_write_call_count);
+      expect(that % !serial.m_read_was_called);
     };
 
     "[success] write(std::string_view)"_test = []() {
       // Setup
       fake_serial serial;
       std::string_view expected_payload = "abcd";
-      serial.single_byte_out = true;
+      serial.m_single_byte_out = true;
 
       // Exercise
       auto result = write(serial, expected_payload);
 
       // Verify
       expect(bool{ result });
-      expect(!serial.flush_called);
+      expect(!serial.m_flush_called);
       expect(that % expected_payload.end()[-1] == serial.m_out[0]);
       expect(that % 1 == serial.m_out.size());
-      expect(that % expected_payload.size() == serial.write_call_count);
-      expect(that % !serial.read_was_called);
+      expect(that % expected_payload.size() == serial.m_write_call_count);
+      expect(that % !serial.m_read_was_called);
     };
 
     "[success] read"_test = []() {
@@ -196,7 +196,7 @@ void serial_util_test()
 
       // Verify
       expect(result.has_value());
-      expect(!serial.flush_called);
+      expect(!serial.m_flush_called);
       expect(that % nullptr == serial.m_out.data());
       expect(that % 0 == serial.m_out.size());
       // bool test = expected_buffer == result.value();
@@ -207,15 +207,15 @@ void serial_util_test()
       // Setup
       fake_serial serial;
       std::array<hal::byte, 4> expected_buffer;
-      serial.read_fails = true;
+      serial.m_read_fails = true;
 
       // Exercise
       auto result = read(serial, expected_buffer, never_timeout());
 
       // Verify
       expect(!result.has_value());
-      expect(!serial.flush_called);
-      expect(that % serial.read_was_called);
+      expect(!serial.m_flush_called);
+      expect(that % serial.m_read_was_called);
       expect(that % nullptr == serial.m_out.data());
       expect(that % 0 == serial.m_out.size());
     };
@@ -231,9 +231,9 @@ void serial_util_test()
 
       // Verify
       expect(result.has_value());
-      expect(!serial.flush_called);
+      expect(!serial.m_flush_called);
       expect(that % expected_buffer == result.value());
-      expect(that % serial.read_was_called);
+      expect(that % serial.m_read_was_called);
       expect(that % nullptr == serial.m_out.data());
       expect(that % 0 == serial.m_out.size());
     };
@@ -241,15 +241,15 @@ void serial_util_test()
     "[failure read] read<Length>"_test = []() {
       // Setup
       fake_serial serial;
-      serial.read_fails = true;
+      serial.m_read_fails = true;
 
       // Exercise
       auto result = read<5>(serial, never_timeout());
 
       // Verify
       expect(!result.has_value());
-      expect(!serial.flush_called);
-      expect(that % serial.read_was_called);
+      expect(!serial.m_flush_called);
+      expect(that % serial.m_read_was_called);
       expect(that % nullptr == serial.m_out.data());
       expect(that % 0 == serial.m_out.size());
     };
@@ -269,7 +269,7 @@ void serial_util_test()
 
       // Verify
       expect(result.has_value());
-      expect(!serial.flush_called);
+      expect(!serial.m_flush_called);
       expect(that % expected_payload.data() == serial.m_out.data());
       expect(that % expected_payload.size() == serial.m_out.size());
       expect(that % expected_buffer == actual_buffer);
@@ -283,7 +283,7 @@ void serial_util_test()
       expected_buffer.fill(filler_byte);
       std::array<hal::byte, 4> actual_buffer;
       actual_buffer.fill(0);
-      serial.read_fails = true;
+      serial.m_read_fails = true;
 
       // Exercise
       auto result = write_then_read(
@@ -291,8 +291,8 @@ void serial_util_test()
 
       // Verify
       expect(!result.has_value());
-      expect(!serial.flush_called);
-      expect(that % serial.read_was_called);
+      expect(!serial.m_flush_called);
+      expect(that % serial.m_read_was_called);
       expect(that % expected_payload.data() == serial.m_out.data());
       expect(that % expected_payload.size() == serial.m_out.size());
       expect(that % expected_buffer != actual_buffer);
@@ -310,8 +310,8 @@ void serial_util_test()
 
       // Verify
       expect(!result.has_value());
-      expect(!serial.flush_called);
-      expect(that % !serial.read_was_called);
+      expect(!serial.m_flush_called);
+      expect(that % !serial.m_read_was_called);
       expect(that % nullptr == serial.m_out.data());
       expect(that % 0 == serial.m_out.size());
     };
@@ -331,10 +331,10 @@ void serial_util_test()
 
       // Verify
       expect(result.has_value());
-      expect(!serial.flush_called);
+      expect(!serial.m_flush_called);
       expect(that % expected_payload.data() == serial.m_out.data());
       expect(that % expected_payload.size() == serial.m_out.size());
-      expect(serial.read_was_called);
+      expect(serial.m_read_was_called);
       expect(that % expected_buffer == actual_array);
     };
 
@@ -349,8 +349,8 @@ void serial_util_test()
 
       // Verify
       expect(!result.has_value());
-      expect(!serial.flush_called);
-      expect(that % !serial.read_was_called);
+      expect(!serial.m_flush_called);
+      expect(that % !serial.m_read_was_called);
       expect(that % nullptr == serial.m_out.data());
       expect(that % 0 == serial.m_out.size());
     };
