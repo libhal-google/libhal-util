@@ -12,8 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <libhal/config.hpp>
-
 namespace hal {
 extern void as_bytes_test();
 extern void bit_test();
@@ -44,12 +42,6 @@ extern void multi_stream_test();
 
 int main()
 {
-  static_assert(
-    hal::is_a_test(),
-    "The project platform is NOT a test build. Ensure that the "
-    "\"libhal.tweaks.hpp\" file exists, can be found in the build system's "
-    "include path, and has the platform config option set to \"test\".");
-
   hal::as_bytes_test();
   hal::bit_test();
   hal::can_router_test();
