@@ -27,7 +27,7 @@ required_conan_version = ">=1.50.0"
 
 class libhal_util_conan(ConanFile):
     name = "libhal-util"
-    version = "1.1.0"
+    version = "2.0.0"
     license = "Apache-2.0"
     url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://libhal.github.io/libhal"
@@ -70,7 +70,7 @@ class libhal_util_conan(ConanFile):
                 f"{self.name} {self.version} requires C++{self._min_cppstd}, which your compiler ({compiler}-{version}) does not support")
 
     def requirements(self):
-        self.requires("libhal/[^1.1.1]")
+        self.requires("libhal/[^2.0.0]")
         self.test_requires("boost-ext-ut/1.1.9")
 
     def layout(self):
