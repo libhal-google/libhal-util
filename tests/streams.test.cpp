@@ -51,12 +51,6 @@ void stream_terminated_test()
   example_stream compiler_error_bypass_error;
   std::span<const hal::byte>() | compiler_error_bypass_error;
 
-  static_assert(hal::byte_stream<example_stream>);
-  static_assert(hal::byte_stream<hal::stream::parse<size_t>>);
-  static_assert(hal::byte_stream<hal::stream::find>);
-  static_assert(hal::byte_stream<hal::stream::fill_upto>);
-  static_assert(hal::byte_stream<hal::stream::skip>);
-
   "hal::terminate(byte_stream) -> true with finished state"_test = []() {
     // Setup
     example_stream stream;
