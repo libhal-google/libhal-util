@@ -130,5 +130,69 @@ void timeout_test()
     // Verify
     expect(that % true == callback_error);
   };
+
+  "hal::work_state helper functions"_test = []() {
+    expect(that % false == hal::terminated(work_state::in_progress));
+    expect(that % true == hal::terminated(work_state::failed));
+    expect(that % true == hal::terminated(work_state::finished));
+
+    expect(that % true == hal::in_progress(work_state::in_progress));
+    expect(that % false == hal::in_progress(work_state::failed));
+    expect(that % false == hal::in_progress(work_state::finished));
+
+    expect(that % false == hal::finished(work_state::in_progress));
+    expect(that % false == hal::finished(work_state::failed));
+    expect(that % true == hal::finished(work_state::finished));
+
+    expect(that % false == hal::failed(work_state::in_progress));
+    expect(that % true == hal::failed(work_state::failed));
+    expect(that % false == hal::failed(work_state::finished));
+  };
+
+  "hal::work_state helper functions"_test = []() {
+    // Setup
+    struct always_in_progress
+    {
+      work_state state()
+      {
+        return work_state::in_progress;
+      }
+    };
+    struct always_failed
+    {
+      work_state state()
+      {
+        return work_state::failed;
+      }
+    };
+    struct always_finished
+    {
+      work_state state()
+      {
+        return work_state::finished;
+      }
+    };
+
+    always_in_progress always_in_progress_obj;
+    always_failed always_failed_obj;
+    always_finished always_finished_obj;
+
+    // Exercise + Verify
+    expect(that % false == hal::terminated(always_in_progress_obj));
+    expect(that % true == hal::terminated(always_failed_obj));
+    expect(that % true == hal::terminated(always_finished_obj));
+
+    expect(that % true == hal::in_progress(always_in_progress_obj));
+    expect(that % false == hal::in_progress(always_failed_obj));
+    expect(that % false == hal::in_progress(always_finished_obj));
+
+    expect(that % false == hal::finished(always_in_progress_obj));
+    expect(that % false == hal::finished(always_failed_obj));
+    expect(that % true == hal::finished(always_finished_obj));
+
+    expect(that % false == hal::failed(always_in_progress_obj));
+    expect(that % true == hal::failed(always_failed_obj));
+    expect(that % false == hal::failed(always_finished_obj));
+  };
 };
 }  // namespace hal

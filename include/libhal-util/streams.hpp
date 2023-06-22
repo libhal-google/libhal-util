@@ -29,31 +29,6 @@
 #include "timeout.hpp"
 
 namespace hal {
-/**
- * @brief Concept for a byte stream callable object
- *
- * @tparam T - object type
- */
-template<typename T>
-concept byte_stream = requires(T a) {
-                        a.state();
-                        {
-                          std::span<const hal::byte>() | a
-                          } -> std::same_as<std::span<const hal::byte>>;
-                      };
-
-/**
- * @brief Indicate if a byte stream object has finished its work
- *
- * @param p_byte_stream_object - the byte stream object to check
- * @return true - work state is either finished or failed
- * @return false - work state is still in progress
- */
-constexpr bool terminated(byte_stream auto p_byte_stream_object)
-{
-  return terminated(p_byte_stream_object.state());
-}
-
 namespace stream {
 /**
  * @brief Discard received bytes until the sequence is found

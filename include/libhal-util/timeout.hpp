@@ -14,6 +14,7 @@
 
 #pragma once
 
+#include <concepts>
 #include <functional>
 #include <ios>
 #include <system_error>
@@ -41,6 +42,48 @@ constexpr std::string_view to_string(work_state p_state)
 constexpr bool terminated(work_state p_state)
 {
   return p_state == work_state::finished || p_state == work_state::failed;
+}
+
+constexpr bool finished(work_state p_state)
+{
+  return p_state == work_state::finished;
+}
+
+constexpr bool in_progress(work_state p_state)
+{
+  return p_state == work_state::in_progress;
+}
+
+constexpr bool failed(work_state p_state)
+{
+  return p_state == work_state::failed;
+}
+
+template<typename T>
+concept has_work_state = requires(T a) {
+                           {
+                             a.state()
+                             } -> std::same_as<work_state>;
+                         };
+
+constexpr bool terminated(has_work_state auto p_worker)
+{
+  return terminated(p_worker.state());
+}
+
+constexpr bool finished(has_work_state auto p_worker)
+{
+  return finished(p_worker.state());
+}
+
+constexpr bool in_progress(has_work_state auto p_worker)
+{
+  return in_progress(p_worker.state());
+}
+
+constexpr bool failed(has_work_state auto p_worker)
+{
+  return failed(p_worker.state());
 }
 
 template<class CharT, class Traits>
