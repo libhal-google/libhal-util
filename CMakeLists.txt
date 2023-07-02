@@ -14,12 +14,22 @@
 
 cmake_minimum_required(VERSION 3.15)
 
-function(remove_gcda)
-  file(GLOB_RECURSE GCDA_FILES ${CMAKE_BINARY_DIR}/**/*.gcda)
+project(libhal-util VERSION 0.0.1 LANGUAGES CXX)
 
-  if(GCDA_FILES)
-    file(REMOVE ${GCDA_FILES})
-  endif()
-endfunction()
+find_package(libhal REQUIRED CONFIG)
 
-remove_gcda()
+add_library(libhal-util
+  src/steady_clock.cpp
+  src/streams.cpp)
+
+target_include_directories(libhal-util PUBLIC include)
+target_compile_features(libhal-util PRIVATE cxx_std_20)
+target_link_libraries(libhal-util PRIVATE
+  libhal::libhal
+)
+
+if(NOT BUILD_TESTING STREQUAL OFF)
+  add_subdirectory(tests)
+endif()
+
+install(TARGETS libhal-util)

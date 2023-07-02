@@ -65,7 +65,7 @@ add_executable(${PROJECT_NAME}
   units.test.cpp
   main.test.cpp)
 
-target_include_directories(${PROJECT_NAME} PUBLIC . ../include)
+target_include_directories(${PROJECT_NAME} PUBLIC . ../include ../src)
 target_compile_options(${PROJECT_NAME} PRIVATE
   --coverage
   -fprofile-arcs
@@ -84,12 +84,7 @@ target_link_options(${PROJECT_NAME} PRIVATE
   -fprofile-arcs
   -ftest-coverage
   ${ASAN_FLAG})
-target_link_libraries(${PROJECT_NAME} PRIVATE boost-ext-ut::ut libhal::libhal)
-
-add_custom_command(TARGET ${PROJECT_NAME}
-  POST_BUILD
-  COMMAND ${CMAKE_COMMAND}
-  -P ${CMAKE_SOURCE_DIR}/remove_gcda.cmake
-  COMMENT "Deleting Previous Coverage Files..."
-  WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-)
+target_link_libraries(${PROJECT_NAME} PRIVATE
+  boost-ext-ut::ut
+  libhal::libhal
+  libhal-util)

@@ -14,6 +14,9 @@
 
 #include <libhal-util/streams.hpp>
 
+#include <libhal-util/as_bytes.hpp>
+#include <libhal-util/timeout.hpp>
+
 #include <boost/ut.hpp>
 
 namespace hal {

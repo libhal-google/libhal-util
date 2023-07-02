@@ -32,19 +32,15 @@ void steady_clock_utility_test()
   {
   public:
     std::uint64_t m_uptime = 0;
-    bool m_will_fail = false;
 
   private:
-    result<frequency_t> driver_frequency() override
+    frequency_t driver_frequency() override
     {
       return frequency_t{ .operating_frequency = expected_frequency };
     }
 
-    result<uptime_t> driver_uptime() override
+    uptime_t driver_uptime() override
     {
-      if (m_will_fail) {
-        return new_error();
-      }
       return uptime_t{ .ticks = m_uptime++ };
     }
   };
@@ -58,7 +54,7 @@ void steady_clock_utility_test()
     bool success = false;
 
     // Exercise
-    auto timeout_object = create_timeout(test_steady_clock, expected).value();
+    auto timeout_object = create_timeout(test_steady_clock, expected);
 
     hal::attempt_all(
       [&timeout_object]() -> status { return timeout_object(); },
@@ -71,7 +67,7 @@ void steady_clock_utility_test()
     //         the start uptime and another to check what the latest uptime is.
     expect(that % expected.count() == (test_steady_clock.m_uptime - 2));
     expect(that % expected_frequency ==
-           test_steady_clock.frequency().value().operating_frequency);
+           test_steady_clock.frequency().operating_frequency);
   };
 
   "hal::create_timeout(hal::steady_clock, 50ns)"_test = []() {
@@ -81,7 +77,7 @@ void steady_clock_utility_test()
     bool success = false;
 
     // Exercise
-    auto timeout_object = create_timeout(test_steady_clock, expected).value();
+    auto timeout_object = create_timeout(test_steady_clock, expected);
 
     hal::attempt_all(
       [&timeout_object]() -> status {
@@ -101,7 +97,7 @@ void steady_clock_utility_test()
     // After the last call to uptime() the uptime value is incremented by one
     expect(that % expected.count() == test_steady_clock.m_uptime - 1);
     expect(that % expected_frequency ==
-           test_steady_clock.frequency().value().operating_frequency);
+           test_steady_clock.frequency().operating_frequency);
   };
 
   "hal::create_timeout(hal::steady_clock, 1337ns)"_test = []() {
@@ -111,7 +107,7 @@ void steady_clock_utility_test()
     bool success = false;
 
     // Exercise
-    auto timeout_object = create_timeout(test_steady_clock, expected).value();
+    auto timeout_object = create_timeout(test_steady_clock, expected);
 
     hal::attempt_all(
       [&timeout_object]() -> status {
@@ -130,7 +126,7 @@ void steady_clock_utility_test()
     expect(that % success) << "std::errc::timed_out handler was not called!";
     expect(that % expected.count() == test_steady_clock.m_uptime - 1);
     expect(that % expected_frequency ==
-           test_steady_clock.frequency().value().operating_frequency);
+           test_steady_clock.frequency().operating_frequency);
   };
 
   "hal::create_timeout(hal::steady_clock, -5ns) returns error"_test = []() {
@@ -139,29 +135,12 @@ void steady_clock_utility_test()
     dummy_steady_clock test_steady_clock;
 
     // Exercise
-    auto result = create_timeout(test_steady_clock, expected);
+    [[maybe_unused]] auto result = create_timeout(test_steady_clock, expected);
 
     // Verify
-    expect(bool{ result });
     expect(that % 1 == test_steady_clock.m_uptime);
     expect(that % expected_frequency ==
-           test_steady_clock.frequency().value().operating_frequency);
-  };
-
-  "hal::create_timeout(hal::steady_clock, 100ns) but fails"_test = []() {
-    // Setup
-    static constexpr hal::time_duration expected(100);
-    dummy_steady_clock test_steady_clock;
-    test_steady_clock.m_will_fail = true;
-
-    // Exercise
-    auto result = create_timeout(test_steady_clock, expected);
-
-    // Verify
-    expect(!bool{ result });
-    expect(that % 0 == test_steady_clock.m_uptime);
-    expect(that % expected_frequency ==
-           test_steady_clock.frequency().value().operating_frequency);
+           test_steady_clock.frequency().operating_frequency);
   };
 
   // =============== delay ===============
@@ -172,15 +151,14 @@ void steady_clock_utility_test()
     dummy_steady_clock test_steady_clock;
 
     // Exercise
-    auto result = delay(test_steady_clock, expected);
+    delay(test_steady_clock, expected);
 
     // Verify
-    expect(bool{ result });
     // Verify: subtract 2 because 2 invocations are required in order to get
     //         the start uptime and another to check what the latest uptime is.
     expect(that % expected.count() == (test_steady_clock.m_uptime - 2));
     expect(that % expected_frequency ==
-           test_steady_clock.frequency().value().operating_frequency);
+           test_steady_clock.frequency().operating_frequency);
   };
 
   "hal::delay(hal::steady_clock, 50ns)"_test = []() {
@@ -189,13 +167,12 @@ void steady_clock_utility_test()
     dummy_steady_clock test_steady_clock;
 
     // Exercise
-    auto result = delay(test_steady_clock, expected);
+    delay(test_steady_clock, expected);
 
     // Verify
-    expect(bool{ result });
     expect(that % expected.count() == test_steady_clock.m_uptime - 1);
     expect(that % expected_frequency ==
-           test_steady_clock.frequency().value().operating_frequency);
+           test_steady_clock.frequency().operating_frequency);
   };
 
   "hal::delay(hal::steady_clock, 1337ns)"_test = []() {
@@ -204,13 +181,12 @@ void steady_clock_utility_test()
     dummy_steady_clock test_steady_clock;
 
     // Exercise
-    auto result = delay(test_steady_clock, expected);
+    delay(test_steady_clock, expected);
 
     // Verify
-    expect(bool{ result });
     expect(that % expected.count() == test_steady_clock.m_uptime - 1);
     expect(that % expected_frequency ==
-           test_steady_clock.frequency().value().operating_frequency);
+           test_steady_clock.frequency().operating_frequency);
   };
 
   "hal::delay(hal::steady_clock, -5ns) returns error"_test = []() {
@@ -219,31 +195,13 @@ void steady_clock_utility_test()
     dummy_steady_clock test_steady_clock;
 
     // Exercise
-    auto result = delay(test_steady_clock, expected);
+    delay(test_steady_clock, expected);
 
     // Verify
-    expect(bool{ result });
     // Verify: Adjust uptime by 2 because at least 2 calls to uptime()
     expect(that % 0 == test_steady_clock.m_uptime - 2);
     expect(that % expected_frequency ==
-           test_steady_clock.frequency().value().operating_frequency);
-  };
-
-  "hal::delay(hal::steady_clock, 100ns) but fails"_test = []() {
-    // Setup
-    static constexpr hal::time_duration expected(100);
-    dummy_steady_clock test_steady_clock;
-    test_steady_clock.m_will_fail = true;
-
-    // Exercise
-    auto result = delay(test_steady_clock, expected);
-
-    // Verify
-    expect(!bool{ result });
-    // Verify: Adjust uptime by 2 because at least 2 calls to uptime()
-    expect(that % 0 == test_steady_clock.m_uptime);
-    expect(that % expected_frequency ==
-           test_steady_clock.frequency().value().operating_frequency);
+           test_steady_clock.frequency().operating_frequency);
   };
 
   "hal::timeout_generator(hal::steady_clock)"_test = []() {
@@ -254,7 +212,7 @@ void steady_clock_utility_test()
 
     // Exercise
     auto generator = timeout_generator(test_steady_clock);
-    auto timeout_object = generator(expected).value();
+    auto timeout_object = generator(expected);
 
     hal::attempt_all(
       [&timeout_object]() -> status {
@@ -274,7 +232,7 @@ void steady_clock_utility_test()
     // After the last call to uptime() the uptime value is incremented by one
     expect(that % expected.count() == test_steady_clock.m_uptime - 1);
     expect(that % expected_frequency ==
-           test_steady_clock.frequency().value().operating_frequency);
+           test_steady_clock.frequency().operating_frequency);
   };
 };
 }  // namespace hal
