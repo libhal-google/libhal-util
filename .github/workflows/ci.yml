@@ -10,9 +10,9 @@ on:
     - cron: "0 12 * * 0"
 
 jobs:
-  ci:
+  checks:
     uses: libhal/ci/.github/workflows/library.yml@3.0.2
-    with:
-      library: libhal-util
-      coverage: true
+    secrets: inherit
+  devices:
+    uses: libhal/ci/.github/workflows/deploy.yml@3.0.2
     secrets: inherit

@@ -14,9 +14,6 @@
 
 #pragma once
 
-#include <chrono>
-#include <system_error>
-
 #include <libhal/error.hpp>
 #include <libhal/steady_clock.hpp>
 #include <libhal/timeout.hpp>
@@ -24,6 +21,28 @@
 #include "units.hpp"
 
 namespace hal {
+/**
+ * @brief Function to compute a future timestamp in ticks
+ *
+ * This function calculates a future timestamp based on the current uptime of a
+ * steady clock and a specified duration.
+ *
+ * @param p_steady_clock - the steady_clock used to calculate the future
+ * duration. Note that this future deadline will only work with this steady
+ * clock.
+ * @param p_duration The duration for which we need to compute a future
+ * timestamp.
+ *
+ * @return A 64-bit unsigned integer representing the future timestamp in steady
+ * clock ticks. The future timestamp is calculated as the sum of the current
+ * number of ticks of the clock and the number of ticks equivalent to the
+ * specified duration. If the duration corresponds to a ticks_required value
+ * less than or equal to 1, it will be set to 1 to ensure at least one tick is
+ * waited.
+ */
+inline std::uint64_t future_deadline(hal::steady_clock& p_steady_clock,
+                                     hal::time_duration p_duration);
+
 /**
  * @brief Timeout object based on hal::steady_clock
  *
@@ -37,29 +56,10 @@ public:
   /**
    * @brief Create a steady_clock_timeout
    *
-   * @return result<steady_clock_timeout> - steady_clock_timeout object
-   * @throws std::errc::result_out_of_range if time duration is zero or negative
+   * @return steady_clock_timeout - steady_clock_timeout object
    */
-  static result<steady_clock_timeout> create(hal::steady_clock& p_steady_clock,
-                                             hal::time_duration p_duration)
-  {
-    using period = decltype(p_duration)::period;
-    const auto frequency =
-      HAL_CHECK(p_steady_clock.frequency()).operating_frequency;
-    const auto tick_period = wavelength<period>(frequency);
-    auto ticks_required = p_duration / tick_period;
-    using unsigned_ticks = std::make_unsigned_t<decltype(ticks_required)>;
-
-    if (ticks_required <= 1) {
-      ticks_required = 1;
-    }
-
-    const auto ticks = static_cast<unsigned_ticks>(ticks_required);
-    const auto future_timestamp =
-      ticks + HAL_CHECK(p_steady_clock.uptime()).ticks;
-
-    return steady_clock_timeout(p_steady_clock, future_timestamp);
-  }
+  static steady_clock_timeout create(hal::steady_clock& p_steady_clock,
+                                     hal::time_duration p_duration);
 
   /**
    * @brief Construct a new counter timeout object
@@ -95,16 +95,7 @@ public:
    * @return status - success or failure
    * @throws std::errc::timed_out - if the timeout time has been exceeded.
    */
-  status operator()()
-  {
-    auto current_count = HAL_CHECK(m_counter->uptime()).ticks;
-
-    if (current_count >= m_cycles_until_timeout) {
-      return hal::new_error(std::errc::timed_out);
-    }
-
-    return success();
-  }
+  status operator()();
 
 private:
   /**
@@ -114,11 +105,7 @@ private:
    * @param p_cycles_until_timeout - number of cycles until timeout
    */
   steady_clock_timeout(hal::steady_clock& p_steady_clock,
-                       std::uint64_t p_cycles_until_timeout)
-    : m_counter(&p_steady_clock)
-    , m_cycles_until_timeout(p_cycles_until_timeout)
-  {
-  }
+                       std::uint64_t p_cycles_until_timeout);
 
   hal::steady_clock* m_counter;
   std::uint64_t m_cycles_until_timeout = 0;
@@ -132,14 +119,10 @@ private:
  *
  * @param p_steady_clock - hal::steady_clock implementation
  * @param p_duration - amount of time until timeout
- * @return result<hal::steady_clock_timeout> - timeout object
+ * @return hal::steady_clock_timeout - timeout object
  */
-inline result<steady_clock_timeout> create_timeout(
-  hal::steady_clock& p_steady_clock,
-  hal::time_duration p_duration)
-{
-  return steady_clock_timeout::create(p_steady_clock, p_duration);
-}
+steady_clock_timeout create_timeout(hal::steady_clock& p_steady_clock,
+                                    hal::time_duration p_duration);
 
 /**
  * @brief Delay execution for a duration of time using a hardware steady_clock.
@@ -147,18 +130,8 @@ inline result<steady_clock_timeout> create_timeout(
  * @param p_steady_clock - steady_clock driver
  * @param p_duration - the amount of time to delay for. Zero or negative time
  * duration will delay for one tick of the p_steady_clock.
- * @return status - if successful, then execution of the program was halted for
- * the p_duration time frame, otherwise, a failure occurred either when creating
- * the timeout from the steady clock or from calling uptime() on the steady
- * clock. In the failure situation, it is unknown how long the program/thread
- * halted for.
  */
-[[nodiscard]] inline status delay(hal::steady_clock& p_steady_clock,
-                                  hal::time_duration p_duration)
-{
-  auto timeout_object = HAL_CHECK(create_timeout(p_steady_clock, p_duration));
-  return hal::delay(timeout_object);
-}
+void delay(hal::steady_clock& p_steady_clock, hal::time_duration p_duration);
 
 /**
  * @brief Generates a function that, when passed a duration, returns a timeout
