@@ -22,12 +22,11 @@
 #include <libhal/units.hpp>
 
 namespace hal {
-namespace stream {
 /**
  * @brief Discard received bytes until the sequence is found
  *
  */
-class find
+class stream_find
 {
 public:
   /**
@@ -37,11 +36,11 @@ public:
    * pointed to by this span must outlive this object, or not be used when the
    * lifetime of that data is no longer available.
    */
-  explicit find(std::span<const hal::byte> p_sequence);
+  explicit stream_find(std::span<const hal::byte> p_sequence);
 
   friend std::span<const hal::byte> operator|(
     const std::span<const hal::byte>& p_input_data,
-    find& p_self);
+    stream_find& p_self);
 
   work_state state();
 
@@ -54,7 +53,7 @@ private:
  * @brief Non-blocking callable for reading serial data into a buffer
  *
  */
-class fill
+class stream_fill
 {
 public:
   /**
@@ -62,7 +61,7 @@ public:
    *
    * @param p_buffer - buffer to read data into
    */
-  explicit fill(std::span<hal::byte> p_buffer);
+  explicit stream_fill(std::span<hal::byte> p_buffer);
 
   /**
    * @brief Construct a new fill object
@@ -71,11 +70,11 @@ public:
    * @param p_fill_amount - reference to a size value to limit the fill amount
    * by.
    */
-  fill(std::span<hal::byte> p_buffer, const size_t& p_fill_amount);
+  stream_fill(std::span<hal::byte> p_buffer, const size_t& p_fill_amount);
 
   friend std::span<const hal::byte> operator|(
     const std::span<const hal::byte>& p_input_data,
-    fill& p_self);
+    stream_fill& p_self);
 
   work_state state();
 
@@ -88,7 +87,7 @@ private:
  * @brief Discard received bytes until the sequence is found
  *
  */
-class fill_upto
+class stream_fill_upto
 {
 public:
   /**
@@ -99,12 +98,12 @@ public:
    * lifetime of that data is no longer available.
    * @param p_buffer - buffer to fill data into
    */
-  fill_upto(std::span<const hal::byte> p_sequence,
-            std::span<hal::byte> p_buffer);
+  stream_fill_upto(std::span<const hal::byte> p_sequence,
+                   std::span<hal::byte> p_buffer);
 
   friend std::span<const hal::byte> operator|(
     const std::span<const hal::byte>& p_input_data,
-    fill_upto& p_self);
+    stream_fill_upto& p_self);
 
   work_state state();
 
@@ -123,17 +122,17 @@ private:
  *
  */
 template<std::unsigned_integral T>
-class parse
+class stream_parse
 {
 public:
   /**
    * @brief Construct a new parse object
    */
-  explicit parse() = default;
+  explicit stream_parse() = default;
 
   friend std::span<const hal::byte> operator|(
     const std::span<const hal::byte>& p_input_data,
-    parse& p_self)
+    stream_parse& p_self)
   {
     if (p_self.m_finished) {
       return p_input_data;
@@ -176,23 +175,22 @@ private:
  * @brief Skip number of bytes in a byte stream
  *
  */
-class skip
+class stream_skip
 {
 public:
   /**
    * @brief Construct a new skip object
    *
    */
-  explicit skip(size_t p_skip);
+  explicit stream_skip(size_t p_skip);
 
   friend std::span<const hal::byte> operator|(
     const std::span<const hal::byte>& p_input_data,
-    skip& p_self);
+    stream_skip& p_self);
 
   work_state state();
 
 private:
   size_t m_skip;
 };
-}  // namespace stream
 }  // namespace hal

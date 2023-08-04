@@ -23,15 +23,14 @@
 #include <libhal/units.hpp>
 
 namespace hal {
-namespace stream {
-find::find(std::span<const hal::byte> p_sequence)
+stream_find::stream_find(std::span<const hal::byte> p_sequence)
   : m_sequence(p_sequence)
 {
 }
 
 std::span<const hal::byte> operator|(
   const std::span<const hal::byte>& p_input_data,
-  find& p_self)
+  stream_find& p_self)
 {
   if (p_input_data.empty()) {
     return p_input_data;
@@ -58,7 +57,7 @@ std::span<const hal::byte> operator|(
   return p_input_data.subspan(p_input_data.size());
 }
 
-work_state find::state()
+work_state stream_find::state()
 {
   if (m_search_index == m_sequence.size()) {
     return work_state::finished;
@@ -66,12 +65,13 @@ work_state find::state()
   return work_state::in_progress;
 }
 
-fill::fill(std::span<hal::byte> p_buffer)
+stream_fill::stream_fill(std::span<hal::byte> p_buffer)
   : m_buffer(p_buffer)
 {
 }
 
-fill::fill(std::span<hal::byte> p_buffer, const size_t& p_fill_amount)
+stream_fill::stream_fill(std::span<hal::byte> p_buffer,
+                         const size_t& p_fill_amount)
   : m_buffer(p_buffer)
   , m_fill_amount(&p_fill_amount)
 {
@@ -79,7 +79,7 @@ fill::fill(std::span<hal::byte> p_buffer, const size_t& p_fill_amount)
 
 std::span<const hal::byte> operator|(
   const std::span<const hal::byte>& p_input_data,
-  fill& p_self)
+  stream_fill& p_self)
 {
   if (p_input_data.empty() || p_self.m_buffer.empty()) {
     return p_input_data;
@@ -101,7 +101,7 @@ std::span<const hal::byte> operator|(
   return p_input_data.subspan(min_size);
 }
 
-work_state fill::state()
+work_state stream_fill::state()
 {
   if (m_buffer.empty()) {
     return work_state::finished;
@@ -109,8 +109,8 @@ work_state fill::state()
   return work_state::in_progress;
 }
 
-fill_upto::fill_upto(std::span<const hal::byte> p_sequence,
-                     std::span<hal::byte> p_buffer)
+stream_fill_upto::stream_fill_upto(std::span<const hal::byte> p_sequence,
+                                   std::span<hal::byte> p_buffer)
   : m_sequence(p_sequence)
   , m_buffer(p_buffer)
 {
@@ -118,7 +118,7 @@ fill_upto::fill_upto(std::span<const hal::byte> p_sequence,
 
 std::span<const hal::byte> operator|(
   const std::span<const hal::byte>& p_input_data,
-  fill_upto& p_self)
+  stream_fill_upto& p_self)
 {
   if (p_input_data.empty() ||
       p_self.m_sequence.size() == p_self.m_search_index ||
@@ -150,7 +150,7 @@ std::span<const hal::byte> operator|(
   return p_input_data.subspan(min_size);
 }
 
-work_state fill_upto::state()
+work_state stream_fill_upto::state()
 {
   if (m_buffer.empty() && m_search_index != m_sequence.size()) {
     return work_state::failed;
@@ -161,24 +161,24 @@ work_state fill_upto::state()
   return work_state::in_progress;
 }
 
-std::span<hal::byte> fill_upto::span()
+std::span<hal::byte> stream_fill_upto::span()
 {
   return m_buffer.subspan(0, m_fill_amount);
 }
 
-std::span<hal::byte> fill_upto::unfilled()
+std::span<hal::byte> stream_fill_upto::unfilled()
 {
   return m_buffer.subspan(m_fill_amount);
 }
 
-skip::skip(size_t p_skip)
+stream_skip::stream_skip(size_t p_skip)
   : m_skip(p_skip)
 {
 }
 
 std::span<const hal::byte> operator|(
   const std::span<const hal::byte>& p_input_data,
-  skip& p_self)
+  stream_skip& p_self)
 {
   if (p_input_data.empty()) {
     return p_input_data;
@@ -193,9 +193,8 @@ std::span<const hal::byte> operator|(
   return p_input_data.subspan(min);
 }
 
-work_state skip::state()
+work_state stream_skip::state()
 {
   return (m_skip == 0) ? work_state::finished : work_state::in_progress;
 }
-}  // namespace stream
 }  // namespace hal

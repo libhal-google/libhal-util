@@ -106,7 +106,7 @@ void parse_stream_test()
     // Setup
     std::string_view digits_in_between = "abcd1234x---";
     auto digits_span = hal::as_bytes(digits_in_between);
-    hal::stream::parse<std::uint32_t> parse_int;
+    hal::stream_parse<std::uint32_t> parse_int;
 
     // Exercise
     auto remaining = digits_span | parse_int;
@@ -123,7 +123,7 @@ void parse_stream_test()
     // Setup
     std::string_view digits_in_between = "abcd12356789101234x---";
     auto digits_span = hal::as_bytes(digits_in_between);
-    hal::stream::parse<std::uint64_t> parse_int;
+    hal::stream_parse<std::uint64_t> parse_int;
 
     // Exercise
     auto remaining = digits_span | parse_int;
@@ -138,7 +138,7 @@ void parse_stream_test()
 
   "[parse<std::uint32_t>] empty span"_test = []() {
     // Setup
-    hal::stream::parse<std::uint32_t> parse_int;
+    hal::stream_parse<std::uint32_t> parse_int;
 
     // Exercise
     auto remaining = std::span<const hal::byte>() | parse_int;
@@ -153,7 +153,7 @@ void parse_stream_test()
     // Setup
     std::string_view digits_in_between = "abcd?efghx-[--]/";
     auto digits_span = hal::as_bytes(digits_in_between);
-    hal::stream::parse<std::uint32_t> parse_int;
+    hal::stream_parse<std::uint32_t> parse_int;
 
     // Exercise
     auto remaining = digits_span | parse_int;
@@ -170,7 +170,7 @@ void parse_stream_test()
     auto span0 = hal::as_bytes(halves[0]);
     auto span1 = hal::as_bytes(halves[1]);
 
-    hal::stream::parse<std::uint32_t> parse_int;
+    hal::stream_parse<std::uint32_t> parse_int;
 
     auto remaining0 = span0 | parse_int;
     auto remaining1 = span1 | parse_int;
@@ -192,7 +192,7 @@ void parse_stream_test()
     auto span1 = hal::as_bytes(halves[1]);
     auto span2 = hal::as_bytes(halves[2]);
 
-    hal::stream::parse<std::uint32_t> parse_int;
+    hal::stream_parse<std::uint32_t> parse_int;
 
     auto remaining0 = span0 | parse_int;
     auto remaining1 = span1 | parse_int;
@@ -217,7 +217,7 @@ void parse_stream_test()
     auto span1 = hal::as_bytes(halves[1]);
     auto span2 = hal::as_bytes(halves[2]);
 
-    hal::stream::parse<std::uint32_t> parse_int;
+    hal::stream_parse<std::uint32_t> parse_int;
 
     auto remaining0 = span0 | parse_int;
     auto remaining1 = span1 | parse_int;
@@ -240,9 +240,9 @@ void parse_stream_test()
     std::string_view three_numbers = "a123b456c789d";
     auto span = hal::as_bytes(three_numbers);
 
-    hal::stream::parse<std::uint32_t> parse_int0;
-    hal::stream::parse<std::uint32_t> parse_int1;
-    hal::stream::parse<std::uint32_t> parse_int2;
+    hal::stream_parse<std::uint32_t> parse_int0;
+    hal::stream_parse<std::uint32_t> parse_int1;
+    hal::stream_parse<std::uint32_t> parse_int2;
 
     // Exercise
     auto remaining = span | parse_int0 | parse_int1 | parse_int2;
@@ -274,7 +274,7 @@ void find_stream_test()
     // Setup
     std::string_view str = "Content-Length: 1023\r\n";
     auto span = hal::as_bytes(str);
-    hal::stream::find finder(hal::as_bytes(": "sv));
+    hal::stream_find finder(hal::as_bytes(": "sv));
 
     // Exercise
     auto remaining = span | finder;
@@ -286,7 +286,7 @@ void find_stream_test()
 
   "[find] empty span"_test = []() {
     // Setup
-    hal::stream::find finder(hal::as_bytes(": "sv));
+    hal::stream_find finder(hal::as_bytes(": "sv));
 
     // Exercise
     auto remaining = std::span<hal::byte>() | finder;
@@ -301,7 +301,7 @@ void find_stream_test()
     std::string_view digits_in_between = "abcd??efghx-[--]/";
     auto digits_span = hal::as_bytes(digits_in_between);
 
-    hal::stream::find finder(hal::as_bytes("????"sv));
+    hal::stream_find finder(hal::as_bytes("????"sv));
 
     // Exercise
     auto remaining = digits_span | finder;
@@ -316,7 +316,7 @@ void find_stream_test()
     auto span0 = hal::as_bytes(halves[0]);
     auto span1 = hal::as_bytes(halves[1]);
 
-    hal::stream::find finder(hal::as_bytes("1298"sv));
+    hal::stream_find finder(hal::as_bytes("1298"sv));
 
     auto remaining0 = span0 | finder;
     auto remaining1 = span1 | finder;
@@ -336,7 +336,7 @@ void find_stream_test()
     auto span1 = hal::as_bytes(halves[1]);
     auto span2 = hal::as_bytes(halves[2]);
 
-    hal::stream::find finder(hal::as_bytes("345"sv));
+    hal::stream_find finder(hal::as_bytes("345"sv));
 
     auto remaining0 = span0 | finder;
     auto remaining1 = span1 | finder;
@@ -357,9 +357,9 @@ void find_stream_test()
     std::string_view three_numbers = "----a---b---c";
     auto span = hal::as_bytes(three_numbers);
 
-    hal::stream::find finder0(hal::as_bytes("a"sv));
-    hal::stream::find finder1(hal::as_bytes("b"sv));
-    hal::stream::find finder2(hal::as_bytes("c"sv));
+    hal::stream_find finder0(hal::as_bytes("a"sv));
+    hal::stream_find finder1(hal::as_bytes("b"sv));
+    hal::stream_find finder2(hal::as_bytes("c"sv));
 
     // Exercise
     auto remaining = span | finder0 | finder1 | finder2;
@@ -391,7 +391,7 @@ void fill_upto_stream_test()
     std::array<hal::byte, 128> buffer;
     auto target_string = "#_$"sv;
     auto target = hal::as_bytes(target_string);
-    hal::stream::fill_upto filler(target, buffer);
+    hal::stream_fill_upto filler(target, buffer);
 
     // Exercise
     auto remaining = span | filler;
@@ -424,7 +424,7 @@ void fill_upto_stream_test()
     std::array span{ hal::as_bytes(str[0]), hal::as_bytes(str[1]) };
 
     std::array<hal::byte, 128> buffer;
-    hal::stream::fill_upto filler(hal::as_bytes("#_$"sv), buffer);
+    hal::stream_fill_upto filler(hal::as_bytes("#_$"sv), buffer);
 
     // Exercise
     auto remaining0 = span[0] | filler;
@@ -475,10 +475,10 @@ void multi_stream_test()
     std::array<hal::byte, 1024> response_buffer;
     response_buffer.fill('.');
 
-    hal::stream::find find_content_length(hal::as_bytes("Content-Length: "sv));
-    hal::stream::parse<std::uint32_t> parse_body_length;
-    hal::stream::fill_upto find_end_of_header(hal::as_bytes("\r\n\r\n"sv),
-                                              response_buffer);
+    hal::stream_find find_content_length(hal::as_bytes("Content-Length: "sv));
+    hal::stream_parse<std::uint32_t> parse_body_length;
+    hal::stream_fill_upto find_end_of_header(hal::as_bytes("\r\n\r\n"sv),
+                                             response_buffer);
 
     [[maybe_unused]] auto start_of_body =
       input_data | find_content_length | parse_body_length;
@@ -487,7 +487,7 @@ void multi_stream_test()
 
     /*
     if (hal::terminated(find_end_of_header.state())) {
-      hal::stream::fill fill_buffer(find_end_of_header.unfilled(),
+      hal::stream_fill fill_buffer(find_end_of_header.unfilled(),
                                     parse_body_length.value());
       remaining = remaining | fill_buffer;
     }
