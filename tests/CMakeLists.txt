@@ -43,9 +43,15 @@ find_package(ut REQUIRED CONFIG)
 find_package(libhal REQUIRED CONFIG)
 
 add_executable(${PROJECT_NAME}
+
+  # Source
+  ../src/steady_clock.cpp
+  ../src/streams.cpp
+
+  # Tests
   as_bytes.test.cpp
-  bit.test.cpp
   can.test.cpp
+  bit.test.cpp
   enum.test.cpp
   i2c.test.cpp
   input_pin.test.cpp
@@ -86,5 +92,4 @@ target_link_options(${PROJECT_NAME} PRIVATE
   ${ASAN_FLAG})
 target_link_libraries(${PROJECT_NAME} PRIVATE
   boost-ext-ut::ut
-  libhal::libhal
-  libhal-util)
+  libhal::libhal)

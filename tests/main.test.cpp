@@ -15,7 +15,7 @@
 namespace hal {
 extern void as_bytes_test();
 extern void bit_test();
-extern void can_router_test();
+extern void can_test();
 extern void enum_test();
 extern void i2c_util_test();
 extern void input_pin_util_test();
@@ -44,7 +44,7 @@ int main()
 {
   hal::as_bytes_test();
   hal::bit_test();
-  hal::can_router_test();
+  hal::can_test();
   hal::enum_test();
   hal::i2c_util_test();
   hal::input_pin_util_test();
