@@ -24,21 +24,21 @@ void bit_test()
   "hal::bit<template> standard usage"_test = []() {
     // Setup
     volatile std::uint32_t control_register = 1 << 15 | 1 << 16;
-    constexpr auto enable_bit = bitmask::from<1>();
-    constexpr auto high_power_mode = bitmask::from<15>();
-    constexpr auto clock_divider = bitmask::from<20, 23>();
-    constexpr auto extractor_mask = bitmask::from<16, 23>();
-    constexpr auto single_bitmask = bitmask::from<1>();
+    constexpr auto enable_bit = bit_mask::from<1>();
+    constexpr auto high_power_mode = bit_mask::from<15>();
+    constexpr auto clock_divider = bit_mask::from<20, 23>();
+    constexpr auto extractor_mask = bit_mask::from<16, 23>();
+    constexpr auto single_bit_mask = bit_mask::from<1>();
 
     // Exercise
-    modify(control_register)
+    bit_modify(control_register)
       .set<enable_bit>()
       .clear<high_power_mode>()
       .insert<clock_divider>(0xAU);
-    auto extracted = extract<extractor_mask>(control_register);
-    auto probed = extract<single_bitmask>(control_register);
+    auto extracted = bit_extract<extractor_mask>(control_register);
+    auto probed = bit_extract<single_bit_mask>(control_register);
     auto probed_inline =
-      extract<bitmask{ .position = 15, .width = 1 }>(control_register);
+      bit_extract<bit_mask{ .position = 15, .width = 1 }>(control_register);
 
     // Verify
     expect(that % 0x00A1'0002 == control_register);
@@ -50,21 +50,21 @@ void bit_test()
   "hal::bit standard usage "_test = []() {
     // Setup
     volatile std::uint32_t control_register = 1 << 15 | 1 << 16;
-    constexpr auto enable_bit = bitmask::from<1>();
-    constexpr auto high_power_mode = bitmask::from<15>();
-    constexpr auto clock_divider = bitmask::from<20, 23>();
-    constexpr auto extractor_mask = bitmask::from<16, 23>();
-    constexpr auto single_bitmask = bitmask::from<1>();
+    constexpr auto enable_bit = bit_mask::from<1>();
+    constexpr auto high_power_mode = bit_mask::from<15>();
+    constexpr auto clock_divider = bit_mask::from<20, 23>();
+    constexpr auto extractor_mask = bit_mask::from<16, 23>();
+    constexpr auto single_bit_mask = bit_mask::from<1>();
 
     // Exercise
-    modify(control_register)
+    bit_modify(control_register)
       .set(enable_bit)
       .clear(high_power_mode)
       .insert(clock_divider, 0xAU);
-    auto extracted = extract(extractor_mask, control_register);
-    auto probed = extract(single_bitmask, control_register);
+    auto extracted = bit_extract(extractor_mask, control_register);
+    auto probed = bit_extract(single_bit_mask, control_register);
     auto probed_inline =
-      extract(bitmask{ .position = 15, .width = 1 }, control_register);
+      bit_extract(bit_mask{ .position = 15, .width = 1 }, control_register);
 
     // Verify
     expect(that % 0x00A1'0002 == control_register);
