@@ -20,7 +20,11 @@
 #include <limits>
 
 namespace hal {
-struct bitmask
+/**
+ * @brief Represents a bit mask of contiguous bits
+ *
+ */
+struct bit_mask
 {
   /// Where the bit mask starts
   std::uint32_t position;
@@ -28,88 +32,88 @@ struct bitmask
   std::uint32_t width;
 
   /**
-   * @brief Generate, at compile time, a bitmask that spans the from position1
+   * @brief Generate, at compile time, a bit_mask that spans the from position1
    * to position2.
    *
-   * If position1 is the same position2 then the bitmask will have length of 1
+   * If position1 is the same position2 then the bit_mask will have length of 1
    * and the bit position will be the value of position1.
    *
    * position1 and position2 can be in any order so long as they span the
-   * distance from the start and end of the bitmask range.
+   * distance from the start and end of the bit_mask range.
    *
    * @tparam position1 - bit position 1
    * @tparam position2 - bit position 2
-   * @return consteval bitmask - bit bitmask represented by the two bit
+   * @return consteval bit_mask - bit bit_mask represented by the two bit
    * positions
    */
   template<std::uint32_t position1, std::uint32_t position2>
-  static consteval bitmask from()
+  static consteval bit_mask from()
   {
     constexpr std::uint32_t plus_one = 1;
     if constexpr (position1 < position2) {
-      return bitmask{ .position = position1,
-                      .width = plus_one + (position2 - position1) };
+      return bit_mask{ .position = position1,
+                       .width = plus_one + (position2 - position1) };
     } else {
-      return bitmask{ .position = position2,
-                      .width = plus_one + (position1 - position2) };
+      return bit_mask{ .position = position2,
+                       .width = plus_one + (position1 - position2) };
     }
   }
 
   /**
-   * @brief Generate, at compile time, a single bit width bitmask at position
+   * @brief Generate, at compile time, a single bit width bit_mask at position
    *
-   * @tparam position - the bit to make the bitmask for
-   * @return constexpr bitmask - bit bitmask with the position bit set to
+   * @tparam position - the bit to make the bit_mask for
+   * @return constexpr bit_mask - bit bit_mask with the position bit set to
    * position
    */
   template<std::uint32_t position>
-  static constexpr bitmask from()
+  static constexpr bit_mask from()
   {
-    return bitmask{ .position = position, .width = 1U };
+    return bit_mask{ .position = position, .width = 1U };
   }
 
   /**
-   * @brief Generate, at compile time, a bitmask that spans the from position1
+   * @brief Generate, at compile time, a bit_mask that spans the from position1
    * to position2.
    *
-   * If position1 is the same position2 then the bitmask will have length of 1
+   * If position1 is the same position2 then the bit_mask will have length of 1
    * and the bit position will be the value of position1.
    *
    * position1 and position2 can be in any order so long as they span the
-   * distance from the start and end of the bitmask range.
+   * distance from the start and end of the bit_mask range.
    *
    * @param position1 - bit position 1
    * @param position2 - bit position 2
-   * @return consteval bitmask - bit bitmask represented by the two bit
+   * @return consteval bit_mask - bit bit_mask represented by the two bit
    * positions
    */
-  static consteval bitmask from(std::uint32_t position1,
-                                std::uint32_t position2)
+  static consteval bit_mask from(std::uint32_t position1,
+                                 std::uint32_t position2)
   {
     constexpr std::uint32_t plus_one = 1;
     if (position1 < position2) {
-      return bitmask{ .position = position1,
-                      .width = plus_one + (position2 - position1) };
+      return bit_mask{ .position = position1,
+                       .width = plus_one + (position2 - position1) };
     } else {
-      return bitmask{ .position = position2,
-                      .width = plus_one + (position1 - position2) };
+      return bit_mask{ .position = position2,
+                       .width = plus_one + (position1 - position2) };
     }
   }
 
   /**
-   * @brief Generate, at runtime, a single bit width bitmask at position
+   * @brief Generate, at runtime, a single bit width bit_mask at position
    *
-   * @param position - the bit to make the bitmask for
-   * @return constexpr bitmask - bit bitmask with the position bit set to
+   * @param position - the bit to make the bit_mask for
+   * @return constexpr bit_mask - bit bit_mask with the position bit set to
    * position
    */
-  static constexpr bitmask from(std::uint32_t position)
+  static constexpr bit_mask from(std::uint32_t position)
   {
-    return bitmask{ .position = position, .width = 1U };
+    return bit_mask{ .position = position, .width = 1U };
   }
 
   /**
-   * @brief Convert bitmask to a integral representation but with bit position
+   * @brief Convert bit_mask to a integral representation but with bit position
    * at 0
    *
    * The integral presentation will have 1 bits starting from the position bit
@@ -117,13 +121,13 @@ struct bitmask
    *
    * For example:
    *
-   *      value<std::uint16_t>(bitmask{
+   *      value<std::uint16_t>(bit_mask{
    *          .position = 1,
    *          .width = 4,
    *      }); // returns = 0b0000'0000'0000'1111;
    *
-   * @tparam T - unsigned integral type to hold the bitmask
-   * @return constexpr auto - bitmask value as an unsigned integer
+   * @tparam T - unsigned integral type to hold the bit_mask
+   * @return constexpr auto - bit_mask value as an unsigned integer
    */
   template<std::unsigned_integral T>
   constexpr auto origin() const
@@ -135,7 +139,7 @@ struct bitmask
     // At compile time calculate the number of bits in the target parameter.
     constexpr size_t target_width = sizeof(T) * 8;
 
-    // Create bitmask by shifting the set of 1s down so that the number of 1s
+    // Create bit_mask by shifting the set of 1s down so that the number of 1s
     // from bit position 0 is equal to the width parameter.
     T mask_at_origin = static_cast<T>(field_of_ones >> (target_width - width));
 
@@ -150,7 +154,7 @@ struct bitmask
    *
    * For example:
    *
-   *      value<std::uint16_t>(bitmask{
+   *      value<std::uint16_t>(bit_mask{
    *          .position = 1,
    *          .width = 4,
    *      }); // returns = 0b0000'0000'0001'1110;
@@ -171,7 +175,7 @@ struct bitmask
    * @return true - the masks are the same
    * @return false - the masks are not the same
    */
-  constexpr bool operator==(const bitmask& other)
+  constexpr bool operator==(const bit_mask& other)
   {
     return other.position == position && other.width == width;
   }
@@ -189,7 +193,7 @@ struct byte_mask
    * @brief Mask value defined at compile time
    *
    */
-  static constexpr hal::bitmask value{ .position = ByteIndex, .width = 8 };
+  static constexpr hal::bit_mask value{ .position = ByteIndex, .width = 8 };
 };
 
 /**
@@ -198,7 +202,7 @@ struct byte_mask
  * @tparam ByteIndex - the byte position to make a mask for
  */
 template<size_t ByteIndex>
-constexpr hal::bitmask byte_m = byte_mask<ByteIndex>::value;
+constexpr hal::bit_mask byte_m = byte_mask<ByteIndex>::value;
 
 /**
  * @brief Helper for generating nibble position masks
@@ -208,7 +212,7 @@ constexpr hal::bitmask byte_m = byte_mask<ByteIndex>::value;
 template<size_t NibbleIndex>
 struct nibble_mask
 {
-  static constexpr hal::bitmask value{ .position = NibbleIndex, .width = 4 };
+  static constexpr hal::bit_mask value{ .position = NibbleIndex, .width = 4 };
 };
 
 /**
@@ -217,10 +221,10 @@ struct nibble_mask
  * @tparam NibbleIndex - the nibble position to make a mask for
  */
 template<size_t NibbleIndex>
-constexpr hal::bitmask nibble_m = nibble_mask<NibbleIndex>::value;
+constexpr hal::bit_mask nibble_m = nibble_mask<NibbleIndex>::value;
 
-template<bitmask field>
-constexpr auto extract(std::unsigned_integral auto p_value)
+template<bit_mask field>
+constexpr auto bit_extract(std::unsigned_integral auto p_value)
 {
   using T = decltype(p_value);
   // Shift desired value to the right to position 0
@@ -231,7 +235,8 @@ constexpr auto extract(std::unsigned_integral auto p_value)
   return static_cast<T>(masked);
 }
 
-constexpr auto extract(bitmask p_field, std::unsigned_integral auto p_value)
+constexpr auto bit_extract(bit_mask p_field,
+                           std::unsigned_integral auto p_value)
 {
   using T = decltype(p_value);
   // Shift desired value to the right to position 0
@@ -243,17 +248,17 @@ constexpr auto extract(bitmask p_field, std::unsigned_integral auto p_value)
 }
 
 template<std::unsigned_integral T>
-class value
+class bit_value
 {
 public:
   static constexpr std::uint32_t width = sizeof(T) * 8;
 
-  constexpr value(T p_initial_value = 0)
+  constexpr bit_value(T p_initial_value = 0)
     : m_value(p_initial_value)
   {
   }
 
-  template<bitmask field>
+  template<bit_mask field>
   constexpr auto& set()
   {
     static_assert(field.position < width,
@@ -265,7 +270,7 @@ public:
     return *this;
   }
 
-  constexpr auto& set(bitmask p_field)
+  constexpr auto& set(bit_mask p_field)
   {
     const auto mask = static_cast<T>(1U << p_field.position);
 
@@ -274,7 +279,7 @@ public:
     return *this;
   }
 
-  template<bitmask field>
+  template<bit_mask field>
   constexpr auto& clear()
   {
     static_assert(field.position < width,
@@ -287,7 +292,7 @@ public:
     return *this;
   }
 
-  constexpr auto& clear(bitmask p_field)
+  constexpr auto& clear(bit_mask p_field)
   {
     const auto mask = static_cast<T>(1U << p_field.position);
     const auto inverted_mask = ~mask;
@@ -297,7 +302,7 @@ public:
     return *this;
   }
 
-  template<bitmask field>
+  template<bit_mask field>
   constexpr auto& toggle()
   {
     static_assert(field.position < width,
@@ -310,7 +315,7 @@ public:
     return *this;
   }
 
-  constexpr auto& toggle(bitmask p_field)
+  constexpr auto& toggle(bit_mask p_field)
   {
     const auto mask = static_cast<T>(1U << p_field.position);
 
@@ -319,7 +324,7 @@ public:
     return *this;
   }
 
-  template<bitmask field>
+  template<bit_mask field>
   constexpr auto& insert(std::unsigned_integral auto p_value)
   {
     const auto value_to_insert = static_cast<T>(p_value);
@@ -336,7 +341,7 @@ public:
     return *this;
   }
 
-  constexpr auto& insert(bitmask p_field, std::unsigned_integral auto p_value)
+  constexpr auto& insert(bit_mask p_field, std::unsigned_integral auto p_value)
   {
     // AND value with mask to remove any bits beyond the specified width.
     // Shift masked value into bit position and OR with target value.
@@ -367,16 +372,16 @@ protected:
 };
 
 template<std::unsigned_integral T>
-class modify : public value<T>
+class bit_modify : public bit_value<T>
 {
 public:
-  constexpr modify(volatile T& p_register_reference)
-    : value<T>(p_register_reference)
+  constexpr bit_modify(volatile T& p_register_reference)
+    : bit_value<T>(p_register_reference)
     , m_pointer(&p_register_reference)
   {
   }
 
-  ~modify()
+  ~bit_modify()
   {
     *m_pointer = this->m_value;
   }
