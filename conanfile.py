@@ -59,6 +59,7 @@ class libhal_util_conan(ConanFile):
             check_min_cppstd(self, self._min_cppstd)
 
     def build_requirements(self):
+        self.tool_requires("cmake/3.27.1")
         self.test_requires("boost-ext-ut/1.1.9")
 
     def requirements(self):
