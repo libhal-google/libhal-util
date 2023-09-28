@@ -25,7 +25,7 @@ void steady_clock_utility_test()
 
   // Make the frequency equal to inverse of the time duration period, giving you
   // the frequency of each tick of time_duration.
-  static constexpr hertz expected_frequency =
+  static constexpr auto expected_frequency =
     static_cast<hertz>(hal::time_duration::period::den);
 
   class dummy_steady_clock : public hal::steady_clock

@@ -84,9 +84,7 @@ void serial_util_test()
       return flush_t{};
     }
 
-    virtual ~fake_serial()
-    {
-    }
+    ~fake_serial() override = default;
 
     std::span<const hal::byte> m_out{};
     int m_write_call_count = 0;
@@ -393,9 +391,7 @@ void serial_util_test()
       return flush_t{};
     }
 
-    virtual ~save_serial_write()
-    {
-    }
+    ~save_serial_write() override = default;
 
     std::vector<hal::byte> m_out{};
   };

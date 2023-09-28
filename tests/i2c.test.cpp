@@ -15,6 +15,7 @@
 #include <libhal-util/i2c.hpp>
 
 #include <libhal/functional.hpp>
+#include <vector>
 
 #include <boost/ut.hpp>
 
@@ -65,9 +66,7 @@ void i2c_util_test()
       return transaction_t{};
     }
 
-    virtual ~test_i2c()
-    {
-    }
+    ~test_i2c() override = default;
 
     hal::byte m_address = hal::byte{ 0 };
     std::span<const hal::byte> m_out = std::span<const hal::byte>{};
