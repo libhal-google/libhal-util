@@ -38,7 +38,7 @@ steady_clock_timeout steady_clock_timeout::create(
   hal::time_duration p_duration)
 {
   const auto deadline = future_deadline(p_steady_clock, p_duration);
-  return steady_clock_timeout(p_steady_clock, deadline);
+  return { p_steady_clock, deadline };
 }
 
 status steady_clock_timeout::operator()()

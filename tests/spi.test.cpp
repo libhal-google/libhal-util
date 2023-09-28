@@ -55,9 +55,7 @@ void spi_util_test()
       return {};
     }
 
-    virtual ~dummy()
-    {
-    }
+    ~dummy() override = default;
 
     std::span<const hal::byte> m_out = std::span<const hal::byte>{};
     std::span<hal::byte> m_in = std::span<hal::byte>{};

@@ -19,7 +19,7 @@ find_package(libhal-util REQUIRED CONFIG)
 
 add_executable(${PROJECT_NAME} main.cpp)
 
-if(BAREMETAL)
+if(${CMAKE_CROSSCOMPILING})
   target_link_options(${PROJECT_NAME} PRIVATE --oslib=semihost)
 endif()
 

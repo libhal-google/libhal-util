@@ -113,9 +113,9 @@ void parse_stream_test()
 
     expect(that % work_state::finished == parse_int.state());
     expect(that % 1234 == parse_int.value());
-    expect(that % digits_span.subspan(digits_in_between.find("x")).size() ==
+    expect(that % digits_span.subspan(digits_in_between.find('x')).size() ==
            remaining.size());
-    expect(that % digits_span.subspan(digits_in_between.find("x")).data() ==
+    expect(that % digits_span.subspan(digits_in_between.find('x')).data() ==
            remaining.data());
   };
 
@@ -130,9 +130,9 @@ void parse_stream_test()
 
     expect(that % work_state::finished == parse_int.state());
     expect(that % 12'356'789'101'234ULL == parse_int.value());
-    expect(that % digits_span.subspan(digits_in_between.find("x")).size() ==
+    expect(that % digits_span.subspan(digits_in_between.find('x')).size() ==
            remaining.size());
-    expect(that % digits_span.subspan(digits_in_between.find("x")).data() ==
+    expect(that % digits_span.subspan(digits_in_between.find('x')).data() ==
            remaining.data());
   };
 
@@ -179,9 +179,9 @@ void parse_stream_test()
     expect(that % 1298 == parse_int.value());
     expect(that % 0 == remaining0.size());
     expect(that % &(*span0.end()) == remaining0.data());
-    expect(that % span1.subspan(halves[1].find("c")).size() ==
+    expect(that % span1.subspan(halves[1].find('c')).size() ==
            remaining1.size());
-    expect(that % span1.subspan(halves[1].find("c")).data() ==
+    expect(that % span1.subspan(halves[1].find('c')).data() ==
            remaining1.data());
   };
 
@@ -204,9 +204,9 @@ void parse_stream_test()
     expect(that % &(*span0.end()) == remaining0.data());
     expect(that % 0 == remaining1.size());
     expect(that % &(*span1.end()) == remaining1.data());
-    expect(that % span2.subspan(halves[2].find("c")).size() ==
+    expect(that % span2.subspan(halves[2].find('c')).size() ==
            remaining2.size());
-    expect(that % span2.subspan(halves[2].find("c")).data() ==
+    expect(that % span2.subspan(halves[2].find('c')).data() ==
            remaining2.data());
   };
 
@@ -229,9 +229,9 @@ void parse_stream_test()
     expect(that % &(*span0.end()) == remaining0.data());
     expect(that % 0 == remaining1.size());
     expect(that % &(*span1.end()) == remaining1.data());
-    expect(that % span2.subspan(halves[2].find("c")).size() ==
+    expect(that % span2.subspan(halves[2].find('c')).size() ==
            remaining2.size());
-    expect(that % span2.subspan(halves[2].find("c")).data() ==
+    expect(that % span2.subspan(halves[2].find('c')).data() ==
            remaining2.data());
   };
 
@@ -280,8 +280,8 @@ void find_stream_test()
     auto remaining = span | finder;
 
     expect(that % work_state::finished == finder.state());
-    expect(that % span.subspan(str.find(": ") + 1).size() == remaining.size());
-    expect(that % span.subspan(str.find(": ") + 1).data() == remaining.data());
+    expect(that % span.subspan(str.find(':') + 1).size() == remaining.size());
+    expect(that % span.subspan(str.find(':') + 1).data() == remaining.data());
   };
 
   "[find] empty span"_test = []() {
@@ -323,9 +323,9 @@ void find_stream_test()
 
     expect(that % 0 == remaining0.size());
     expect(that % &(*span0.end()) == remaining0.data());
-    expect(that % span1.subspan(halves[1].find("8")).size() ==
+    expect(that % span1.subspan(halves[1].find('8')).size() ==
            remaining1.size());
-    expect(that % span1.subspan(halves[1].find("8")).data() ==
+    expect(that % span1.subspan(halves[1].find('8')).data() ==
            remaining1.data());
   };
 
@@ -346,9 +346,9 @@ void find_stream_test()
     expect(that % &(*span0.end()) == remaining0.data());
     expect(that % 0 == remaining1.size());
     expect(that % &(*span1.end()) == remaining1.data());
-    expect(that % span2.subspan(halves[2].find("5")).size() ==
+    expect(that % span2.subspan(halves[2].find('5')).size() ==
            remaining2.size());
-    expect(that % span2.subspan(halves[2].find("5")).data() ==
+    expect(that % span2.subspan(halves[2].find('5')).data() ==
            remaining2.data());
   };
 

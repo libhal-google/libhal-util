@@ -25,17 +25,16 @@ void move_interceptor_test()
     struct mock : public move_interceptor<mock>
     {
       mock() = default;
-      mock(mock&) = delete;
-      mock& operator=(mock&) = delete;
-      mock& operator=(mock&& p_old_self) = default;
-      mock(mock&& p_old_self) = default;
+      mock(mock&) noexcept = delete;
+      mock& operator=(mock&) noexcept = delete;
+      mock& operator=(mock&&) noexcept = default;
+      mock(mock&&) noexcept = default;
 
       void intercept(mock* p_old_self)
       {
         p_old_self->count++;
       }
 
-      bool* intercept_was_called_first_ptr;
       int count = 0;
     };
 

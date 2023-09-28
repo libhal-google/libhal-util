@@ -60,6 +60,7 @@ class libhal_util_conan(ConanFile):
 
     def build_requirements(self):
         self.tool_requires("cmake/3.27.1")
+        self.tool_requires("libhal-cmake-util/2.0.0")
         self.test_requires("boost-ext-ut/1.1.9")
 
     def requirements(self):
@@ -69,23 +70,9 @@ class libhal_util_conan(ConanFile):
         cmake_layout(self)
 
     def build(self):
-        run_test = not self.conf.get("tools.build:skip_test", default=False)
-
         cmake = CMake(self)
-        if self.settings.os == "Windows":
-            cmake.configure()
-        elif self._bare_metal:
-            cmake.configure(variables={
-                "BUILD_TESTING": "OFF"
-            })
-        else:
-            cmake.configure(variables={"ENABLE_ASAN": True})
-
+        cmake.configure()
         cmake.build()
-
-        if run_test and not self._bare_metal:
-            test_folder = os.path.join("tests")
-            self.run(os.path.join(test_folder, "unit_test"))
 
     def package(self):
         copy(self,

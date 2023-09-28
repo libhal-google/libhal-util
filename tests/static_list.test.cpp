@@ -227,7 +227,9 @@ void static_list_test()
     auto iterator = list.begin();
 
     expect(that % 0 == *(iterator++));
-    expect(iterator != iterator_t(&item1));
+
+    // Disabling lint to in order to need to inspect the moved from object
+    expect(iterator != iterator_t(&item1));  // NOLINT
     expect(iterator == iterator_t(&new_item1));
     expect(that % 1 == *(iterator++));
     expect(that % 2 == *(iterator++));
@@ -247,7 +249,8 @@ void static_list_test()
 
     auto iterator = list.begin();
 
-    expect(iterator != iterator_t(&item0));
+    // Disabling lint to in order to need to inspect the moved from object
+    expect(iterator != iterator_t(&item0));  // NOLINT
     expect(iterator == iterator_t(&new_item0));
     expect(that % 0 == *(iterator++));
     expect(that % 1 == *(iterator++));
@@ -270,7 +273,9 @@ void static_list_test()
 
     expect(that % 0 == *(iterator++));
     expect(that % 1 == *(iterator++));
-    expect(iterator != iterator_t(&item2));
+
+    // Disabling lint to in order to need to inspect the moved from object
+    expect(iterator != iterator_t(&item2));  // NOLINT
     expect(iterator == iterator_t(&new_item2));
     expect(that % 2 == *(iterator++));
     expect(list.end() == iterator);
@@ -287,7 +292,8 @@ void static_list_test()
 
     auto iterator = list.begin();
 
-    expect(iterator != iterator_t(&item));
+    // Disabling lint to in order to need to inspect the moved from object
+    expect(iterator != iterator_t(&item));  // NOLINT
     expect(iterator == iterator_t(&new_item));
     expect(that % 0 == *(iterator++));
     expect(list.end() == iterator);

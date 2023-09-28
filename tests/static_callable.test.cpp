@@ -27,7 +27,7 @@ void static_callable_test()
 
   "static_callable void(void)"_test = []() {
     // Setup
-    using callback1_signature = void (*)(void);
+    using callback1_signature = void (*)();
     bool callback1_was_called = false;
 
     auto callable1 = static_callable<dummy_driver, 1, void(void)>(
