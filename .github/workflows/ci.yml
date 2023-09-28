@@ -15,9 +15,9 @@ on:
 
 jobs:
   ci:
-    uses: libhal/ci/.github/workflows/library.yml@4.x.y
+    uses: libhal/ci/.github/workflows/library.yml@clang-tidy-16
     secrets: inherit
 
   devices:
-    uses: libhal/ci/.github/workflows/deploy.yml@4.x.y
+    uses: libhal/ci/.github/workflows/deploy.yml@clang-tidy-16
     secrets: inherit

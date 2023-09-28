@@ -26,8 +26,8 @@ void math_test()
     "One"_test = []() { expect(that % 1 == multiply(1, 1).value()); };
     "Boundaries"_test = []() {
       expect(that % 4294967295UL == multiply(1UL, 4294967295UL).value());
-      expect(that % -2147483647L == multiply(-1L, 2147483647L).value());
-      expect(that % 2147483648L == multiply(-1L, -2147483648L).value());
+      expect(that % -2147483647L == multiply(-1LL, 2147483647LL).value());
+      expect(that % 2147483648L == multiply(-1LL, -2147483648LL).value());
     };
     "Exceptions"_test = []() {
       expect(
