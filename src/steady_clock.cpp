@@ -33,36 +33,26 @@ std::uint64_t future_deadline(hal::steady_clock& p_steady_clock,
 
   return future_timestamp;
 }
-steady_clock_timeout steady_clock_timeout::create(
-  hal::steady_clock& p_steady_clock,
-  hal::time_duration p_duration)
-{
-  const auto deadline = future_deadline(p_steady_clock, p_duration);
-  return { p_steady_clock, deadline };
-}
 
-status steady_clock_timeout::operator()()
+void steady_clock_timeout::operator()()
 {
   auto current_count = m_counter->uptime().ticks;
-
   if (current_count >= m_cycles_until_timeout) {
-    return hal::new_error(std::errc::timed_out);
+    throw std::errc::timed_out;
   }
-
-  return success();
 }
 
 steady_clock_timeout::steady_clock_timeout(hal::steady_clock& p_steady_clock,
-                                           std::uint64_t p_cycles_until_timeout)
+                                           hal::time_duration p_duration)
   : m_counter(&p_steady_clock)
-  , m_cycles_until_timeout(p_cycles_until_timeout)
+  , m_cycles_until_timeout(future_deadline(p_steady_clock, p_duration))
 {
 }
 
 steady_clock_timeout create_timeout(hal::steady_clock& p_steady_clock,
                                     hal::time_duration p_duration)
 {
-  return steady_clock_timeout::create(p_steady_clock, p_duration);
+  return { p_steady_clock, p_duration };
 }
 
 void delay(hal::steady_clock& p_steady_clock, hal::time_duration p_duration)

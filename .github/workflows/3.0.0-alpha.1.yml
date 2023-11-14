@@ -1,0 +1,12 @@
+name: 🚀 3.0.0-alpha.1
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    uses: libhal/ci/.github/workflows/deploy_all.yml@5.x.y
+    with:
+      arch: cortex-m4f
+      version: 3.0.0-alpha.1
+    secrets: inherit
