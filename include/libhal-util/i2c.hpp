@@ -39,13 +39,12 @@ namespace hal {
  * @param p_address - target address
  * @param p_data_out - buffer of bytes to write to the target device
  * @param p_timeout - amount of time to execute the transaction
- * @return hal::result<hal::i2c::transaction_t> - success or failure
+ * @return hal::i2c::transaction_t - i2c transaction information
  */
-[[nodiscard]] inline hal::result<hal::i2c::transaction_t> write(
-  i2c& p_i2c,
-  hal::byte p_address,
-  std::span<const hal::byte> p_data_out,
-  timeout auto p_timeout)
+inline hal::i2c::transaction_t write(i2c& p_i2c,
+                                     hal::byte p_address,
+                                     std::span<const hal::byte> p_data_out,
+                                     timeout auto p_timeout)
 {
   return p_i2c.transaction(
     p_address, p_data_out, std::span<hal::byte>{}, p_timeout);
@@ -60,10 +59,11 @@ namespace hal {
  * @param p_i2c - i2c driver
  * @param p_address - target address
  * @param p_data_out - buffer of bytes to write to the target device
- * @return hal::result<hal::i2c::transaction_t> - success or failure
+ * @return hal::i2c::transaction_t - i2c transaction information
  */
-[[nodiscard]] inline hal::result<hal::i2c::transaction_t>
-write(i2c& p_i2c, hal::byte p_address, std::span<const hal::byte> p_data_out)
+inline hal::i2c::transaction_t write(i2c& p_i2c,
+                                     hal::byte p_address,
+                                     std::span<const hal::byte> p_data_out)
 {
   return write(p_i2c, p_address, p_data_out, hal::never_timeout());
 }
@@ -77,13 +77,12 @@ write(i2c& p_i2c, hal::byte p_address, std::span<const hal::byte> p_data_out)
  * @param p_address - target address
  * @param p_data_in - buffer to read bytes into from target device
  * @param p_timeout - amount of time to execute the transaction
- * @return hal::result<hal::i2c::transaction_t> - success or failure
+ * @return hal::i2c::transaction_t - i2c transaction information
  */
-[[nodiscard]] inline hal::result<hal::i2c::transaction_t> read(
-  i2c& p_i2c,
-  hal::byte p_address,
-  std::span<hal::byte> p_data_in,
-  timeout auto p_timeout)
+inline hal::i2c::transaction_t read(i2c& p_i2c,
+                                    hal::byte p_address,
+                                    std::span<hal::byte> p_data_in,
+                                    timeout auto p_timeout)
 {
   return p_i2c.transaction(
     p_address, std::span<hal::byte>{}, p_data_in, p_timeout);
@@ -98,10 +97,11 @@ write(i2c& p_i2c, hal::byte p_address, std::span<const hal::byte> p_data_out)
  * @param p_i2c - i2c driver
  * @param p_address - target address
  * @param p_data_in - buffer to read bytes into from target device
- * @return hal::result<hal::i2c::transaction_t> - success or failure
+ * @returns hal::i2c::transaction_t - i2c transaction information
  */
-[[nodiscard]] inline hal::result<hal::i2c::transaction_t>
-read(i2c& p_i2c, hal::byte p_address, std::span<hal::byte> p_data_in)
+inline hal::i2c::transaction_t read(i2c& p_i2c,
+                                    hal::byte p_address,
+                                    std::span<hal::byte> p_data_in)
 {
   return read(p_i2c, p_address, p_data_in, hal::never_timeout());
 }
@@ -111,19 +111,20 @@ read(i2c& p_i2c, hal::byte p_address, std::span<hal::byte> p_data_in)
  *
  * Eliminates the need to create a buffer and pass it into the read function.
  *
- * @tparam BytesToRead - number of bytes to read
+ * @tparam bytes_to_read - number of bytes to read
  * @param p_i2c - i2c driver
  * @param p_address - target address
  * @param p_timeout - amount of time to execute the transaction
- * @return result<std::array<hal::byte, BytesToRead>> - array of
- * bytes from target device or an error.
+ * @return std::array<hal::byte, bytes_to_read> - array of bytes from target
+ * device
  */
-template<size_t BytesToRead>
-[[nodiscard]] result<std::array<hal::byte, BytesToRead>>
-read(i2c& p_i2c, hal::byte p_address, timeout auto p_timeout)
+template<size_t bytes_to_read>
+[[nodiscard]] std::array<hal::byte, bytes_to_read> read(i2c& p_i2c,
+                                                        hal::byte p_address,
+                                                        timeout auto p_timeout)
 {
-  std::array<hal::byte, BytesToRead> buffer;
-  HAL_CHECK(read(p_i2c, p_address, buffer, p_timeout));
+  std::array<hal::byte, bytes_to_read> buffer;
+  read(p_i2c, p_address, buffer, p_timeout);
   return buffer;
 }
 
@@ -134,18 +135,17 @@ read(i2c& p_i2c, hal::byte p_address, timeout auto p_timeout)
  * This operation will never time out and should only be used with devices that
  * never perform clock stretching.
  *
- * @tparam BytesToRead - number of bytes to read
+ * @tparam bytes_to_read - number of bytes to read
  * @param p_i2c - i2c driver
  * @param p_address - target address
- * @return result<std::array<hal::byte, BytesToRead>> - array of
- * bytes from target device or an error.
+ * @return std::array<hal::byte, bytes_to_read> - array of bytes from target
+ * device.
  */
-template<size_t BytesToRead>
-[[nodiscard]] result<std::array<hal::byte, BytesToRead>> read(
-  i2c& p_i2c,
-  hal::byte p_address)
+template<size_t bytes_to_read>
+[[nodiscard]] std::array<hal::byte, bytes_to_read> read(i2c& p_i2c,
+                                                        hal::byte p_address)
 {
-  return read<BytesToRead>(p_i2c, p_address, hal::never_timeout());
+  return read<bytes_to_read>(p_i2c, p_address, hal::never_timeout());
 }
 
 /**
@@ -159,10 +159,9 @@ template<size_t BytesToRead>
  * @param p_data_out - buffer of bytes to write to the target device
  * @param p_data_in - buffer to read bytes into from target device
  * @param p_timeout - amount of time to execute the transaction
- *
- * @return hal::result<hal::i2c::transaction_t> - success or failure
+ * @return hal::i2c::transaction_t - i2c transaction information
  */
-[[nodiscard]] inline hal::result<hal::i2c::transaction_t> write_then_read(
+inline hal::i2c::transaction_t write_then_read(
   i2c& p_i2c,
   hal::byte p_address,
   std::span<const hal::byte> p_data_out,
@@ -185,10 +184,9 @@ template<size_t BytesToRead>
  * @param p_address - target address
  * @param p_data_out - buffer of bytes to write to the target device
  * @param p_data_in - buffer to read bytes into from target device
- *
- * @return hal::result<hal::i2c::transaction_t> - success or failure
+ * @return hal::i2c::transaction_t - i2c transaction information
  */
-[[nodiscard]] inline hal::result<hal::i2c::transaction_t> write_then_read(
+inline hal::i2c::transaction_t write_then_read(
   i2c& p_i2c,
   hal::byte p_address,
   std::span<const hal::byte> p_data_out,
@@ -204,22 +202,23 @@ template<size_t BytesToRead>
  *
  * Eliminates the need to create a buffer and pass it into the read function.
  *
- * @tparam BytesToRead - number of bytes to read after write
+ * @tparam bytes_to_read - number of bytes to read after write
  * @param p_i2c - i2c driver
  * @param p_address - target address
  * @param p_data_out - buffer of bytes to write to the target device
  * @param p_timeout - amount of time to execute the transaction
- * @return result<std::array<hal::byte, BytesToRead>>
+ * @return std::array<hal::byte, bytes_to_read> - array of bytes from target
+ * device.
  */
-template<size_t BytesToRead>
-[[nodiscard]] result<std::array<hal::byte, BytesToRead>> write_then_read(
+template<size_t bytes_to_read>
+[[nodiscard]] std::array<hal::byte, bytes_to_read> write_then_read(
   i2c& p_i2c,
   hal::byte p_address,
   std::span<const hal::byte> p_data_out,
   timeout auto p_timeout)
 {
-  std::array<hal::byte, BytesToRead> buffer;
-  HAL_CHECK(write_then_read(p_i2c, p_address, p_data_out, buffer, p_timeout));
+  std::array<hal::byte, bytes_to_read> buffer;
+  write_then_read(p_i2c, p_address, p_data_out, buffer, p_timeout);
   return buffer;
 }
 
@@ -229,19 +228,19 @@ template<size_t BytesToRead>
  *
  * Eliminates the need to create a buffer and pass it into the read function.
  *
- * @tparam BytesToRead - number of bytes to read after write
+ * @tparam bytes_to_read - number of bytes to read after write
  * @param p_i2c - i2c driver
  * @param p_address - target address
  * @param p_data_out - buffer of bytes to write to the target device
- * @return result<std::array<hal::byte, BytesToRead>>
+ * @return std::array<hal::byte, bytes_to_read> -
  */
-template<size_t BytesToRead>
-[[nodiscard]] result<std::array<hal::byte, BytesToRead>> write_then_read(
+template<size_t bytes_to_read>
+[[nodiscard]] std::array<hal::byte, bytes_to_read> write_then_read(
   i2c& p_i2c,
   hal::byte p_address,
   std::span<const hal::byte> p_data_out)
 {
-  return write_then_read<BytesToRead>(
+  return write_then_read<bytes_to_read>(
     p_i2c, p_address, p_data_out, hal::never_timeout());
 }
 
@@ -250,19 +249,40 @@ template<size_t BytesToRead>
  *
  * @param p_i2c - i2c driver
  * @param p_address - target address to probe for
- * @return hal::result<hal::i2c::transaction_t> - success or failure
+ * @return bool - i2c transaction information
  */
-[[nodiscard]] inline hal::result<hal::i2c::transaction_t> probe(
-  i2c& p_i2c,
-  hal::byte p_address)
+
+/**
+ * @brief Check if a device is on an i2c bus
+ *
+ * NOTE: that this utilizes the fact that i2c drivers throw
+ * std::errc::no_such_device_or_address when a transaction is performed and the
+ * device's address is used on the bus and the device does not respond with an
+ * acknowledge.
+ *
+ * @param p_i2c - i2c driver for the i2c bus that the device may exist on
+ * @param p_address - device to check
+ * @return true - if the device appears on the bus
+ * @return false - if the devices does not appear on the i2c bus
+ */
+[[nodiscard]] inline bool probe(i2c& p_i2c, hal::byte p_address)
 {
   // p_data_in: empty placeholder for transcation's data_in
-  std::array<hal::byte, 1> data_in;
-
+  std::array<hal::byte, 1> data_in{};
   // p_timeout: no timeout placeholder for transaction's p_timeout
   timeout auto timeout = hal::never_timeout();
+  bool device_acknowledged = true;
 
-  return p_i2c.transaction(p_address, std::span<hal::byte>{}, data_in, timeout);
+  try {
+    p_i2c.transaction(p_address, std::span<hal::byte>{}, data_in, timeout);
+  } catch (const std::errc& p_error_code) {
+    if (p_error_code != std::errc::no_such_device_or_address) {
+      throw;
+    }
+    device_acknowledged = false;
+  }
+
+  return device_acknowledged;
 }
 
 /**
@@ -292,5 +312,4 @@ enum class i2c_operation
   v8bit_address |= hal::value(p_operation);
   return v8bit_address;
 }
-
 }  // namespace hal
