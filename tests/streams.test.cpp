@@ -485,10 +485,9 @@ void multi_stream_test()
 
     [[maybe_unused]] auto remaining = input_data | find_end_of_header;
 
-    /*
     if (hal::terminated(find_end_of_header.state())) {
-      hal::stream_fill fill_buffer(find_end_of_header.unfilled(),
-                                    parse_body_length.value());
+      const auto fill_size = static_cast<size_t>(parse_body_length.value());
+      hal::stream_fill fill_buffer(find_end_of_header.unfilled(), fill_size);
       remaining = remaining | fill_buffer;
     }
 
@@ -502,7 +501,6 @@ void multi_stream_test()
     printf("remaining = %.*s\n",
            static_cast<int>(remaining.size()),
            remaining.data());
-    */
   };
 };
 }  // namespace hal
