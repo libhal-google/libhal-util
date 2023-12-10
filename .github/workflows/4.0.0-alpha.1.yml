@@ -1,0 +1,11 @@
+# THIS IS HERE FOR TESTING!
+name: 🚀 4.0.0-alpha.1
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "NOP"
