@@ -27,8 +27,20 @@
 #include "comparison.hpp"
 #include "math.hpp"
 
-namespace hal {
+/**
+ * @defgroup Serial Serial
+ *
+ */
 
+namespace hal {
+/**
+ * @ingroup Serial
+ * @brief Compares two serial objects via their settings.
+ *
+ * @param p_lhs A serial object
+ * @param p_rhs A serial object
+ * @return A boolean if they are the same or not.
+ */
 [[nodiscard]] constexpr auto operator==(const serial::settings& p_lhs,
                                         const serial::settings& p_rhs)
 {
@@ -36,6 +48,7 @@ namespace hal {
          p_lhs.parity == p_rhs.parity && p_lhs.stop == p_rhs.stop;
 }
 /**
+ * @ingroup Serial
  * @brief Write bytes to a serial port
  *
  * @param p_serial - the serial port that will be written to
@@ -51,6 +64,7 @@ namespace hal {
 }
 
 /**
+ * @ingroup Serial
  * @brief Write bytes to a serial port
  *
  * @param p_serial - the serial port that will be written to
@@ -71,6 +85,7 @@ namespace hal {
 }
 
 /**
+ * @ingroup Serial
  * @brief Write std::span of const char to a serial port
  *
  * @param p_serial - the serial port that will be written to
@@ -83,6 +98,7 @@ namespace hal {
 }
 
 /**
+ * @ingroup Serial
  * @brief Read bytes from a serial port
  *
  * @param p_serial - the serial port that will be read from
@@ -109,6 +125,7 @@ read(serial& p_serial, std::span<hal::byte> p_data_in, timeout auto p_timeout)
 }
 
 /**
+ * @ingroup Serial
  * @brief Read bytes from a serial port and return an array.
  *
  * This call eliminates the boiler plate of creating an array and then passing
@@ -134,6 +151,7 @@ template<size_t BytesToRead>
 }
 
 /**
+ * @ingroup Serial
  * @brief Perform a write then read transaction over serial.
  *
  * This is especially useful for devices that use a command and response method
@@ -158,6 +176,7 @@ template<size_t BytesToRead>
 }
 
 /**
+ * @ingroup Serial
  * @brief Perform a write then read transaction over serial.
  *
  * This is especially useful for devices that use a command and response method
@@ -184,6 +203,7 @@ template<size_t BytesToRead>
 }
 
 /**
+ * @ingroup Serial
  * @brief Write data to serial buffer and drop return value
  *
  * Only use this with serial ports with infallible write operations, meaning
@@ -200,6 +220,7 @@ void print(serial& p_serial, DataArray&& p_data)
 }
 
 /**
+ * @ingroup Serial
  * @brief Write formatted string data to serial buffer and drop return value
  *
  * Uses snprintf internally and writes to a local statically allocated an array.

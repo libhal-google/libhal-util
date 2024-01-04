@@ -28,8 +28,16 @@
 #include "comparison.hpp"
 #include "enum.hpp"
 
+/**
+ * @defgroup SerialCoroutines Serial Coroutines
+ * A collection of functions and other utilities used for asynchronous
+ * coroutines with serial communication.
+ *
+ */
+
 namespace hal {
 /**
+ * @ingroup SerialCoroutines
  * @brief Discard received bytes until the sequence is found
  *
  */
@@ -37,6 +45,7 @@ class skip_past
 {
 public:
   /**
+   * @ingroup SerialCoroutines
    * @brief Construct a new skip beyond object
    *
    * @param p_serial - serial port to skip through
@@ -56,6 +65,7 @@ public:
   }
 
   /**
+   * @ingroup SerialCoroutines
    * @brief skip data from the serial port until the sequence is reached.
    *
    * This function will return if the sequence is found or if there are no more
@@ -106,6 +116,7 @@ private:
 };
 
 /**
+ * @ingroup SerialCoroutines
  * @brief Non-blocking callable for reading serial data into a buffer
  *
  */
@@ -113,6 +124,7 @@ class read_into
 {
 public:
   /**
+   * @ingroup SerialCoroutines
    * @brief Construct a new read_into object
    *
    * @param p_serial - serial port to skip through
@@ -130,6 +142,7 @@ public:
   }
 
   /**
+   * @ingroup SerialCoroutines
    * @brief read data into the buffer.
    *
    * This function will return if the read limit is reached or if there are no
@@ -168,6 +181,7 @@ private:
 };
 
 /**
+ * @ingroup SerialCoroutines
  * @brief Discard received bytes until the sequence is found
  *
  */
@@ -175,6 +189,7 @@ class read_upto
 {
 public:
   /**
+   * @ingroup SerialCoroutines
    * @brief Construct a new skip beyond object
    *
    * @param p_serial - serial port to skip through
@@ -198,6 +213,7 @@ public:
   }
 
   /**
+   * @ingroup SerialCoroutines
    * @brief read data into the buffer.
    *
    * This function will return if the read limit is reached or if there are no
@@ -261,6 +277,7 @@ private:
 };
 
 /**
+ * @ingroup SerialCoroutines
  * @brief Read bytes from serial port and convert to integer
  *
  */
@@ -268,6 +285,7 @@ class read_uint32
 {
 public:
   /**
+   * @ingroup SerialCoroutines
    * @brief Construct a new read_uint32 object
    *
    * @param p_serial - serial port to skip through
@@ -281,6 +299,7 @@ public:
   }
 
   /**
+   * @ingroup SerialCoroutines
    * @brief parse serial data and convert to an integer
    *
    * This function will return if an integer ws found or no more bytes in the

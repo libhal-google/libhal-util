@@ -18,9 +18,13 @@
 
 #include "math.hpp"
 
-namespace hal {
-
 /**
+ * @defgroup Map Map
+ *
+ */
+namespace hal {
+/**
+ * @ingroup Map
  * @brief Map an target value [x] from an input range [a,b] to an output range
  * [c,d].
  *

@@ -19,8 +19,13 @@
 #include <iterator>
 #include <utility>
 
+/**
+ * @defgroup StaticList Static List
+ *
+ */
 namespace hal {
 /**
+ * @ingroup StaticList
  * @brief static_list is a non-owning non-allocating doubly linked list
  * container with O(1) memory utilization.
  *
@@ -36,6 +41,7 @@ public:
   class item_iterator;
 
   /**
+   * @ingroup StaticList
    * @brief Item/node within the static linked list
    *
    * This object does not allow copies.
@@ -196,6 +202,7 @@ public:
   };
 
   /**
+   * @ingroup StaticList
    * @brief Iterator for the static list
    *
    * Implements the C++ named requirement of "LegacyBidirectionalIterator".
@@ -326,6 +333,7 @@ public:
   }
 
   /**
+   * @ingroup StaticList
    * @brief Add default constructed item to the end of the list
    *
    * Only works for Object's that support default construction.
@@ -340,6 +348,7 @@ public:
   }
 
   /**
+   * @ingroup StaticList
    * @brief Append item to the end of the static list.
    *
    * @param p_value - value of node
@@ -353,6 +362,7 @@ public:
   }
 
   /**
+   * @ingroup StaticList
    * @brief Append item to the end of the static list.
    *
    * @param p_value - value of node

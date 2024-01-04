@@ -18,8 +18,14 @@
 #include <cstddef>
 #include <limits>
 
+/**
+ * @defgroup BitLimits Bit Limits
+ *
+ */
+
 namespace hal {
 /**
+ * @ingroup BitLimits
  * @brief Generate a mask of 1s at compile time
  *
  * @tparam BitWidth - number of 1s in the mask
@@ -37,6 +43,7 @@ template<size_t BitWidth, std::integral T>
 }
 
 /**
+ * @ingroup BitLimits
  * @brief Similar to std::numeric_limits<T> except that this object can give
  * properties of integral types of arbitrary bit widths.
  *
@@ -55,6 +62,7 @@ struct bit_limits
   static_assert(BitWidth != 0, "The BitWidth cannot be 0.");
 
   /**
+   * @ingroup BitLimits
    * @brief Get the maximum value available for an integer of `BitWidth` size
    * and that can be stored within `int_t`.
    *
@@ -75,6 +83,7 @@ struct bit_limits
   }
 
   /**
+   * @ingroup BitLimits
    * @brief Get the minimum value available for an integer of `BitWidth` size
    * and that can be stored within `int_t`.
    *

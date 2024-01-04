@@ -18,6 +18,18 @@
 
 #include <libhal/units.hpp>
 
+/**
+ * @defgroup AsBytes As Bytes
+ @verbatim embed:rst
+ ```{warning}
+  Documentation is needed for this file, please add each public facing API to
+ this group!
+ ```
+ @endverbatim
+ *
+ *
+ */
+
 namespace hal {
 template<typename T>
 constexpr std::span<hal::byte> as_writable_bytes(T* p_address,
@@ -39,9 +51,9 @@ constexpr std::span<const hal::byte> as_bytes(const T* p_address,
 
 template<typename T>
 concept convertible_to_bytes = requires(T a) {
-                                 *a.data();
-                                 a.size();
-                               };
+  *a.data();
+  a.size();
+};
 
 constexpr std::span<hal::byte> as_writable_bytes(
   convertible_to_bytes auto& p_container)

@@ -20,8 +20,14 @@
 
 #include "units.hpp"
 
+/**
+ * @defgroup SteadyClock Steady Clock
+ *
+ */
+
 namespace hal {
 /**
+ * @ingroup SteadyClock
  * @brief Function to compute a future timestamp in ticks
  *
  * This function calculates a future timestamp based on the current uptime of a
@@ -44,6 +50,7 @@ inline std::uint64_t future_deadline(hal::steady_clock& p_steady_clock,
                                      hal::time_duration p_duration);
 
 /**
+ * @ingroup SteadyClock
  * @brief Timeout object based on hal::steady_clock
  *
  * Do not use this class directly. Use `hal::create_timeout(hal::steady_clock&)`
@@ -54,6 +61,7 @@ class steady_clock_timeout
 {
 public:
   /**
+   * @ingroup SteadyClock
    * @brief Create a steady_clock_timeout
    *
    * @return steady_clock_timeout - steady_clock_timeout object
@@ -62,12 +70,14 @@ public:
                                      hal::time_duration p_duration);
 
   /**
+   * @ingroup SteadyClock
    * @brief Construct a new counter timeout object
    *
    * @param p_timeout - other steady_clock_timeout
    */
   steady_clock_timeout(const steady_clock_timeout& p_timeout) = default;
   /**
+   * @ingroup SteadyClock
    * @brief Assign construct a new counter timeout object
    *
    * @param p_timeout - other steady_clock_timeout
@@ -76,12 +86,14 @@ public:
   steady_clock_timeout& operator=(const steady_clock_timeout& p_timeout) =
     default;
   /**
+   * @ingroup SteadyClock
    * @brief Construct a new counter timeout object
    *
    * @param p_timeout - other steady_clock_timeout
    */
   steady_clock_timeout(steady_clock_timeout&& p_timeout) = default;
   /**
+   * @ingroup SteadyClock
    * @brief Move assign construct a new counter timeout object
    *
    * @param p_timeout - other steady_clock_timeout
@@ -90,6 +102,7 @@ public:
   steady_clock_timeout& operator=(steady_clock_timeout&& p_timeout) = default;
 
   /**
+   * @ingroup SteadyClock
    * @brief Call this object to check if it has timed out.
    *
    * @return status - success or failure
@@ -99,6 +112,7 @@ public:
 
 private:
   /**
+   * @ingroup SteadyClock
    * @brief Construct a new counter timeout object
    *
    * @param p_steady_clock - steady clock implementation
@@ -112,6 +126,7 @@ private:
 };
 
 /**
+ * @ingroup SteadyClock
  * @brief Create a timeout object based on hal::steady_clock.
  *
  * NOTE: Multiple timeout objects can be made from a single steady_clock
@@ -125,6 +140,7 @@ steady_clock_timeout create_timeout(hal::steady_clock& p_steady_clock,
                                     hal::time_duration p_duration);
 
 /**
+ * @ingroup SteadyClock
  * @brief Delay execution for a duration of time using a hardware steady_clock.
  *
  * @param p_steady_clock - steady_clock driver
@@ -134,6 +150,7 @@ steady_clock_timeout create_timeout(hal::steady_clock& p_steady_clock,
 void delay(hal::steady_clock& p_steady_clock, hal::time_duration p_duration);
 
 /**
+ * @ingroup SteadyClock
  * @brief Generates a function that, when passed a duration, returns a timeout
  *
  * @param p_steady_clock - steady_clock driver that must out live the lifetime
@@ -143,8 +160,7 @@ void delay(hal::steady_clock& p_steady_clock, hal::time_duration p_duration);
  */
 inline auto timeout_generator(hal::steady_clock& p_steady_clock)
 {
-  return [&p_steady_clock](hal::time_duration p_duration) -> auto
-  {
+  return [&p_steady_clock](hal::time_duration p_duration) -> auto {
     return create_timeout(p_steady_clock, p_duration);
   };
 }

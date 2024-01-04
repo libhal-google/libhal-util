@@ -16,7 +16,19 @@
 
 #include <libhal/input_pin.hpp>
 
+/**
+ * @defgroup InputPin Input Pin
+ *
+ */
 namespace hal {
+/**
+ * @ingroup InputPin
+ * @brief Compares two input pin states
+ *
+ * @param p_lhs An input pin
+ * @param p_rhs An input pin
+ * @return A boolean if they are the same or not.
+ */
 [[nodiscard]] constexpr auto operator==(const input_pin::settings& p_lhs,
                                         const input_pin::settings& p_rhs)
 {

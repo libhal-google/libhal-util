@@ -21,8 +21,14 @@
 #include <libhal/timeout.hpp>
 #include <libhal/units.hpp>
 
+/**
+ * @defgroup Streams Streams
+ *
+ */
+
 namespace hal {
 /**
+ * @ingroup Streams
  * @brief Discard received bytes until the sequence is found
  *
  */
@@ -30,6 +36,7 @@ class stream_find
 {
 public:
   /**
+   * @ingroup Streams
    * @brief Construct a new find object
    *
    * @param p_sequence - sequence to search for. The lifetime of this data
@@ -50,6 +57,7 @@ private:
 };
 
 /**
+ * @ingroup Streams
  * @brief Non-blocking callable for reading serial data into a buffer
  *
  */
@@ -57,6 +65,7 @@ class stream_fill
 {
 public:
   /**
+   * @ingroup Streams
    * @brief Construct a new fill object
    *
    * @param p_buffer - buffer to read data into
@@ -64,6 +73,7 @@ public:
   explicit stream_fill(std::span<hal::byte> p_buffer);
 
   /**
+   * @ingroup Streams
    * @brief Construct a new fill object
    *
    * @param p_buffer - buffer to read data into
@@ -84,6 +94,7 @@ private:
 };
 
 /**
+ * @ingroup Streams
  * @brief Discard received bytes until the sequence is found
  *
  */
@@ -91,6 +102,7 @@ class stream_fill_upto
 {
 public:
   /**
+   * @ingroup Streams
    * @brief Construct a new fill upto object
    *
    * @param p_sequence - sequence to search for. The lifetime of this data
@@ -118,6 +130,7 @@ private:
 };
 
 /**
+ * @ingroup Streams
  * @brief Read bytes from stream and convert to integer
  *
  */
@@ -126,6 +139,7 @@ class stream_parse
 {
 public:
   /**
+   * @ingroup Streams
    * @brief Construct a new parse object
    */
   explicit stream_parse() = default;
@@ -172,6 +186,7 @@ private:
 };
 
 /**
+ * @ingroup Streams
  * @brief Skip number of bytes in a byte stream
  *
  */
@@ -179,6 +194,7 @@ class stream_skip
 {
 public:
   /**
+   * @ingroup Streams
    * @brief Construct a new skip object
    *
    */

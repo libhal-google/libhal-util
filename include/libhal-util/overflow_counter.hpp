@@ -18,8 +18,14 @@
 
 #include "bit_limits.hpp"
 
+/**
+ * @defgroup OverflowCounter Overflow Counter
+ *
+ */
+
 namespace hal {
 /**
+ * @ingroup OverflowCounter
  * @brief Extend a counter's count from an arbitrary bit width to 64-bits by
  * detecting overflows in the count. Each detected overflow is added to an
  * overflow counter which is combined with the current count in order create a
@@ -35,6 +41,7 @@ public:
   static_assert(CountBitWidth <= 32, "Bit width cannot exceed 32-bits");
   static_assert(CountBitWidth > 1, "Bit width must be greater than 1");
   /**
+   * @ingroup OverflowCounter
    * @brief update the overflow counter, detect if an overflow has occurred, and
    * return the combined
    *
@@ -74,6 +81,7 @@ public:
   }
 
   /**
+   * @ingroup OverflowCounter
    * @brief Reset the overflow count back to zero.
    *
    */

@@ -16,8 +16,14 @@
 
 #include <libhal/functional.hpp>
 
+/**
+ * @defgroup StaticCallable Static Callable
+ *
+ */
+
 namespace hal {
 /**
+ * @ingroup StaticCallable
  * @brief General class which will be used to allow for signature to be used and
  * then split by the below class.
  *
@@ -31,6 +37,7 @@ template<class owner_class, int reference_designator, typename signature>
 class static_callable;
 
 /**
+ * @ingroup StaticCallable
  * @brief Specialization of static_callable with the return type and arguments
  * split up.
  *
@@ -49,6 +56,7 @@ class static_callable<owner_class,
 {
 public:
   /**
+   * @ingroup StaticCallable
    * @brief Construct a new static callable object
    *
    * @param p_callback - when the static callback function is called, it will
@@ -60,6 +68,7 @@ public:
   }
 
   /**
+   * @ingroup StaticCallable
    * @brief Get the static function's address
    *
    * @return auto* - static function's address
@@ -71,6 +80,7 @@ public:
 
 private:
   /**
+   * @ingroup StaticCallable
    * @brief private free function that calls the polymorphic callback. This is
    * the function that can be used as entries in an interrupt vector tables or
    * passed as a function pointer to C API.
@@ -84,6 +94,7 @@ private:
   }
 
   /**
+   * @ingroup StaticCallable
    * @brief the polymorphic callback to be
    *
    */

@@ -21,7 +21,20 @@
 #include "comparison.hpp"
 #include "math.hpp"
 
+/**
+ * @defgroup CAN_Utilities CAN Utilities
+ *
+ */
+
 namespace hal {
+/**
+ * @ingroup CAN_Utilities
+ * @brief Compares two CAN bus states.
+ *
+ * @param p_lhs A CAN bus.
+ * @param p_rhs A CAN bus.
+ * @return A boolean if they are the same or not.
+ */
 [[nodiscard]] constexpr auto operator==(const can::settings& p_lhs,
                                         const can::settings& p_rhs)
 {
@@ -42,6 +55,7 @@ namespace hal {
 }
 
 /**
+ * @ingroup CAN_Utilities
  * @brief Validate configuration settings against an operating frequency
  *
  * The settings and frequency must follow the following rules:
@@ -107,6 +121,14 @@ namespace hal {
   return final_prescaler;
 }
 
+/**
+ * @ingroup CAN_Utilities
+ * @brief Compares two CAN message states.
+ *
+ * @param p_lhs A CAN message.
+ * @param p_rhs A CAN message.
+ * @return A boolean if they are the same or not.
+ */
 [[nodiscard]] constexpr auto operator==(const can::message_t& p_lhs,
                                         const can::message_t& p_rhs)
 {
