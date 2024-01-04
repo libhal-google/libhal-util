@@ -15,7 +15,7 @@
 /**
  * @file math.hpp
  * @brief Compile time generic math utility functions
- *
+ * @defgroup Math Math
  */
 #pragma once
 
@@ -26,6 +26,7 @@
 
 namespace hal {
 /**
+ * @ingroup Math
  * @brief Perform multiply operation and return an error code
  * `std::errc::result_out_of_range` if the two values when multiplied would
  * overflow the containing value.
@@ -53,6 +54,7 @@ template<typename T>
 }
 
 /**
+ * @ingroup Math
  * @brief Generic absolute value function that works for integer types.
  *
  * Preferred this over the C API for rounding numbers such as abs(), labs() and
@@ -86,6 +88,7 @@ template<typename T>
 }
 
 /**
+ * @ingroup Math
  * @brief Perform integer division and round the value up if the next decimal
  * place is greater than or equal to 0.5.
  *
@@ -124,6 +127,7 @@ template<typename T>
 }
 
 /**
+ * @ingroup Math
  * @brief Calculates the distance between two values (L1 Norm or Manhattan
  * distance), the absolute value of their difference.
  *
@@ -144,6 +148,7 @@ template<typename T>
 }
 
 /**
+ * @ingroup Math
  * @brief Calculates the distance between two values (L1 Norm or Manhattan
  * distance), the absolute value of their difference.
  *
@@ -182,6 +187,7 @@ template<std::integral T>
   }
 }
 /**
+ * @ingroup Math
  * @brief Determines if two values are equal within a relative error.
  *
  * @param p_value1 - First value to compare.

@@ -16,7 +16,20 @@
 
 #include <libhal/interrupt_pin.hpp>
 
+/**
+ * @defgroup InterruptPin Interrupt Pin
+ *
+ */
 namespace hal {
+/**
+ * @ingroup InterruptPin
+ * @brief Compares two interrupt pin states, compares both their trigger and
+ * resistor.
+ *
+ * @param p_lhs An interrupt pin
+ * @param p_rhs An interrupt pin
+ * @return A boolean if they are the same or not.
+ */
 [[nodiscard]] constexpr auto operator==(const interrupt_pin::settings& p_lhs,
                                         const interrupt_pin::settings& p_rhs)
 {

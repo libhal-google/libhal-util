@@ -20,7 +20,20 @@
 #include <libhal/spi.hpp>
 #include <libhal/units.hpp>
 
+/**
+ * @defgroup SPI SPI
+ *
+ */
+
 namespace hal {
+/**
+ * @ingroup SPI
+ * @brief Compares two SPI objects via their settings.
+ *
+ * @param p_lhs A SPI object
+ * @param p_rhs A SPI object
+ * @return A boolean if they are the same or not.
+ */
 [[nodiscard]] constexpr auto operator==(const spi::settings& p_lhs,
                                         const spi::settings& p_rhs)
 {
@@ -30,6 +43,7 @@ namespace hal {
 }
 
 /**
+ * @ingroup SPI
  * @brief Write data to the SPI bus and ignore data sent from peripherals on the
  * bus.
  *
@@ -46,6 +60,7 @@ namespace hal {
 }
 
 /**
+ * @ingroup SPI
  * @brief Read data from the SPI bus.
  *
  * Filler bytes will be placed on the write line.
@@ -64,6 +79,7 @@ namespace hal {
   return p_spi.transfer(std::span<hal::byte>{}, p_data_in, p_filler);
 }
 /**
+ * @ingroup SPI
  * @brief Read data from the SPI bus and return a std::array of bytes.
  *
  * Filler bytes will be placed on the write line.
@@ -86,6 +102,7 @@ template<size_t BytesToRead>
 }
 
 /**
+ * @ingroup SPI
  * @brief Write data to the SPI bus and ignore data sent from peripherals on the
  * bus then read data from the SPI and fill the write line with filler bytes.
  *
@@ -116,6 +133,7 @@ template<size_t BytesToRead>
 }
 
 /**
+ * @ingroup SPI
  * @brief Write data to the SPI bus and ignore data sent from peripherals on the
  * bus then read data from the SPI, fill the write line with filler bytes and
  * return an array of bytes.

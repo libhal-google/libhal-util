@@ -16,7 +16,20 @@
 
 #include <libhal/output_pin.hpp>
 
+/**
+ * @defgroup OutputPin Output Pin
+ *
+ */
+
 namespace hal {
+/**
+ * @ingroup OutputPin
+ * @brief Compares two output pin states, compares both resistor and open drain.
+ *
+ * @param p_lhs An output pin
+ * @param p_rhs An output pin
+ * @return A boolean if they are the same or not.
+ */
 [[nodiscard]] constexpr auto operator==(const output_pin::settings& p_lhs,
                                         const output_pin::settings& p_rhs)
 {

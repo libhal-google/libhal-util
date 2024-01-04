@@ -23,7 +23,19 @@
 #include "enum.hpp"
 #include "math.hpp"
 
+/**
+ * @defgroup I2CUtils I2C Utils
+ */
+
 namespace hal {
+/**
+ * @ingroup I2CUtils
+ * @brief Compares two I2C bus states.
+ *
+ * @param p_lhs A I2C bus.
+ * @param p_rhs A I2C bus.
+ * @return A boolean if they are the same or not.
+ */
 [[nodiscard]] constexpr auto operator==(const i2c::settings& p_lhs,
                                         const i2c::settings& p_rhs)
 {
@@ -31,6 +43,7 @@ namespace hal {
 }
 
 /**
+ * @ingroup I2CUtils
  * @brief write data to a target device on the i2c bus
  *
  * Shorthand for writing i2c.transfer(...) for write only operations
@@ -52,6 +65,7 @@ namespace hal {
 }
 
 /**
+ * @ingroup I2CUtils
  * @brief write data to a target device on the i2c bus
  *
  * Shorthand for writing i2c.transfer(...) for write only operations, but never
@@ -69,6 +83,7 @@ write(i2c& p_i2c, hal::byte p_address, std::span<const hal::byte> p_data_out)
 }
 
 /**
+ * @ingroup I2CUtils
  * @brief read bytes from target device on i2c bus
  *
  * Shorthand for writing i2c.transfer(...) for read only operations
@@ -90,6 +105,7 @@ write(i2c& p_i2c, hal::byte p_address, std::span<const hal::byte> p_data_out)
 }
 
 /**
+ * @ingroup I2CUtils
  * @brief read bytes from target device on i2c bus
  *
  * Shorthand for writing i2c.transfer(...) for read only operations, but never
@@ -107,6 +123,7 @@ read(i2c& p_i2c, hal::byte p_address, std::span<hal::byte> p_data_in)
 }
 
 /**
+ * @ingroup I2CUtils
  * @brief return array of read bytes from target device on i2c bus
  *
  * Eliminates the need to create a buffer and pass it into the read function.
@@ -128,6 +145,7 @@ read(i2c& p_i2c, hal::byte p_address, timeout auto p_timeout)
 }
 
 /**
+ * @ingroup I2CUtils
  * @brief return array of read bytes from target device on i2c bus
  *
  * Eliminates the need to create a buffer and pass it into the read function.
@@ -149,6 +167,7 @@ template<size_t BytesToRead>
 }
 
 /**
+ * @ingroup I2CUtils
  * @brief write and then read bytes from target device on i2c bus
  *
  * This API simply calls transaction. This API is here for consistency across
@@ -199,6 +218,7 @@ template<size_t BytesToRead>
 }
 
 /**
+ * @ingroup I2CUtils
  * @brief write and then return an array of read bytes from target device on i2c
  * bus
  *
@@ -224,6 +244,7 @@ template<size_t BytesToRead>
 }
 
 /**
+ * @ingroup I2CUtils
  * @brief write and then return an array of read bytes from target device on i2c
  * bus
  *
@@ -246,6 +267,7 @@ template<size_t BytesToRead>
 }
 
 /**
+ * @ingroup I2CUtils
  * @brief probe the i2c bus to see if a device exists
  *
  * @param p_i2c - i2c driver
@@ -266,6 +288,7 @@ template<size_t BytesToRead>
 }
 
 /**
+ * @ingroup I2CUtils
  * @brief Set of I2C transaction operations
  *
  */
@@ -278,6 +301,7 @@ enum class i2c_operation
 };
 
 /**
+ * @ingroup I2CUtils
  * @brief Convert 7-bit i2c address to an 8-bit address
  *
  * @param p_address 7-bit i2c address

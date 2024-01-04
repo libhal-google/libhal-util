@@ -14,9 +14,15 @@
 
 #pragma once
 
+/**
+ * @defgroup MoveInterceptor Move Interceptor
+ *
+ */
+
 namespace hal {
 
 /**
+ * @ingroup MoveInterceptor
  * @brief Use this to perform changes on an object its move constructor is
  * executed.
  *
@@ -24,8 +30,11 @@ namespace hal {
  * specific operations to occur beforehand. This is used for moveable objects
  * with callbacks that refer back to their object's address such as the
  * following:
- *
- *     this->obj->set_callback([this]() { foo(); });
+ @verbatim embed:rst
+ ```{code-block} cpp
+  this->obj->set_callback([this]() { foo(); });
+ ```
+ @endverbatim
  *
  * The default move constructor does everything correctly for type T. But the
  * address of "this" in the lambda expression refers to the previous object's
@@ -44,6 +53,7 @@ public:
 
 private:
   /**
+   * @ingroup MoveInterceptor
    * @brief Function called prior to type T's move constructor
    *
    * T must have a function named `T::intercept(T* p_previous)`.

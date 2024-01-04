@@ -19,8 +19,13 @@
 #include <cstddef>
 #include <string_view>
 
+/**
+ * @defgroup ToArray To Array
+ *
+ */
 namespace hal {
 /**
+ * @ingroup ToArray
  * @brief Convert a string_view into a std::array of N number of characters.
  *
  * Will always ensure that the array is null terminated

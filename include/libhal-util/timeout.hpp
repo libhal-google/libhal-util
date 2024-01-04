@@ -24,6 +24,11 @@
 
 #include "units.hpp"
 
+/**
+ * @defgroup TimeoutUtil Timeout Util
+ *
+ */
+
 namespace hal {
 constexpr std::string_view to_string(work_state p_state)
 {
@@ -61,10 +66,10 @@ constexpr bool failed(work_state p_state)
 
 template<typename T>
 concept has_work_state = requires(T a) {
-                           {
-                             a.state()
-                             } -> std::same_as<work_state>;
-                         };
+  {
+    a.state()
+  } -> std::same_as<work_state>;
+};
 
 constexpr bool terminated(has_work_state auto p_worker)
 {
@@ -95,6 +100,7 @@ inline std::basic_ostream<CharT, Traits>& operator<<(
 }
 
 /**
+ * @ingroup TimeoutUtil
  * @brief Repeatedly call a worker function until it has reached a terminal
  * state or a timeout has been reached
  *
@@ -116,6 +122,7 @@ inline result<work_state> try_until(worker auto& p_worker,
 };
 
 /**
+ * @ingroup TimeoutUtil
  * @brief Repeatedly call a worker function until it has reached a terminal
  * state or a timeout has been reached
  *

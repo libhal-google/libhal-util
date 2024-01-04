@@ -18,6 +18,18 @@
 #include <array>
 #include <span>
 
+/**
+ * @defgroup Comparison Comparisons
+ @verbatim embed:rst
+ ```{warning}
+  Documentation is needed for this file, please add each public facing API to
+ this group!
+ ```
+ @endverbatim
+ *
+ *
+ */
+
 template<typename T, size_t size>
 constexpr bool operator==(const std::array<T, size>& p_array,
                           const std::span<T>& p_span)

@@ -19,8 +19,13 @@
 #include <cstdint>
 #include <limits>
 
+/**
+ * @defgroup Bit Bit Operations
+ *
+ */
 namespace hal {
 /**
+ * @ingroup Bit
  * @brief Represents a bit mask of contiguous bits
  *
  */
@@ -32,6 +37,7 @@ struct bit_mask
   std::uint32_t width;
 
   /**
+   * @ingroup Bit
    * @brief Generate, at compile time, a bit_mask that spans the from position1
    * to position2.
    *
@@ -60,6 +66,7 @@ struct bit_mask
   }
 
   /**
+   * @ingroup Bit
    * @brief Generate, at compile time, a single bit width bit_mask at position
    *
    * @tparam position - the bit to make the bit_mask for
@@ -73,6 +80,7 @@ struct bit_mask
   }
 
   /**
+   * @ingroup Bit
    * @brief Generate, at compile time, a bit_mask that spans the from position1
    * to position2.
    *
@@ -101,6 +109,7 @@ struct bit_mask
   }
 
   /**
+   * @ingroup Bit
    * @brief Generate, at runtime, a single bit width bit_mask at position
    *
    * @param position - the bit to make the bit_mask for
@@ -113,6 +122,7 @@ struct bit_mask
   }
 
   /**
+   * @ingroup Bit
    * @brief Convert bit_mask to a integral representation but with bit position
    * at 0
    *
@@ -147,6 +157,7 @@ struct bit_mask
   }
 
   /**
+   * @ingroup Bit
    * @brief Convert mask to a integral representation
    *
    * The integral presentation will have 1 bits starting from the position bit
@@ -169,6 +180,7 @@ struct bit_mask
   }
 
   /**
+   * @ingroup Bit
    * @brief Comparison operator between this mask and another
    *
    * @param other - the other mask to compare against
@@ -182,6 +194,7 @@ struct bit_mask
 };
 
 /**
+ * @ingroup Bit
  * @brief Helper for generating byte position masks
  *
  * @tparam ByteIndex - the byte position to make a mask for
@@ -190,6 +203,7 @@ template<size_t ByteIndex>
 struct byte_mask
 {
   /**
+   * @ingroup Bit
    * @brief Mask value defined at compile time
    *
    */
@@ -197,6 +211,7 @@ struct byte_mask
 };
 
 /**
+ * @ingroup Bit
  * @brief Shorthand for using hal::byte_mask<N>::value
  *
  * @tparam ByteIndex - the byte position to make a mask for
@@ -205,6 +220,7 @@ template<size_t ByteIndex>
 constexpr hal::bit_mask byte_m = byte_mask<ByteIndex>::value;
 
 /**
+ * @ingroup Bit
  * @brief Helper for generating nibble position masks
  *
  * @tparam NibbleIndex - the nibble position to make a mask for
@@ -216,6 +232,7 @@ struct nibble_mask
 };
 
 /**
+ * @ingroup Bit
  * @brief Shorthand for using hal::nibble_mask<N>::value
  *
  * @tparam NibbleIndex - the nibble position to make a mask for

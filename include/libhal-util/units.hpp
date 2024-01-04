@@ -25,8 +25,14 @@
 
 #include "math.hpp"
 
+/**
+ * @defgroup UnitsUtils Units Utils
+ *
+ */
+
 namespace hal {
 /**
+ * @ingroup UnitsUtils
  * @brief Calculate the number of cycles of this frequency within the time
  * duration. This function is meant for timers to determine how many count
  * cycles are needed to reach a particular time duration at this frequency.
@@ -54,6 +60,7 @@ namespace hal {
 }
 
 /**
+ * @ingroup UnitsUtils
  * @brief Calculates and returns the wavelength in seconds.
  *
  * @tparam Period - desired period (defaults to std::femto for femtoseconds).
@@ -81,6 +88,7 @@ constexpr std::chrono::duration<int64_t, Period> wavelength(hertz p_source)
 }
 
 /**
+ * @ingroup UnitsUtils
  * @brief Calculates and returns the wavelength in seconds as a float.
  *
  * @tparam float_t - float type
@@ -99,6 +107,7 @@ constexpr float wavelength(hertz p_source)
 }
 
 /**
+ * @ingroup UnitsUtils
  * @brief Calculate the amount of time it takes a frequency to oscillate a
  * number of cycles.
  *
@@ -136,6 +145,7 @@ constexpr float wavelength(hertz p_source)
 }
 
 /**
+ * @ingroup UnitsUtils
  * @brief print byte type using ostreams
  *
  * Meant for unit testing, testing and simulation purposes

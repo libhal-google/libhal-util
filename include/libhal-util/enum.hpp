@@ -18,8 +18,14 @@
 
 #include <libhal/units.hpp>
 
+/**
+ * @defgroup Enum Enums
+ *
+ */
+
 namespace hal {
 /**
+ * @ingroup Enum
  * @brief concept for enumeration types
  *
  * @tparam T - enum type
@@ -28,6 +34,7 @@ template<typename T>
 concept enumeration = std::is_enum_v<T>;
 
 /**
+ * @ingroup Enum
  * @brief Helper function to convert an enum to its integral value
  *
  * @param p_enum_value - the enumeration you want to convert into an integral
